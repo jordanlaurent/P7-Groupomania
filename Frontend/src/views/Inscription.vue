@@ -1,16 +1,16 @@
 <template>
-    <div id="Connexion">
-      <Login/>
+    <div>
+        <Signup />
     </div>
 </template>
 
 <script>
-import Login from '../components/Login.vue'
+import Signup from '../components/Signup.vue'
 export default {
-    name: 'Connexion',
-    components:{
-        Login
-    },
+    name: 'Inscription',
+     components:{
+         Signup
+     },
       created: function (){
     document.title = 'Groupomania'
     document.querySelector('meta[name="Réseaux social de l entreprise groupomania"]').setAttribute('content','random')

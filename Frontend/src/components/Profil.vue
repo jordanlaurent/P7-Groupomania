@@ -12,6 +12,7 @@
     <button  class="list-group-item"> Se déconnecter </button>
   </ul>
   <div class="card-body">
+    <router-link to="/" class="btn bg-secondary text-white mb-3"> Se déconnecter </router-link><br>
     <button  class="btn bg-danger text-white">Supprimer mon compte</button>
   </div>
 </div>

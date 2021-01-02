@@ -10,7 +10,7 @@
   </div>
   <div class="card-body">
 <div class="input-group">
-  <textarea class="form-control" aria-label="With textarea">Quel message voulez vous postez ?</textarea>
+  <textarea class="form-control" aria-label="With textarea" placeholder="Quel message voulez vous postez ?"></textarea>
 </div>
   <button type="button" class="mt-2 mb-2 mr-4 btn btn-secondary">
    Ajouter une <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">

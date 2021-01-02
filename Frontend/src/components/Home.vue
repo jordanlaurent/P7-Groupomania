@@ -1,7 +1,7 @@
 <template>
-<body id="loginflat" class="text-center">
-    <router-link to="../vue/App"> lien </router-link>
-    <form class="form-signin bg-white rounded p-5">
+<div id="loginflat" class="text-center">
+     <router-link to="Mur" class="btn bg-secondary text-white mb-3"> Se connecter </router-link>
+      <form class="form-signin bg-white rounded p-5">
       <img class="mb-4" src="../assets/logoLogin.png" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Veuillez vous connecter</h1>
       <label for="inputEmail" class="sr-only">Adresse Email</label>
@@ -14,10 +14,10 @@
         </label>
       </div>
       <button href="./App.vue" class="btn btn-lg btn-success btn-block mb-2" type="submit">Se connecter</button>
-      <a href=""> <p>Mots de passe oublier ? / S'inscrire </p> </a>
+      <router-link to="Inscription" >Mots de passe oublier ? / S'inscrire </router-link>
       <p class="mt-5 mb-3 ">© 2021 Tout droits réservé</p>
     </form>
-  </body>
+  </div>
 </template>
 
 <style scoped>
@@ -30,8 +30,3 @@ bottom: 0; left: 0; top: 0;right: 0; }
 bottom: 0; left: 0; top: 0;right: 0; }
 }
 </style>
-
-
-<script>
-
-</script>

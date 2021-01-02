@@ -1,10 +1,8 @@
 <template>
-  <div id="app">
-        <router-link to="{name:'Connexion'}"> lien </router-link>
-        <router-view></router-view>
+  <div id="Murflat">
     <Header class="headerdesign"/>
   <div id="view">
-    <Profil class="profildesign" msg="Welcome to Your Vue.js App"/>
+    <Profil class="profildesign" />
     <div>
     <Addmessage/> 
     <Post/>
@@ -22,7 +20,7 @@ import Post from '../components/Post.vue'
 import Amis from '../components/Amis.vue' 
 
 export default {
-  name: 'App',
+  name: 'Mur',
   components: {
     Header,
     Profil,
@@ -31,14 +29,17 @@ export default {
     Amis
   },
   created: function (){
-    document.title = 'Groupomania'
+    document.title = 'Groupomania '
     document.querySelector('meta[name="Réseaux social de l entreprise groupomania"]').setAttribute('content','random')
   }
 }
 </script>
 <style lang="scss">
+#app{ padding: 0px;}
 .headerdesign{background-color:#2c3e50;}
-#app {
+#Murflat {
+  position: absolute;
+bottom: 0; left: 0; top: 0;right: 0;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
