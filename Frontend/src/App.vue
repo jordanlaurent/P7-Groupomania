@@ -1,16 +1,16 @@
 <template>
-  <div id="app" >
-        <Home />
-        <router-view />
-  </div>
-</template>
 
+    <router-view/>
+
+</template>
 <script>
-import Home from "./components/Home";
 
 export default {
-  components: {
-    Home,
+
+      created: function (){
+    document.title = 'Groupomania - Acceuil'
+    document.querySelector('meta[name="Réseaux social de l entreprise groupomania"]').setAttribute('content','random')
   }
-};
+}
 </script>
+

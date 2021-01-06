@@ -9,8 +9,8 @@
 </svg>
   </div>
   <div class="card-body">
-<div class="input-group">
-  <textarea class="form-control" aria-label="With textarea" placeholder="Quel message voulez vous postez ?"></textarea>
+<div class="input-group form">
+  <textarea class="form-control" aria-label="With textarea" placeholder="Quel message voulez vous postez ?" type="text"></textarea>
 </div>
   <button type="button" class="mt-2 mb-2 mr-4 btn btn-secondary">
    Ajouter une <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
@@ -22,7 +22,7 @@
   <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
 </svg>
   </button>
-    <a href="#" class="btn pr-5 pl-5 btn-primary">Publier </a>
+    <a href="#" class="btn pr-5 pl-5 btn-primary btnpost" type="submit">Publier </a>
   </div>
   <div class="card-footer text-muted">
    03/01/2020  17H40
@@ -30,7 +30,5 @@
 </div>
 </template>
 <script>
-export default {
-    
-}
+
 </script>

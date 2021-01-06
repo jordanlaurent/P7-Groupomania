@@ -1,7 +1,7 @@
 <template>
 <div class="card profil rounded-0">
     <div class="card-body bg-dark">
-  <img class="card-img-top w-50" src="../assets/Profiltest.png" alt="Card image cap">
+  <img class="card-img-top w-50" src="../assets/image/Profiltest.png" alt="Card image cap">
 
     <h5 class="card-title">JEAN LOUIS</h5>
   </div>

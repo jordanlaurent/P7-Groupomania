@@ -1,6 +1,7 @@
 <template>
     <div>
         <Signup />
+        <router-view/>
     </div>
 </template>
 
@@ -12,7 +13,7 @@ export default {
          Signup
      },
       created: function (){
-    document.title = 'Groupomania'
+    document.title = 'Groupomania - Inscription'
     document.querySelector('meta[name="Réseaux social de l entreprise groupomania"]').setAttribute('content','random')
   }
 }

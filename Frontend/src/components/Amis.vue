@@ -6,7 +6,7 @@
 </svg> </h2>
   <button class=" row no-gutters pl-3 btn-success">
     <div class="col-md-4">
-      <img src="../assets/Profiltest.png" class="card-img" alt="...">
+      <img src="../assets/image/Profiltest.png" class="card-img" alt="...">
     </div>
     <div class="col-md-8 mt-5">
         <h4 class="card-title">JEAN LOUIS</h4>
