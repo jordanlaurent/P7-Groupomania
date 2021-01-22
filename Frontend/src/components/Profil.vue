@@ -1,20 +1,14 @@
 <template>
-<div class="card profil rounded-0">
-    <div class="card-body bg-dark">
-  <img class="card-img-top w-50" src="../assets/image/Profiltest.png" alt="Card image cap">
-
-    <h5 class="card-title">JEAN LOUIS</h5>
-  </div>
-  <ul class="list-group list-group-flush">
-    <button class="btn list-group-item mb-2 rounded-0">Photo de profil</button>
-    <button class="list-group-item mb-2">Mise à jour de l'email</button>
-    <button class="list-group-item mb-2">Changemants de mots de passe</button>
-    <button  class="list-group-item"> Se déconnecter </button>
+<div class="template">
+  <ul class="icon">
+    <i class="fas fa-3x fa-book-open"></i>
+    <hr>
+    <i class="fas fa-3x fa-home logoprofil"></i>
+    <i class="fas fa-3x fa-calendar-week logoprofil"></i>
+    <i class="fas fa-3x fa-comment logoprofil"></i>
+    <i class="fas fa-3x fa-user-cog logoprofil"></i>
   </ul>
-  <div class="card-body">
-    <router-link to="/" class="btn bg-secondary text-white mb-3"> Se déconnecter </router-link><br>
-    <button  class="btn bg-danger text-white">Supprimer mon compte</button>
-  </div>
+        <router-link to="/" class="disconnectbutton"><i class="fas fa-2x fa-sign-out-alt"></i></router-link>
 </div>
 </template>
 
@@ -29,6 +23,22 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@media (min-width: 860px) {
+.icon{display: flex; flex-direction:column;color: white;min-height: 100vh;}
+.template{max-width: 100px;padding-top: 3%;}
+.disconnectbutton{ bottom: 0;color: white;}
+.logoprofil{padding:9px;}
+hr{
+  border-color: #ffffff ;
+  border-style: solid ;
+  border-width:2px ;
+  margin: 10px 0;}
+}
+@media (max-width: 860px) {
+.icon{display: inline-block; flex-direction:row;color: white; justify-content: space-around;}
+.logoprofil{padding:9px;}
+}
+.template{background-color:#0a3d62}
 h3 {
   margin: 40px 0 0;
 }

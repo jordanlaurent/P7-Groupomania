@@ -1,5 +1,5 @@
 <template>
-  <div id="loginflat" class="text-center">
+  <div id="loginflat" class="text-center ">
     <video autoplay muted loop id="bgvid">
   <!-- <source src="../assets/Beach.webm" type="video/webm"> -->
   <source src="../assets/video/Beach.webm" type="video/webm"> </video>
@@ -11,7 +11,7 @@
         # Rester informer des derniere actuiallité de l'entreprise </h4>
         <div >
     <router-link to="Connexion" class="btn bg-success text-white ml-3 mt-3"> Connexion </router-link>
-    <router-link to="Connexion" class="btn bg-secondary text-white ml-3 mt-3"> Inscription </router-link><br>
+    <router-link to="Inscription" class="btn bg-secondary text-white ml-3 mt-3"> Inscription </router-link><br>
     <router-link to="Motdepasseoublier" class=" text-muted ml-3 mt-4"> Mots de passe oublier</router-link>
     <p class="mt-3">© 2021 Tout droits réservé</p>
             </div>
@@ -21,7 +21,7 @@
 <style>
 .bgtransparent{background-color: rgba(0, 0, 0, 0.692);}
 @media (max-width: 1920px) {
-  #loginflat{padding-right: 30%; padding-left:30% ;position: auto; padding-top: 1%;
+  #loginflat{padding-right: 30%; padding-left:30% ;position: auto; padding-top: 10%;
 bottom: 0; left: 0; top: 0;right: 0; }
 video#bgvid {
   position: fixed; right: 0; bottom: 0;

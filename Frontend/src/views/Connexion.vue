@@ -13,7 +13,6 @@ export default {
      },
       created: function (){
     document.title = 'Groupomania - Connexion'
-    document.querySelector('meta[name="Réseaux social de l entreprise groupomania"]').setAttribute('content','random')
   }
 }
 </script>
