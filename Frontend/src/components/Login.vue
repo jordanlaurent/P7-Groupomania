@@ -3,17 +3,17 @@
     <video autoplay muted loop id="bgvid">
   <!-- <source src="../assets/Beach.webm" type="video/webm"> -->
   <source src="../assets/video/Beach.webm" type="video/webm"> </video>
-      <form class="bg text-light p-5">
+      <form @submit="postData" method="post" class="bg text-light p-5">
             <h3>Groupomania</h3>
             <h4>CONNEXION   </h4>
             <div class="form-group">
                 <label>Email </label>
-                <input id="email" type="email" class="form-control form-control-lg" name="email" required/>
+                <input id="email" type="email" class="form-control form-control-lg" name="email" v-model="posts.email" required/>
             </div>
 
             <div class="form-group">
                 <label>Mots de passe</label>
-                <input id="password" type="password" class="form-control form-control-lg" name="password"  required/>
+                <input id="password" type="password" class="form-control form-control-lg" name="password" v-model="posts.password" required/>
             </div>
 
             <button type="submit" class="btn btn-dark btn-lg btn-block" >Connexion</button>
@@ -52,9 +52,41 @@ video#bgvid {
 #loginflat{background: linear-gradient(70deg, rgb(40, 40, 151), rgb(160, 14, 39)); display: flex;flex-direction: column; position: fixed; justify-content: center;align-items: center;}
 }
 </style>
+
 <script>
-let uri = 'http://localhost:8080/api/users/login';
-this.axios.post(uri, this.ticket).then((response) => {
-    console.log(response);
-});
+import axios from 'axios';
+
+export default {
+  name: "loginflat",
+  data() {
+    return {
+      posts:{
+        email:'',
+        password:''
+      }
+    }
+
+  },
+  methods: {
+    postData(e)
+    { 
+      e.preventDefault();
+
+      var optionAxios = {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }
+
+      axios.post("http://localhost:3000/api/users/login",{
+        email: JSON.stringify(this.posts.email),
+        password: JSON.stringify(this.posts.password)
+      }, { optionAxios } )
+      .then(function (response) {
+        //localStorage.setItem("userName", response.data.userName)
+        console.log(response)
+      })
+    }
+  }
+};
 </script>
