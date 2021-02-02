@@ -1,8 +1,5 @@
 <template>
   <div id="loginflat" class="text-center ">
-    <video autoplay muted loop id="bgvid">
-  <!-- <source src="../assets/Beach.webm" type="video/webm"> -->
-  <source src="../assets/video/Beach.webm" type="video/webm"> </video>
       <form class="bgtransparent rounded p-5 text-white">
       <h1 class=" h3 mb-3 font-weight-bold">Bienvenue sur <img src="../assets/image/logo.png" alt="" width="302" height="72">  Social network</h1>
       <h4 class=" rounded">Du mal à trouver de nouvelle inspirations ?<br>
@@ -21,30 +18,16 @@
 <style>
 .bgtransparent{background-color: rgba(0, 0, 0, 0.692);}
 @media (max-width: 1920px) {
-  #loginflat{padding-right: 30%; padding-left:30% ;position: auto; padding-top: 10%;
-bottom: 0; left: 0; top: 0;right: 0; }
-video#bgvid {
-  position: fixed; right: 0; bottom: 0;
-  min-width: auto; min-height: auto;
-  width:1920px; height: 1080px; z-index: -100;
-  background-size: cover;
-}
+  #loginflat{padding-right: 30%; padding-left:30% ;position: absolute;top: 0;bottom: 0; display: flex;align-items: center;}
 }
 @media (min-width: 1920px) {
-#loginflat{padding-right: 25%; padding-left:25% ; padding-top: 18%;;position: auto;
-bottom: 0; left: 0; top: 0;right: 0; }
-}
-video#bgvid {
-  position: fixed; right: 0; bottom: 0;
-  min-width: auto; min-height: auto;
-  width:2560px; height: 1440px; z-index: -100;
-  background-size: cover;
+#loginflat{padding-right: 25%; padding-left:25% ; position: absolute;top: 0;bottom: 0; right: 0;left: 0; display: flex;align-items: center;justify-content: center; }
 }
 @media (max-width: 860px) {
 #loginflat{padding-right: 0%; padding-left:0% ; position: fixed;align-items: center; display: flex;
 background: linear-gradient(70deg, rgb(40, 40, 151), rgb(160, 14, 39)); }
-video#bgvid {display: none; }
 }
+#loginflat{background: linear-gradient(70deg, rgb(40, 40, 151), rgb(160, 14, 39));}
 </style>
 
 <script>

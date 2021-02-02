@@ -1,6 +1,7 @@
 
 <template>
-    <div class="card text-center">
+    <div class="card text-center ">
+      <hr class="topMessage ">
   <div class="card-header">
     Poster un message
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
@@ -32,3 +33,6 @@
 <script>
 
 </script>
+<style lang="css" scoped>
+.topMessage{border: 2px solid#EE5A24;margin-top: -1px;}
+</style>

@@ -1,18 +1,24 @@
-var express = require('express');
-var bodyParser = require('body-parser')
-var apiRouteur = require('./apiRouteur').router;
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require('cors')
+const app = express();
 
-var server = express();
+app.use(cors())
 
-server.use(bodyParser.urlencoded ({ extended: true}));
-server.use(bodyParser.json());
-server.get('/', function (req, res){
-    res.setHeader('Content-Type', 'text/html');
-    res.status(200).send('<h1> Bonjour sur mon super serveur </h1>')
+// alyser les requêtes de type de contenu: application / json
+app.use(bodyParser.json());
+
+// analyser les requêtes de type de contenu: application / x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Bienvenue sur l'applications." });
 });
 
-server.use('/api/', apiRouteur);
+require("./routes/users.routes.js","./routes/post.routes.js")(app);
 
-server.listen(3000, function() {
-    console.log('serveur en écoute ; )');
+// sport utiliser
+app.listen(3000, () => {
+  console.log("Server is running on port 3000.");
 });
