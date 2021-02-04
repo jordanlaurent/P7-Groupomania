@@ -16,8 +16,11 @@ app.get("/", (req, res) => {
   res.json({ message: "Bienvenue sur l'applications." });
 });
 
-require("./routes/users.routes.js","./routes/post.routes.js")(app);
+const userRoutes = require("./routes/users.routes.js");
+app.use(userRoutes);
 
+const postRoutes = require("./routes/post.routes.js");
+app.use(postRoutes);
 // sport utiliser
 app.listen(3000, () => {
   console.log("Server is running on port 3000.");
