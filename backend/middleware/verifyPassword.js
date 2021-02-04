@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
         res.writeHead(400, '{"message":"Mots de passe incorrect , veuillez entre 8 character dont 1 majuscule et 2 chiffre"}', {
             'content-type': 'application/json'
         });
-        res.end( 'Mot de passe incorrect');
+        res.end( 'Mot de passe incorrect,veuillez entre 8 character dont 1 majuscule et 2 chiffre');
     } else {
         next();
     }

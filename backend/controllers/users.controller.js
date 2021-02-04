@@ -2,35 +2,54 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const User = require("../models/users.model.js");
-
 // Cree et enregistrer un nouveaux compte
-exports.signup = (req, res) => {
-  bcrypt.hash(req.body.password, 10)
-   // Valider la demande
-.then(hashmotdepasse => {
-// crée un compte 
-const user = new User({
-    email: req.body.email,
-    password: hashmotdepasse,
-    name: req.body.name,
-  });
+exports.signup = (req, res, next) => {
+  let email       = req.body.email;
+  let password    = req.body.password;
+  let name        = req.body.name;
 
-  // Save compte dans la base de donné
-  User.signup(user, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Une erreur s'est produite lors de la création du client."
-      });
-    else res.send(data);
-  });
-})
-.catch(error => res.status(500).json({ error: "Entrer un mots de passe valide" }));
-};
+  if (!email  ){
+    return res.status(400).send({ error : "L'adresse mail doit etre correctement remplie"});
+  }if (!password ){
+    return res.status(400).send({ error : "Le mot de passe doit etre correctement remplie"});
+  }if ( !name ){
+    return res.status(400).send({ error : "Le nom doit etre correctement remplie"});
+  }
+  // verification que l'adresse mail ne soit pas deja utiliser
+  User.findOneByEmail(email,(err,data) => {
+    if (err){
+      return res.status(500).json({ error : "erreur serveur"})
+    } else if (data > 0){
+      return res.status(409).json({ error : "L'adresse mail est deja attacher a un compte"})
+    } else {
+      bcrypt.hash(req.body.password, 10)
+      .then(hashmotdepasse => {
+        // crée un compte 
+        const user = new User({
+            email: email,
+            password: hashmotdepasse,
+            name: name,
+          });
+          User.signup(user, (err, data) => {
+                if (err) {
+                 return res.status(500).send({message: err.message || "Une erreur s'est produite lors de la création du client."});
+                 } else {
+                   return res.send(data); }
+              });
+            })
+            .catch(error => res.status(500).json({ error: "Entrer un mots de passe valide" }));
+            };
+    })
+  };
+
+
+
+
+
 
 // fontcion connecter utilisateur
 exports.login = (req,res ) => {
-  User.login({ email:req.body.email})
+  User.findOneByEmail({ email:req.body.email})
   .then(user => {
     if (!user) {
       return res.status(401).json({error : 'utilisateur non trouvé !'});

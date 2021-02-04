@@ -1,17 +1,18 @@
-module.exports = app => {
+    const express = require('express');
+    const router = express.Router();
     const users = require("../controllers/users.controller.js");
+    const verifyPassword = require('../middleware/verifyPassword');
   
     // Create un nouveaux compte
-    app.post("/users/signup", users.signup);
+    router.post("/signup",verifyPassword, users.signup);
 
-    app.post("/users/login", users.login);
-  
-    // Recuperer tout les comptes
-    app.get("/users", users.findAll);
+    // se connecter
+    router.post("/login", users.login);
   
     // Mettre à jour un compte avec son id
-    app.put("/users/:usersId", users.update);
+    router.put("/", users.update);
   
     // suprimer un compte avec son id
-    app.delete("/users/:usersId", users.delete);
-  };
+    router.delete("/:usersId", users.delete);
+
+  module.exports = router;

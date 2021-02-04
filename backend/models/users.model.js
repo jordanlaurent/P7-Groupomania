@@ -7,7 +7,7 @@ const Users = function(users) {
   this.password = users.password;
   this.active = users.active;
 };
-
+// creation d'un nouvelle utilisateur 
 Users.signup = (newUsers, result) => {
   sql.query("INSERT INTO users SET ?", newUsers, (err, res) => {
     if (err) {
@@ -20,7 +20,24 @@ Users.signup = (newUsers, result) => {
     result(null, { id: res.insertId, ...newUsers });
   });
 };
+// recherche si l'utilisateur est présent dans la base de donné
+Users.findOneByEmail = (email, result) => {
+  sql.query("SELECT * FROM users WHERE email = ? " , email, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+      } else if (res.length === 0) {
+      result(null, res.length);
+      return;
+    } else if (res.length > 0){
+      result(null, res.length);
+      return;
+    }
+  });
+};
 
+// // 
 Users.login = (email, password, users, result ) => {
   sql.query(`SELECT * FROM users WHERE email = ${users.email},${users.password}`, (err, res) => {
     if (err) {
@@ -40,42 +57,22 @@ Users.login = (email, password, users, result ) => {
   });
 };
 
-Users.getAll = result => {
-  sql.query("SELECT * FROM users", (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(null, err);
-      return;
-    }
 
-    console.log("userss: ", res);
-    result(null, res);
+// modifier un utilisateur avec son id
+Users.update = ([email,password,name, id], result) => {
+  sql.query(`UPDATE users SET email = '${email}', password = '${password}',name = '${name}', WHERE userId = '${id}'`, (err, res) => {
+    if (err) {
+      result(err, null);
+      console.log(err);
+      return;
+      } else { 
+      result(null, res);
+      console.log(res);
+      return;
+      }
   });
 };
-
-Users.updateById = (id, users, result) => {
-  sql.query(
-    "UPDATE users SET email = ?, name = ?, active = ? WHERE id = ?",
-    [users.email, users.name,users.password, users.active,users.bio, id],
-    (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(null, err);
-        return;
-      }
-
-      if (res.affectedRows == 0) {
-        // pas de compte trouver qui corresponde a l'id
-        result({ kind: "non trouver" }, null);
-        return;
-      }
-
-      console.log("Compte mise a jour: ", { id: id, ...users });
-      result(null, { id: id, ...users });
-    }
-  );
-};
-
+// Suprimer un utilisateur avec son id
 Users.remove = (id, result) => {
   sql.query("DELETE FROM users WHERE id = ?", id, (err, res) => {
     if (err) {
@@ -91,19 +88,6 @@ Users.remove = (id, result) => {
     }
 
     console.log("deleted users with id: ", id);
-    result(null, res);
-  });
-};
-
-Users.removeAll = result => {
-  sql.query("DELETE FROM users", (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(null, err);
-      return;
-    }
-
-    console.log(`deleted ${res.affectedRows} users`);
     result(null, res);
   });
 };
