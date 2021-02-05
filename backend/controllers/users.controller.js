@@ -52,34 +52,25 @@ exports.login = (req,res ) => {
   let email = req.body.email;
   let password = req.body.password;
   console.log(email, password);
-  User.login( email,(err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Erreur login."
-      });
-    else res.send(data);
-  });
-  // .then(user => {
-  //   // if (!user) {
-  //   //   return res.status(401).json({error : 'utilisateur non trouvé !'});
-  //   // }
-  //   // bcrypt.compare(req.body.password, user.password)
-  //   // .then(valid => {
-  //   //   if (!valid) {
-  //   //     return res.status(401).json({ error: 'Mot de passe incorrect !'});
-  //   //   }
-  //   //   res.status(200).json({
-  //   //     userId: user._id,
-  //   //     token: jwt.sign({ userId: user._id},
-  //   //       'RANDOM_TOKEN_SECRET', {expiresIn: '24h'}
-  //   //       )
-  //   //   });
-  //   console.log(user);
-  //   // })
-  //   // .catch(error => res.status(500).json({ error }));
-  // })
-  // .catch(error => res.status(500).json({ error }));
+  User.login( email, (err, data) => {
+  if (err ){
+    return res.status(400).send({ error : "Cette adresse email n'existe pas"});
+  } else {
+    let password = req.body.password;
+    bcrypt.compare(password, data[0].password)
+    .then(valid => {
+          if (!valid) {
+            return res.status(401).json({ error: 'Mot de passe incorrect !'});
+          }
+          res.status(200).json({
+            id: res.insertId,
+            token: jwt.sign({ id: res.insertId},
+              'RANDOM_TOKEN_SECRET', {expiresIn: '24h'}
+              )
+          });
+  })
+}
+})
 };
 
 
