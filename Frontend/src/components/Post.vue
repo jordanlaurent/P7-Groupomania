@@ -2,7 +2,7 @@
 <template>
 
 <div class="card mt-2 postView">
-  <div class="card-body notes test">
+  <div class="card-body notes test" id="listOfProducts">
     <h5 class="card-title">Jean louis</h5>
     <p class="card-text">Super projet en se moment realiser avec vue.js.</p>
     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
@@ -23,10 +23,17 @@ p {font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;font
 </style>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Post',
   props: {
     msg: String
   }
 }
+axios.get("http://localhost:3000/post/")
+.then((response) => {
+console.log(response.data);
+})
+
 </script>

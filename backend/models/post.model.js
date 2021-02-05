@@ -3,6 +3,8 @@ const sql = require("./db.js");
 // constructeur
 const Post = function(post) {
   this.message = post.message;
+  this.id = post.id;
+  this.Datemessage = post.Datemessage
 };
 
 //TROUVER TOUS LES POSTS
@@ -46,8 +48,8 @@ Post.modify = ([message], result) => {
 }
 
 //SUPPRIME UN POST
-Post.delete = (postId, result) => {
-  sql.query("DELETE FROM gp_posts WHERE postId = ?", postId, (err, res) => {
+Post.delete = (id, result) => {
+  sql.query("DELETE FROM post WHERE id = ? ",id, (err, res) => {
     if (err) {
       result(err, null);
       return;

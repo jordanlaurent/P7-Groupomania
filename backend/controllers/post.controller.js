@@ -31,3 +31,16 @@ exports.create = (req,res,next) =>{
       else res.send(data);
     });
   };
+
+  exports.delete = (req, res) => {
+    let id = req.body.id;
+   
+    Post.delete(id,(err, data) => {
+      if (err)
+        res.status(500).send({
+          message:
+            err.message || "Ce port n'existe pas."
+        });
+      else res.send(data);
+    });
+  };
