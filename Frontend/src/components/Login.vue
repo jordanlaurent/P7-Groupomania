@@ -78,11 +78,12 @@ export default {
             }
         }
 
-      axios.post("http://localhost:3000/users/login",{
-        email: JSON.stringify(this.posts.email),
-        password: JSON.stringify(this.posts.password)
+      axios.post("http://localhost:3000/login",{
+        email: this.posts.email,
+        password: this.posts.password
       }, { optionAxios } )
       .then(function (response) {
+        
         //localStorage.setItem("Name", response.data.Name)
         console.log(response)
       })

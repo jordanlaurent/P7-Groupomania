@@ -37,9 +37,9 @@ Users.findOneByEmail = (email, result) => {
   });
 };
 
-// // 
-Users.login = (email, password, users, result ) => {
-  sql.query(`SELECT * FROM users WHERE email = ${users.email},${users.password}`, (err, res) => {
+
+Users.login = (email, result ) => {
+  sql.query("SELECT * FROM users WHERE email = ?", email, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -59,7 +59,7 @@ Users.login = (email, password, users, result ) => {
 
 
 // modifier un utilisateur avec son id
-Users.update = ([email,password,name, id], result) => {
+Users.update= ([email,password,name, id], result) => {
   sql.query(`UPDATE users SET email = '${email}', password = '${password}',name = '${name}', WHERE userId = '${id}'`, (err, res) => {
     if (err) {
       result(err, null);
