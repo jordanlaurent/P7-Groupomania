@@ -3,6 +3,9 @@
   <img src="../assets/image/logo.png" class="logo">
        <form @submit="postData" method="post" class="bg text-light p-5 text-left">
             <h4>Inscription </h4>
+      <section class="popup"  v-if="errors">
+    <p class="pt-2 text-danger popuptext">Nous sommes désolés, les informations saisie sont incorrect <br>votre mot de passe doit faire 8 character dont 1 majuscule et 2 chiffres</p>
+  </section>
             <div class="form-group">
                 <label>Nom et prenom </label>
                 <input id="name" name="name"  v-model="name"  type="text" class="form-control form-control-lg" required/>
@@ -42,7 +45,8 @@ export default {
     return {
         email:'',
         password:'',
-        name:''
+        name:'',
+        errors: false ,
     }
   },
   methods: {
@@ -61,11 +65,13 @@ export default {
         password: this.password,
         name:this.name,
       }, { optionAxios } )
-      .then(function (response) {
-
-        //localStorage.setItem("Name", response.data.Name),
-        console.log(response)
-      }).catch(error => {
+      .then(response => {
+        localStorage.setItem('email',response.data.email),
+        localStorage.setItem('jwt',response.data.token),
+        this.$router.replace({ name: "Mur" })
+      })
+      .catch(error => {
+        this.errors = true,
         console.log(error);
       }) 
     }
