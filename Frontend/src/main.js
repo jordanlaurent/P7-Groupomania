@@ -9,7 +9,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(VueAxios, axios);
 Vue.use(BootstrapVue);
-
+Vue.use(require ('vue-moment'));
 Vue.config.productionTip = false
 
 new Vue({

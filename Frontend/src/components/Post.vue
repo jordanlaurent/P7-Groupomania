@@ -9,7 +9,7 @@
   </div>
   <img src="../assets/image/posttest.jpg" class="card-img-top" alt="...">
   <hr>
-  <small class="text-muted">{{info.datemessage}}</small>
+  <small class="text-muted">{{info.datemessage | moment("dddd MMMM do  YYYY") }}</small>
   <hr>
   <ul class="bottomSocial">
   <i class="far fa-heart"><p>Like</p></i>
@@ -27,6 +27,7 @@ p {font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;font
 
 <script>
 import axios from 'axios';
+import moment from 'vue-moment'; 
 export default {
   name: 'Post',
   data() {
@@ -39,5 +40,12 @@ export default {
      .get("http://localhost:3000/post")
      .then(response => this.infos = response.data);
   },
+   methods: { 
+      format_date(value){
+         if (value) {
+           return moment(String(value)).format('YYYYMMDD')
+          }
+      },
+   },
 }
 </script>
