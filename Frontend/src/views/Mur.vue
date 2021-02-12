@@ -19,6 +19,9 @@ import Amis from '@/components/Amis.vue'
 
 export default {
   name: 'Mur',
+  data(){
+     return{};
+  },
   components: {
     Profil,
     Addmessage,
@@ -59,12 +62,13 @@ export default {
 @media (max-width: 1920px) {
   #view{ display: flex; flex-direction:row ; justify-content: space-between;margin: 0; padding-top: 0;  } 
 .amisdesign{margin-left: 150px;}
-#left {margin-right: 15%;margin-left: 10%;}
+#left {margin-right: 15%;margin-left: 10%; max-width: 800px;}
+#profil{margin-bottom: 7%;}
 };
 @media (max-width: 1360px) {
   #view{ display: flex; flex-direction:row ; justify-content: space-between;margin: 0; padding-top: 0; } 
 .amisdesign{margin-left: 125px;}
-#left {margin-right: 15%;}
+#left {margin-right: 10%; max-width: 500px;}
 #profil{margin-bottom: 7%;}
 };
 @media (max-width: 720px) {

@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Connxexion from '../views/Connexion'
+import Connexion from '../views/Connexion'
 import Mur from '../views/Mur'
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -14,7 +13,7 @@ const routes = [
   }, {
     path: '/Connexion',
     name: 'Connexion',
-    component: Connxexion
+    component: Connexion,
   }, {
     path: '/inscription',
     name: 'Inscription',
@@ -22,9 +21,14 @@ const routes = [
   },{
     path: '/Mur',
     name: 'Mur',
-    component: Mur
+    component: Mur,
+  },
+  {
+    path: '*', 
+    redirect: '/'
   },
 ]
+
 
 const router = new VueRouter({
   mode: 'history',

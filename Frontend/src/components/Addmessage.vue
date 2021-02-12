@@ -1,4 +1,3 @@
-
 <template>
     <div class="card text-center ">
       <hr class="topMessage ">
@@ -31,7 +30,6 @@
 </div>
 </template>
 <script>
-
 </script>
 <style lang="css" scoped>
 .topMessage{border: 2px solid#EE5A24;margin-top: -1px;}

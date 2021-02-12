@@ -3,6 +3,8 @@ const Post = require("../models/post.model.js");
 // crée un post
 exports.create = (req,res,next) =>{
     let message = req.body.message;
+    let image = req.body.image;
+    // requete de l'id de l'utilisateur puis push dans this.id = post.idusers;
     // si le message est vide alors non envoyé
     if( message == "" ) {
         return res.status(400).send({ error : "Le champs doit etre remplie"});
@@ -11,6 +13,7 @@ exports.create = (req,res,next) =>{
       } 
     const newPost = new Post({
       message : message,
+      image : image,
     });
     Post.create(newPost, (err,data)=>{
       if(err){

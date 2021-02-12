@@ -7,7 +7,9 @@ exports.signup = (req, res, next) => {
   let email       = req.body.email;
   let password    = req.body.password;
   let name        = req.body.name;
-
+console.log(email);
+console.log(name);
+console.log(password);
   if (!email  ){
     return res.status(400).send({ error : "L'adresse mail doit etre correctement remplie"});
   }if (!password ){
@@ -63,6 +65,7 @@ exports.login = (req,res ) => {
             return res.status(401).json({ error: 'Mot de passe incorrect !'});
           }
           res.status(200).json({
+            email: req.body.email,
             id: res.insertId,
             token: jwt.sign({ id: res.insertId},
               'RANDOM_TOKEN_SECRET', {expiresIn: '24h'}

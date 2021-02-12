@@ -1,24 +1,20 @@
 <template>
 <div id="loginflat" class="text-center">
   <img src="../assets/image/logo.png" class="logo">
-       <form class="bg text-light p-5 text-left">
+       <form @submit="postData" method="post" class="bg text-light p-5 text-left">
             <h4>Inscription </h4>
             <div class="form-group">
-                <label>Nom </label>
-                <input type="text" class="form-control form-control-lg"/>
-            </div>
-             <div class="form-group">
-                <label>prenom</label>
-                <input type="text" class="form-control form-control-lg"/>
+                <label>Nom et prenom </label>
+                <input id="name" name="name"  v-model="name"  type="text" class="form-control form-control-lg" required/>
             </div>
             <div class="form-group">
                 <label>adresse Email</label>
-                <input type="email" class="form-control form-control-lg" />
+                <input id="email" name="email" v-model="email" type="email" class="form-control form-control-lg" required/>
             </div>
 
             <div class="form-group">
                 <label>Mots de passe</label>
-                <input type="password" class="form-control form-control-lg" />
+                <input id="password" name="password" v-model="password" type="password" class="form-control form-control-lg" required/>
             </div>
 
             <button type="submit" class="btn btn-dark btn-lg btn-block">Inscription</button>
@@ -37,3 +33,42 @@ h4{text-align: center;}
 </style>
 
 
+<script>
+import axios from 'axios';
+
+export default {
+  name: "signup",
+  data() {
+    return {
+        email:'',
+        password:'',
+        name:''
+    }
+  },
+  methods: {
+    postData(e)
+    { 
+      e.preventDefault();
+
+      var optionAxios = {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }
+
+      axios.post("http://localhost:3000/signup",{
+        email: this.email,
+        password: this.password,
+        name:this.name,
+      }, { optionAxios } )
+      .then(function (response) {
+
+        //localStorage.setItem("Name", response.data.Name),
+        console.log(response)
+      }).catch(error => {
+        console.log(error);
+      }) 
+    }
+  }
+};
+</script>

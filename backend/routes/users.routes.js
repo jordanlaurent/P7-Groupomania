@@ -2,6 +2,7 @@
     const router = express.Router();
     const users = require("../controllers/users.controller.js");
     const verifyPassword = require('../middleware/verifyPassword');
+    const auth = require('../middleware/auth');
   
     // Create un nouveaux compte
     router.post("/signup",verifyPassword, users.signup);
@@ -10,9 +11,9 @@
     router.post("/login", users.login);
   
     // Mettre à jour un compte avec son id
-    router.put("/", users.update);
+    router.put("/",auth, users.update);
   
     // suprimer un compte avec son id
-    router.delete("/:usersId", users.delete);
+    router.delete("/:usersId",auth, users.delete);
 
   module.exports = router;

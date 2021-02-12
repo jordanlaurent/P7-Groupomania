@@ -4,6 +4,9 @@
       <form @submit="postData" method="post" class="bg text-light p-5">
             <h3>Groupomania</h3>
             <h4>CONNEXION   </h4>
+                    <section class="popup"  v-if="posts.errors">
+    <p class="pt-2 text-danger popuptext">Nous sommes désolés, les informations saisie ne corresponde <br>à aucun compte veuillez verifier votre email et votre mots de passe.</p>
+  </section>
             <div class="form-group">
                 <label>Email </label>
                 <input id="email" type="email" class="form-control form-control-lg" name="email" v-model="posts.email" required/>
@@ -27,14 +30,14 @@
 
 <script>
 import axios from 'axios';
-
 export default {
   name: "loginflat",
   data() {
     return {
       posts:{
         email:'',
-        password:''
+        password:'',
+        errors: false ,
       }
     }
 
@@ -43,7 +46,6 @@ export default {
     postData(e)
     { 
       e.preventDefault();
-
       var optionAxios = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -54,12 +56,16 @@ export default {
         email: this.posts.email,
         password: this.posts.password
       }, { optionAxios } )
-      .then(function (response) {
-
-        //localStorage.setItem("Name", response.data.Name)
-        console.log(response)
+      .then(response => {
+        localStorage.setItem('email',response.data.email),
+        localStorage.setItem('jwt',response.data.token),
+        this.$router.replace({ name: "Mur" });
       })
-    }
-  }
+      .catch(error => {
+        this.posts.errors = true,
+        console.log(error)
+      })
+    } 
+  } 
 };
 </script>

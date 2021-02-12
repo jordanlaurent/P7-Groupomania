@@ -5,16 +5,17 @@ const Post = function(post) {
   this.message = post.message;
   this.id = post.id;
   this.Datemessage = post.Datemessage
+  this.idusers = post.idusers
 };
 
 //TROUVER TOUS LES POSTS
-Post.findAll = (result) => {
-  sql.query("SELECT * FROM post",(err, res) => {
+Post.findAll = (message,datemessage,image,result) => {
+  sql.query("SELECT message , datemessage, image FROM post",message,datemessage,image,(err, res) => {
     if (err) {
       result(err, null);
       return;
     } else {
-      result(null,res);
+      result(null, res);
       return;
     }
   });

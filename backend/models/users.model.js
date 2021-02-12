@@ -6,6 +6,7 @@ const Users = function(users) {
   this.name = users.name;
   this.password = users.password;
   this.active = users.active;
+  //this.usersID = post.usersID; 
 };
 // creation d'un nouvelle utilisateur 
 Users.signup = (newUsers, result) => {
