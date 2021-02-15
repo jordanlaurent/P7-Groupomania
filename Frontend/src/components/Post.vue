@@ -26,8 +26,8 @@ p {font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;font
 </style>
 
 <script>
+
 import axios from 'axios';
-import moment from 'vue-moment'; 
 export default {
   name: 'Post',
   data() {
@@ -38,14 +38,10 @@ export default {
   mounted () {
      axios
      .get("http://localhost:3000/post")
-     .then(response => this.infos = response.data);
+     .then(response => {
+       this.infos = response.data; 
+     });
   },
-   methods: { 
-      format_date(value){
-         if (value) {
-           return moment(String(value)).format('YYYYMMDD')
-          }
-      },
-   },
+   
 }
 </script>

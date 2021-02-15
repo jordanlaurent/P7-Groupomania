@@ -68,7 +68,7 @@ export default {
       .then(response => {
         localStorage.setItem('email',response.data.email),
         localStorage.setItem('jwt',response.data.token),
-        this.$router.replace({ name: "Mur" })
+        this.$router.replace({ name: "Connexion" })
       })
       .catch(error => {
         this.errors = true,

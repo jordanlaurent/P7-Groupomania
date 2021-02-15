@@ -12,6 +12,7 @@
 </template>
 
 <script>
+
 import Profil from '@/components/Profil.vue'
 import Addmessage from '@/components/Addmessage.vue'
 import Post from '@/components/Post.vue' 
@@ -30,6 +31,15 @@ export default {
   },
   created: function (){
     document.title = 'Groupomania - Mur'
+  var jwt = localStorage.getItem('jwt') 
+  if(jwt!=null) {
+    console.log("succes");
+  } else {
+    localStorage.clear()
+   console.log("jwt vide");
+    //localStorage.setItem('jwt');
+    window.location = "/Connexion";
+    }
   }
 }
 //var textPost = document.querySelector(".form-control")
@@ -37,7 +47,8 @@ export default {
 //var ViewPost = document.querySelector('.notes')
 
 //var Postuser = textPost.nodeValue
-//console.log(Postuser)
+
+
 
 </script>
 <style lang="scss">

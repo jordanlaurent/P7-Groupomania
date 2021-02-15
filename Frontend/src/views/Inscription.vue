@@ -6,6 +6,8 @@
 </template>
 
 <script>
+localStorage.clear();
+
 import Signup from '../components/Signup.vue'
 export default {
     name: 'Inscription',

@@ -24,8 +24,12 @@
 
 <script>
 // @ is an alias to /src
+// Détection
+
+
 
 export default {
   name: 'Home',
 }
+
 </script>
