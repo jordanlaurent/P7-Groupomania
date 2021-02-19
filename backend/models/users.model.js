@@ -5,6 +5,7 @@ const Users = function(users) {
   this.email = users.email;
   this.name = users.name;
   this.password = users.password;
+  this.photo = users.photo;
   this.active = users.active;
   //this.usersID = post.usersID; 
 };
@@ -60,8 +61,8 @@ Users.login = (email,password, result ) => {
 
 
 // modifier un utilisateur avec son id
-Users.update= ([email,password,name, id], result) => {
-  sql.query(`UPDATE users SET email = '${email}', password = '${password}',name = '${name}', WHERE userId = '${id}'`, (err, res) => {
+Users.update= ([email,password,name,photo, id], result) => {
+  sql.query(`UPDATE users SET email = '${email}', password = '${password}',name = '${name}', photo = '${photo}', WHERE userId = '${id}'`, (err, res) => {
     if (err) {
       result(err, null);
       console.log(err);

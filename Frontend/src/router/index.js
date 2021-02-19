@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Connexion from '../views/Connexion'
 import Mur from '../views/Mur'
+import Profil from '../views/Profil'
 Vue.use(VueRouter)
 
 const routes = [
@@ -14,6 +15,10 @@ const routes = [
     path: '/Connexion',
     name: 'Connexion',
     component: Connexion,
+  },{
+    path: '/Profil',
+    name: 'Profil',
+    component: Profil,
   }, {
     path: '/inscription',
     name: 'Inscription',

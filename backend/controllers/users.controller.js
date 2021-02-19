@@ -7,9 +7,7 @@ exports.signup = (req, res, next) => {
   let email       = req.body.email;
   let password    = req.body.password;
   let name        = req.body.name;
-console.log(email);
-console.log(name);
-console.log(password);
+  let photo       = req.body.photo;
   if (!email  ){
     return res.status(400).send({ error : "L'adresse mail doit etre correctement remplie"});
   }if (!password ){
@@ -17,6 +15,7 @@ console.log(password);
   }if ( !name ){
     return res.status(400).send({ error : "Le nom doit etre correctement remplie"});
   }
+
   // verification que l'adresse mail ne soit pas deja utiliser
   User.findOneByEmail(email,(err,data) => {
     if (err){
@@ -31,6 +30,7 @@ console.log(password);
             email: email,
             password: hashmotdepasse,
             name: name,
+            photo: photo,
           });
           User.signup(user, (err, data) => {
                 if (err) {
@@ -55,8 +55,11 @@ exports.login = (req,res ) => {
   let password = req.body.password;
   console.log(email, password);
   User.login( email, (err, data) => {
-  if (err ){
+  if (!email ){
     return res.status(400).send({ error : "Cette adresse email n'existe pas"});
+  } 
+  if (!password ){
+    return res.status(400).send({ error : "Le champs mot de passe doit étre correctement remplie"}) 
   } else {
     let password = req.body.password;
     bcrypt.compare(password, data[0].password)

@@ -21,6 +21,18 @@ Post.findAll = (message,datemessage,image,result) => {
   });
 };
 
+//CHERCHER UN POSTS
+Post.search = (message,result) => {
+  sql.query("SELECT * FROM post where message = '%keyword%' ",message,(err, res) => {
+    if (err) {
+      result(err, null);
+      return;
+    } else {
+      result(null, res);
+      return;
+    }
+  });
+};
 
 //AJOUTER UN POST DANS la base de données
 Post.create = (newPost, result) => {

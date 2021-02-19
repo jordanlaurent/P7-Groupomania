@@ -7,6 +7,8 @@
   
     // Recuperer tout les post
     router.get("/post", post.findAll);
+
+    router.get("/post/search", post.search);
   
     // // Mettre à jour un post 
     // router.put("/post/:usersId", post.modify);
