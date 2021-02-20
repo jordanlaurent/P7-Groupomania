@@ -93,7 +93,10 @@ export default {
           { optionAxios }
         )
         .then((response) => {
-          localStorage.setItem("email", JSON.stringify(response.data)),
+          localStorage.setItem("email", response.data.email),
+          localStorage.setItem("prenom", response.data.prenom),
+          localStorage.setItem("name", response.data.name),
+          localStorage.setItem("photo", response.data.photo),
             localStorage.setItem("jwt", response.data.token),
             this.$router.replace({ name: "Mur" });
         })

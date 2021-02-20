@@ -4,6 +4,7 @@ const sql = require("./db.js");
 const Users = function(users) {
   this.email = users.email;
   this.name = users.name;
+  this.prenom = users.prenom;
   this.password = users.password;
   this.photo = users.photo;
   this.active = users.active;
@@ -62,8 +63,8 @@ Users.login = (email,password, result ) => {
 
 
 // modifier un utilisateur avec son id
-Users.update= ([email,password,name,photo, id], result) => {
-  sql.query(`UPDATE users SET email = '${email}', password = '${password}',name = '${name}', photo = '${photo}', WHERE userId = '${id}'`, (err, res) => {
+Users.update= ([email,password,name,photo,prenom, id], result) => {
+  sql.query(`UPDATE users SET email = '${email}', password = '${password}',name = '${name}',prenom = '${prenom}', photo = '${photo}', WHERE userId = '${id}'`, (err, res) => {
     if (err) {
       result(err, null);
       console.log(err);

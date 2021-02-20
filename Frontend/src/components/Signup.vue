@@ -11,11 +11,22 @@
         </p>
       </section>
       <div class="form-group">
-        <label>Nom et prenom </label>
+        <label>Nom </label>
         <input
           id="name"
           name="name"
           v-model="name"
+          type="text"
+          class="form-control form-control-lg"
+          required
+        />
+      </div>
+       <div class="form-group">
+        <label>Prenom </label>
+        <input
+          id="prenom"
+          name="prenom"
+          v-model="prenom"
           type="text"
           class="form-control form-control-lg"
           required
@@ -79,6 +90,7 @@ export default {
       email: "",
       password: "",
       name: "",
+      prenom:"",
       photo: "",
       errors: false,
     };
@@ -101,6 +113,7 @@ export default {
             password: this.password,
             photo: this.photo,
             name: this.name,
+            prenom:this.prenom,
           },
           { optionAxios }
         )

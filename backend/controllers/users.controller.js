@@ -7,6 +7,7 @@ exports.signup = (req, res, next) => {
   let email       = req.body.email;
   let password    = req.body.password;
   let name        = req.body.name;
+  let prenom      =req.body.prenom
   let photo       = req.body.photo;
   if (!email  ){
     return res.status(400).send({ error : "L'adresse mail doit etre correctement remplie"});
@@ -14,6 +15,8 @@ exports.signup = (req, res, next) => {
     return res.status(400).send({ error : "Le mot de passe doit etre correctement remplie"});
   }if ( !name ){
     return res.status(400).send({ error : "Le nom doit etre correctement remplie"});
+  }if ( !prenom ){
+    return res.status(400).send({ error : "Le prenom doit etre correctement remplie"});
   }
 
   // verification que l'adresse mail ne soit pas deja utiliser
@@ -30,6 +33,7 @@ exports.signup = (req, res, next) => {
             email: email,
             password: hashmotdepasse,
             name: name,
+            prenom: prenom,
             photo: photo,
           });
           User.signup(user, (err, data) => {
@@ -68,6 +72,9 @@ exports.login = (req,res ) => {
             return res.status(401).json({ error: 'Mot de passe incorrect !'});
           }
           res.status(200).json({
+            prenom:data[0].prenom,
+            name: data[0].name,
+            photo: data[0].photo,
             email: data[0].email,
             id: data[0].id,
             token: jwt.sign({ id: data[0].id},
