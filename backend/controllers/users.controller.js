@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const tokenSecret = "RANDOM_TOKEN_SECRET";
 
 const User = require("../models/users.model.js");
 // Cree et enregistrer un nouveaux compte
@@ -139,18 +140,18 @@ exports.update = (req, res) => {
 };
 
 // Supprimer un client avec le usersId spécifié dans la demande
-exports.delete = (req, res) => {
-    User.remove(req.params.usersId, (err, data) => {
-        if (err) {
-          if (err.kind === "not_found") {
-            res.status(404).send({
-              message: `Compte non trouvé avec identifiant ${req.params.usersId}.`
-            });
-          } else {
-            res.status(500).send({
-              message: "Impossible de supprimer le compte avec l'identifiant " + req.params.usersId
-            });
-          }
-        } else res.send({ message: `Compte supprimer avec succes!` });
-      });
-};
+exports.delete = (req, res,next) => {
+  let token = req.body.userid;
+  console.log(token)
+  let decodeToken = jwt.verify(token, tokenSecret);
+  let id = decodeToken.id;
+  console.log(id);
+    User.delete(id,(err, data) => {
+      if (err)
+        res.status(500).send({
+          message:
+            err.message || "Ce port n'existe pas."
+        });
+      else res.send(data);
+    });
+  };

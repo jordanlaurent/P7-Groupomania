@@ -16,18 +16,18 @@
       <img src="../assets/image/logo.png" class="navbar-brand logomur" />
       <ul class="navbar-nav">
         <li class="nav-item active pr-5">
-          <button class="nav-link btn" @click="home">
-            <i class="fas fa-2x fa-home text-light"></i>
+          <button class="nav-link btn btn-light" @click="home">
+            <i class="fas fa-2x fa-home "></i>
           </button>
         </li>
         <li class="nav-item pr-5">
-          <button @click="profil" class="nav-link btn">
-            <i class="fas fa-2x fa-user-cog text-light"></i>
+          <button @click="profil" class="nav-link btn btn-light">
+            <i class="fas fa-2x fa-user-cog "></i>
           </button>
         </li>
         <li class="nav-item pr-5">
-          <button @click="disconnect" class="nav-link btn">
-            <i class="fas fa-2x fa-sign-out-alt text-light"></i>
+          <button @click="disconnect" class="nav-link btn btn-light">
+            <i class="fas fa-2x fa-sign-out-alt "></i>
           </button>
         </li>
       </ul>
@@ -36,6 +36,7 @@
       <button type="button" class="btn btn-dark"><i  @click="chBackcolor('#1e272e')" class="fas fa-2x fa-moon"></i></button>
         </div>
     </div>
+     <p class="t3"></p>
   </nav>
 </template>
 
@@ -94,7 +95,20 @@ a {
 .logoToolbar {
   display: flex;
   justify-content: left;
+  z-index: 1;
 }
-@media (max-width: 1920px) {
+.fas{color: greenyellow;}
+.fas:hover{color: goldenrod;}
+.t3 {
+  position: absolute;
+  top: 0;
+  z-index: 0;
+  height: 0;
+  width: 0;
+  border: 6rem solid rgba(0, 0, 0, 0);
+  border-top-color: #3d3d3d;
+}
+@media (max-width: 992px) {
+  .t3{display: none}
 } ;
 </style>

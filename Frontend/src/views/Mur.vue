@@ -68,7 +68,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #39502c;
   text-decoration: none; 
 }
 #search {
@@ -84,7 +84,7 @@ export default {
   padding-top: 7%;
 }
 .colorBackIcone{display: flex; justify-content: flex-end;}
-.fas{color: burlywood;}
+
 @media (min-width: 1920px) {
   #messagedisplay {
     margin-right: 20%;

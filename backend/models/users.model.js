@@ -77,22 +77,15 @@ Users.update= ([email,password,name,photo,prenom, id], result) => {
   });
 };
 // Suprimer un utilisateur avec son id
-Users.remove = (id, result) => {
-  sql.query("DELETE FROM users WHERE id = ?", id, (err, res) => {
+Users.delete = (id, result) => {
+  sql.query("DELETE FROM users WHERE id = ? ",id, (err, res) => {
     if (err) {
-      console.log("error: ", err);
-      result(null, err);
+      result(err, null);
       return;
-    }
-
-    if (res.affectedRows == 0) {
-      // not found users with the id
-      result({ kind: "not_found" }, null);
+      } else {
+      result(null, res);
       return;
-    }
-
-    console.log("deleted users with id: ", id);
-    result(null, res);
+      }
   });
 };
 

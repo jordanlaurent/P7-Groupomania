@@ -6,7 +6,7 @@
 
 <style>
 #footer {
-  position: inherit;
+  position: fixed;
   bottom: 0;
   background-color: #f6b93b;
   width: 100%;

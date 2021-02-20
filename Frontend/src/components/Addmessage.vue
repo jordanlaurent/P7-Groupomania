@@ -63,7 +63,7 @@
 </script>
 <style lang="css" scoped>
 .topMessage {
-  border: 2px solid#f6b93b;
+  border: 2px solid greenyellow;
   margin-top: -1px;
 }
 </style>

@@ -1,15 +1,11 @@
 <template >
   <div>
-    <div>
       <Toolbar />
       <Myprofil />
-    </div>
     <Footer />
   </div>
 </template>
 
-<style>
-</style>
 
 <script>
 import Footer from "@/components/footer.vue";

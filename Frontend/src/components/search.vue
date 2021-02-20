@@ -27,7 +27,7 @@
 
 <style>
 .searchBorder {
-  border: solid 2px #f6b93b;
+  border: solid 2px greenyellow;
 }
 </style>
 

@@ -14,6 +14,6 @@
     router.put("/",auth, users.update);
   
     // suprimer un compte avec son id
-    router.delete("/:usersId",auth, users.delete);
+    router.delete("/user/delete", users.delete);
 
   module.exports = router;
