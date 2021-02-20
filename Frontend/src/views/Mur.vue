@@ -69,12 +69,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  text-decoration: none;
-  background: linear-gradient(
-    70deg,
-    rgb(242, 242, 247),
-    rgba(216, 216, 216, 0.466)
-  );
+  text-decoration: none; 
 }
 #search {
   margin-top: 10%;
@@ -88,6 +83,8 @@ export default {
   align-content: center;
   padding-top: 7%;
 }
+.colorBackIcone{display: flex; justify-content: flex-end;}
+.fas{color: burlywood;}
 @media (min-width: 1920px) {
   #messagedisplay {
     margin-right: 20%;

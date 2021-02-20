@@ -13,7 +13,7 @@ exports.create = (req,res,next) =>{
     // si le message est vide alors non envoyé
     if( message == "" ) {
         return res.status(400).send({ error : "Le champs doit etre remplie"});
-      } if( message.length>=250) {
+      } if( message.length >= 250) {
         return res.status(400).send({ error : "Le champs doit etre inferieur a 250 character"});
       } 
     const newPost = new Post({

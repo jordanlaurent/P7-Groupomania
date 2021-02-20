@@ -1,4 +1,4 @@
-<template>
+<template >
   <nav class="navbar navbar-expand-lg navbar-dark template">
     <button
       class="navbar-toggler"
@@ -31,6 +31,10 @@
           </button>
         </li>
       </ul>
+       <div class="colorBackIcone">
+      <button class="btn-light btn"><i  @click="chBackcolor('whitesmoke')" class="fas fa-2x fa-sun "></i></button>
+      <button type="button" class="btn btn-dark"><i  @click="chBackcolor('#1e272e')" class="fas fa-2x fa-moon"></i></button>
+        </div>
     </div>
   </nav>
 </template>
@@ -63,8 +67,13 @@ export default {
         window.location = "/connexion";
         console.log("jwt vide");
       }
-    },
-  },
+    },  chBackcolor(color) {
+        localStorage.setItem("color", color);
+        var colorr = localStorage.getItem("color",color);
+       var doccolor = document.getElementById("buttonColor").style.backgroundColor = colorr
+       document.getElementsById("buttonColor").value = doccolor;
+}
+  }
 };
 </script>
 

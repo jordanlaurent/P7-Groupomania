@@ -103,8 +103,8 @@ export default {
           this.$router.go(0); // refresh de la page
           console.log(response);
         })
-        .catch((error) => {
-          (this.errors = true), console.log(error);
+        .catch((err) => {
+          console.log(err);
         });
     },
   },
