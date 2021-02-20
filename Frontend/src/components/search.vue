@@ -1,7 +1,7 @@
 <template>
   <div class="mb-5 rounded searchBorder">
-    <input v-model="Keyword" id="name" class="p-2" />
-    <button @click.prevent="checkName" class="btn-primary p-2">
+    <input v-model="rauMessage" v-on:keyup.enter="checkKeyword" id="Keyword" class="p-2" />
+    <button @click.prevent="checkKeyword" class="btn-primary p-2">
       Rechercher
     </button>
     <div>
@@ -36,19 +36,21 @@ import axios from "axios";
 export default {
   name: "Search",
   data: () => ({
-    keyword: "",
+    rauMessage: "",
     message: [],
   }),
   methods: {
-    checkName() {
-      console.log(`Cheking message: ${this.keyword}`);
+    checkKeyword() {
+      console.log(`Cheking message: ${this.rauMessage}`);
       axios
-        .get("http://localhost:3000/post", {
+        .get("http://localhost:3000/post/search", {
           params: {
-            search: this.keyword,
+            search: this.rauMessage,
           },
+          
         })
         .then((res) => {
+          console.log(res.search);
           console.log(res.data);
           this.message = res.data;
         })
@@ -61,7 +63,7 @@ export default {
     keyword(newKeyword, oldKeyword) {
       console.log(`New keyword is ${newKeyword}`);
       console.log(`old keyword is ${oldKeyword}`);
-      this.checkName();
+      this.checkKeyword();
     },
   },
 };

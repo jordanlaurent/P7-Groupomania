@@ -5,7 +5,7 @@ const tokenSecret = "RANDOM_TOKEN_SECRET";
 exports.create = (req,res,next) =>{
     let token = req.body.userid;
     let decodeToken = jwt.verify(token, tokenSecret);
-    let userid = decodeToken;
+    let userid = decodeToken.id;
     console.log(userid);
     let message = req.body.message;
     let image = req.body.image;
@@ -43,7 +43,7 @@ exports.create = (req,res,next) =>{
 
 //  Rechercher un poste dans la bdd
   exports.search = (req, res) => {
-    let message = req.body.search
+    let message = req.query.search
     console.log(message);
     Post.search(message,(err, data) => {
       if (err)

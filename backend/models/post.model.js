@@ -10,7 +10,7 @@ const Post = function(post) {
 
 //TROUVER TOUS LES POSTS
 Post.findAll = (message,datemessage,image,result) => {
-  sql.query("SELECT message , datemessage, image FROM post",message,datemessage,image,(err, res) => {
+  sql.query("SELECT message , datemessage, image FROM post ORDER BY datemessage DESC",message,datemessage,image,(err, res) => {
     if (err) {
       result(err, null);
       return;
@@ -23,7 +23,7 @@ Post.findAll = (message,datemessage,image,result) => {
 
 //CHERCHER UN POSTS
 Post.search = (message,result) => {
-  sql.query("SELECT * FROM post where message = '%keyword%' ",message,(err, res) => {
+  sql.query("SELECT * FROM post WHERE message LIKE CONCAT('%',?,'%') ",message,(err, res) => {
     if (err) {
       result(err, null);
       return;

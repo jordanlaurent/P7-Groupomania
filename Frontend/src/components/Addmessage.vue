@@ -52,7 +52,7 @@
           />
         </svg>
       </button>
-      <a href="#" class="btn pr-5 pl-5 btn-primary btnpost" type="submit"
+      <a @click.prevent="postData" class="btn pr-5 pl-5 btn-primary btnpost" type="submit" 
         >Publier
       </a>
     </div>

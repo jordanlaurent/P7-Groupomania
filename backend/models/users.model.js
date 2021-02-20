@@ -7,6 +7,7 @@ const Users = function(users) {
   this.password = users.password;
   this.photo = users.photo;
   this.active = users.active;
+  this.id = users.id;
   //this.usersID = post.usersID; 
 };
 // creation d'un nouvelle utilisateur 
@@ -53,7 +54,7 @@ Users.login = (email,password, result ) => {
       result(null, res[0]);
       return;
     }
-
+  
     // not found users with the id
     result({ kind: "not_found" }, null);
   });
