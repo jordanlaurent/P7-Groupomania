@@ -9,7 +9,6 @@ const Users = function(users) {
   this.photo = users.photo;
   this.active = users.active;
   this.id = users.id;
-  //this.usersID = post.usersID; 
 };
 // creation d'un nouvelle utilisateur 
 Users.signup = (newUsers, result) => {
