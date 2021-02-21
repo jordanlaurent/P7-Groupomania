@@ -7,6 +7,12 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import '@popperjs/core'; 
+global.jQuery = require('jquery');
+import $ from 'jquery';
+import Popper from 'popper.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+require('bootstrap');
+Vue.use($, Popper)
 Vue.use(VueAxios, axios);
 Vue.use(BootstrapVue);
 Vue.use(require ('vue-moment'));
