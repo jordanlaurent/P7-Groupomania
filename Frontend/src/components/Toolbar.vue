@@ -9,7 +9,7 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span class="navbar-toggler-icon"></span> 
+      <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse logoToolbar" id="navbarNav">
@@ -17,32 +17,42 @@
       <ul class="navbar-nav">
         <li class="nav-item active pr-5">
           <button class="nav-link btn btn-light" @click="home">
-            <i class="fas fa-2x fa-home "></i>
+            <i class="fas fa-2x fa-home"></i>
           </button>
         </li>
         <li class="nav-item pr-5">
           <button @click="profil" class="nav-link btn btn-light">
-            <i class="fas fa-2x fa-user-cog "></i>
+            <i class="fas fa-2x fa-user-cog"></i>
           </button>
         </li>
         <li class="nav-item pr-5">
           <button @click="disconnect" class="nav-link btn btn-light">
-            <i class="fas fa-2x fa-sign-out-alt "></i>
+            <i class="fas fa-2x fa-sign-out-alt"></i>
           </button>
         </li>
       </ul>
-       <div class="colorBackIcone">
-      <button class="btn-light btn"><i  @click="chBackcolor('whitesmoke')" class="fas fa-2x fa-sun "></i></button>
-      <button type="button" class="btn btn-dark"><i  @click="chBackcolor('#1e272e')" class="fas fa-2x fa-moon"></i></button>
-        </div>
+      <div class="colorBackIcone">
+        <button class="btn-light btn">
+          <i @click="chBackcolor('whitesmoke')" class="fas fa-2x fa-sun"></i>
+        </button>
+        <button type="button" class="btn btn-dark">
+          <i @click="chBackcolor('#1e272e')" class="fas fa-2x fa-moon"></i>
+        </button>
+      </div>
     </div>
-     <p class="t3"></p>
+    <p class="t3"></p>
   </nav>
 </template>
 
 <script>
 export default {
   name: "Profil",
+     mounted:(color) => {
+    if (localStorage.getItem("color") != null) {
+      var getcolor = localStorage.getItem("color", color);
+      document.getElementById("buttonColor").style.backgroundColor = getcolor;
+      }
+   },
   methods: {
     disconnect() {
       localStorage.clear();
@@ -54,8 +64,7 @@ export default {
         this.$router.go(0);
         window.location = "/Mur";
       } else {
-        window.location = "/connexion";
-        console.log("jwt vide");
+        window.location = "/Connexion";
       }
     },
     profil() {
@@ -63,18 +72,16 @@ export default {
       if (jwt != null) {
         this.$router.go(0);
         window.location = "/Profil";
-        console.log("succes");
       } else {
-        window.location = "/connexion";
-        console.log("jwt vide");
+        window.location = "/Connexion";
       }
-    },  chBackcolor(color) {
-        localStorage.setItem("color", color);
-        var colorr = localStorage.getItem("color",color);
-       var doccolor = document.getElementById("buttonColor").style.backgroundColor = colorr
-       document.getElementsById("buttonColor").value = doccolor;
-}
-  }
+    },
+    chBackcolor(color) {
+      localStorage.setItem("color", color);
+      var colorr = localStorage.getItem("color", color);
+      document.getElementById("buttonColor").style.backgroundColor = colorr;
+    },
+  },
 };
 </script>
 
@@ -97,8 +104,12 @@ a {
   justify-content: left;
   z-index: 1;
 }
-.fas{color: greenyellow;}
-.fas:hover{color: goldenrod;}
+.fas {
+  color: greenyellow;
+}
+.fas:hover {
+  color: goldenrod;
+}
 .t3 {
   position: absolute;
   top: 0;
@@ -109,6 +120,8 @@ a {
   border-top-color: #3d3d3d;
 }
 @media (max-width: 992px) {
-  .t3{display: none}
+  .t3 {
+    display: none;
+  }
 } ;
 </style>

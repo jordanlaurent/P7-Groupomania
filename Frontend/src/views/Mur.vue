@@ -68,7 +68,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #39502c;
+  color: #000000;
   text-decoration: none; 
 }
 #search {

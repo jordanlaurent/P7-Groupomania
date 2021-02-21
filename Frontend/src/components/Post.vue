@@ -2,7 +2,7 @@
   <div>
     <div class="card mt-2 postView" v-for="info in infos" :key="info.message">
       <div class="card-body notes test">
-        <h5 class="card-title">PRENOM DE L'UTILISATEUR</h5>
+        <h5 class="card-title text-primary">PRENOM DE L'UTILISATEUR</h5>
         <p class="card-text">{{ info.message }}</p>
       </div>
       <!-- <img src="../assets/image/posttest.jpg" class="card-img-top" alt="..."> -->
@@ -12,7 +12,7 @@
       }}</small>
       <hr />
       <ul class="bottomSocial">
-        <i class="far fa-heart"><p>Like</p></i>
+        <i class="far fa-heart text-danger"><p>Like</p></i>
         <i class="fas fa-comment-alt pl-3"><p>Commenter</p></i>
       </ul>
     </div>
