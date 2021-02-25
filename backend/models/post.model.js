@@ -9,8 +9,8 @@ const Post = function(post) {
 };
 
 //TROUVER TOUS LES POSTS
-Post.findAll = (message,datemessage,image,result) => {
-  sql.query("SELECT message , datemessage, image FROM post ORDER BY datemessage DESC",message,datemessage,image,(err, res) => {
+Post.findAll = (message,datemessage,image,idusers,result) => {
+  sql.query("SELECT message , datemessage, image,idusers FROM post ORDER BY datemessage DESC",message,datemessage,image,idusers,(err, res) => {
     if (err) {
       result(err, null);
       return;
@@ -62,7 +62,7 @@ Post.modify = ([message], result) => {
 
 //SUPPRIME UN POST
 Post.delete = (id, result) => {
-  sql.query("DELETE FROM post WHERE id = ? ",id, (err, res) => {
+  sql.query("DELETE FROM post WHERE id = ?",id, (err, res) => {
     if (err) {
       result(err, null);
       return;

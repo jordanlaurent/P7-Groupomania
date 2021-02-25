@@ -33,7 +33,7 @@
         />
       </div>
       <div class="form-group">
-        <label>adresse Email</label>
+        <label>Adresse Email</label>
         <input
           id="email"
           name="email"

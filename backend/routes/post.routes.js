@@ -1,19 +1,19 @@
-    const express = require('express');
-    const router = express.Router();
-    const post = require("../controllers/post.controller.js");
-  
-    // Create un nouveaux post
-    router.post("/post/create", post.create);
-  
-    // Recuperer tout les post
-    router.get("/post", post.findAll);
+const express = require('express');
+const router = express.Router();
+const post = require("../controllers/post.controller.js");
 
-    router.get("/post/search", post.search);
-  
-    // // Mettre à jour un post 
-    // router.put("/post/:usersId", post.modify);
-  
-    // // suprimer un compte avec son id
-     router.post("/post/delete", post.delete);
-  
-     module.exports = router;
+// Create un nouveaux post
+router.post("/post/create", post.create);
+
+// Recuperer tout les post
+router.get("/post", post.findAll);
+// Chercher un post
+router.get("/post/search", post.search);
+
+// // Mettre à jour un post 
+//router.put("/post/modify", post.modify);
+
+// // suprimer un post avec son id
+router.delete("/post/delete", post.delete);
+
+module.exports = router;

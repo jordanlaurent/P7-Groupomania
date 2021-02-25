@@ -5,10 +5,10 @@
       <div id="messagedisplay">
         <Search id="search" />
         <Addmessage />
-        <Post />
+        <Post class="mb-5" />
       </div>
     </div>
-    <Footer />
+    <Footer/>
   </div>
 </template>
 
@@ -64,15 +64,13 @@ export default {
   position: inherit;
   top: 0;
   bottom: 0;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   text-align: center;
   color: #000000;
   text-decoration: none; 
 }
 #search {
-  margin-top: 10%;
+  margin-top: 1%;
   background-image: url("../assets/image/graffiti.jpg");
   padding: 60px;
   background-position: right;

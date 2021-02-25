@@ -4,7 +4,7 @@
     <form @submit="postData" method="post" class="bg text-light p-5">
       <h4>CONNEXION</h4>
       <section class="popup" v-if="posts.errors">
-        <p class="pt-2 text-danger popuptext">
+        <p class="pt-2 text-light popuptext h5">
           Nous sommes désolés, les informations saisie ne corresponde <br />à
           aucun compte veuillez verifier votre email et votre mots de passe.
         </p>

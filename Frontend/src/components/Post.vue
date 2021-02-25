@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="card mt-2 postView" v-for="info in infos" :key="info.message">
-      <div class="card-body notes test">
+    <div class="card mt-2 postView rounded-0" v-for="info in infos" :key="info.message">
+      <div class="card-body ">
         <h5 class="card-title text-primary">PRENOM DE L'UTILISATEUR</h5>
         <p class="card-text">{{ info.message }}</p>
       </div>
@@ -26,7 +26,7 @@
   display: flex;
 }
 p {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: normal;
 }
 </style>

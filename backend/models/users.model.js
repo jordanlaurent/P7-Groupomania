@@ -62,19 +62,19 @@ Users.login = (email,password, result ) => {
 
 
 // modifier un utilisateur avec son id
-Users.update= ([email,password,name,photo,prenom, id], result) => {
-  sql.query(`UPDATE users SET email = '${email}', password = '${password}',name = '${name}',prenom = '${prenom}', photo = '${photo}', WHERE userId = '${id}'`, (err, res) => {
-    if (err) {
-      result(err, null);
-      console.log(err);
-      return;
-      } else { 
-      result(null, res);
-      console.log(res);
-      return;
-      }
-  });
-};
+Users.update = (email,id) => {
+  return new Promise((result) => {
+    sql.query(`UPDATE users SET email = '${email}'  WHERE id = '${id}'`, (err, res) => {
+      if (err) { 
+        result( err);
+        return;
+        } else {
+       result(res);
+       return;
+        }
+    });
+  },
+  )};
 // Suprimer un utilisateur avec son id
 Users.delete = (id, result) => {
   sql.query("DELETE FROM users WHERE id = ? ",id, (err, res) => {

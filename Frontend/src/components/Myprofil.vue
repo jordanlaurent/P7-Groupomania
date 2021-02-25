@@ -6,13 +6,45 @@
     </h2>
     <img :src="photo" class="pb-3" />
     <h2 class="pb-3 dataFont">{{ email }}</h2>
-    <button class="btn-success">Changer mon adresse email</button>
+
+    <b-button id="show-btn" class="btn-success" @click="showModalMail"
+      >Modifier mon adresse email</b-button
+    >
+    <b-modal
+      ref="my-modalEmail"
+      id="name-input"
+      hide-footer
+      title="Etes vous sur de vouloir modifer votre adresse email ?"
+    >
+      <b-form-input
+        id="name-input"
+        v-model="emailChanged"
+        placeholder="VotreEmail@outlook.fr"
+        required
+      ></b-form-input>
+      <b-button @click.prevent="ChangedEmail" class="mt-3 btn-danger" block
+        >Valider</b-button
+      >
+      <b-button class="mt-2" block @click="toggleModalMail">Annuler</b-button>
+    </b-modal>
     <br />
-    <button class="btn-warning">Modifier mot de passe</button>
+    <b-button class="btn-warning">Modifier mot de passe</b-button>
     <br />
-    <button @click.prevent="delecteAccount" class="btn-danger">
-      Supprimer mon compte
-    </button>
+    <div>
+      <b-button id="show-btn" class="btn-danger" @click="showModal"
+        >Supprimer mon compte</b-button
+      >
+      <b-modal
+        ref="my-modal"
+        hide-footer
+        title="Etes vous sur de vouloir supprimer votre compte ?"
+      >
+        <b-button @click.prevent="delecteAccount" class="mt-3 btn-danger" block
+          >Valider</b-button
+        >
+        <b-button class="mt-2" block @click="toggleModal">Annuler</b-button>
+      </b-modal>
+    </div>
   </div>
 </template>
 
@@ -43,14 +75,44 @@ export default {
   data() {
     return {
       email: null,
+      emaile: null,
       photo: null,
       name: null,
       prenom: null,
+      emailChanged: "",
+      modalShow: false,
     };
   },
   methods: {
+    showModal() {
+      this.$refs["my-modal"].show();
+    },
+    showModalMail() {
+      this.$refs["my-modalEmail"].show();
+    },
+    toggleModal() {
+      // We pass the ID of the button that we want to return focus to
+      // when the modal has hidden
+      this.$refs["my-modal"].toggle("#toggle-btn");
+    },
+    toggleModalMail() {
+      // We pass the ID of the button that we want to return focus to
+      // when the modal has hidden
+      this.$refs["my-modalEmail"].toggle("#toggle-btn");
+    },
+    ChangedEmail() {
+      axios
+        .put("http://localhost:3000/update", {
+          email: this.emailChanged,
+          userid: localStorage.getItem("jwt"),
+        })
+        .then((response) => {
+          localStorage.setItem("email");
+          console.log(response)
+        });
+         this.$router.go(0);
+    },
     delecteAccount() {
-      console.log(localStorage.getItem("jwt"));
       axios
         .delete("http://localhost:3000/user/delete", {
           data: {
@@ -58,7 +120,7 @@ export default {
           },
         })
         .then((response) => {
-          localStorage.clear
+          localStorage.clear;
           window.location = "/inscription";
           console.log(response);
         })

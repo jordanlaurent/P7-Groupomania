@@ -11,7 +11,7 @@
     router.post("/login", users.login);
   
     // Mettre à jour un compte avec son id
-    router.put("/",auth, users.update);
+    router.put("/update", users.update);
   
     // suprimer un compte avec son id
     router.delete("/user/delete", users.delete);

@@ -52,8 +52,8 @@
           />
         </svg>
       </button>
-      <a @click.prevent="postData" class="btn pr-5 pl-5 btn-primary btnpost" type="submit" 
-        >Publier
+      <a @click.prevent="postData" class="btn pr-5 pl-5  btnpost" type="submit" 
+        >PUBLIER
       </a>
     </div>
     <div class="card-footer text-muted"></div>
@@ -63,9 +63,11 @@
 </script>
 <style lang="css" scoped>
 .topMessage {
-  border: 2px solid greenyellow;
+  border: 2px solid #16a085;
   margin-top: -1px;
 }
+.btnpost{background-color: #16a085;}
+.btnpost:hover{background-color: #1e8570;}
 </style>
 
 <script>

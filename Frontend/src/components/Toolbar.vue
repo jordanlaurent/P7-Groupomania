@@ -14,30 +14,23 @@
 
     <div class="collapse navbar-collapse logoToolbar" id="navbarNav">
       <img src="../assets/image/logo.png" class="navbar-brand logomur" />
-      <ul class="navbar-nav">
-        <li class="nav-item active pr-5">
-          <button class="nav-link btn btn-light" @click="home">
-            <i class="fas fa-2x fa-home"></i>
-          </button>
+      <ul class="navbar-nav toolbarMobile">
+        <li class="nav-item active ">
+          <a class=" btndesktop pr-3 btn" @click="home">MUR </a>
+            <button type="button" class="btn-dark btn-sm btn-block text-light textToolbar mb-1 rounded-0" @click="home">MON MUR </button>
         </li>
-        <li class="nav-item pr-5">
-          <button @click="profil" class="nav-link btn btn-light">
-            <i class="fas fa-2x fa-user-cog"></i>
-          </button>
+        <li class="nav-item ">
+          <a @click="profil" class="btndesktop pr-3 btn" >PROFIL</a>
+          <button type="button"  @click="profil"  class="btn-dark btn-sm btn-block text-light textToolbar mb-1 rounded-0">PROFIL</button>
         </li>
-        <li class="nav-item pr-5">
-          <button @click="disconnect" class="nav-link btn btn-light">
-            <i class="fas fa-2x fa-sign-out-alt"></i>
-          </button>
+        <li class="nav-item ">
+          <a @click="disconnect" class="btndesktop pr-3 btn disconnect ">DECONNEXION</a>
+           <button type="button" @click="disconnect" class="btn-danger btn-sm btn-block text-light textToolbar rounded-0">DECONNEXION </button>
         </li>
       </ul>
       <div class="colorBackIcone">
-        <button class="btn-light btn">
-          <i @click="chBackcolor('whitesmoke')" class="fas fa-2x fa-sun"></i>
-        </button>
-        <button type="button" class="btn btn-dark">
+          <i @click="chBackcolor('whitesmoke')" class="fas fa-2x fa-sun pr-3"></i>
           <i @click="chBackcolor('#1e272e')" class="fas fa-2x fa-moon"></i>
-        </button>
       </div>
     </div>
     <p class="t3"></p>
@@ -78,8 +71,8 @@ export default {
     },
     chBackcolor(color) {
       localStorage.setItem("color", color);
-      var colorr = localStorage.getItem("color", color);
-      document.getElementById("buttonColor").style.backgroundColor = colorr;
+      var colorSelect = localStorage.getItem("color", color);
+      document.getElementById("buttonColor").style.backgroundColor = colorSelect;
     },
   },
 };
@@ -88,13 +81,16 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .template {
-  background-color: #f6b93b;
+  background-color: #f39c12;
 }
-p,
+p,h2,
 a {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: normal;
 }
+a{color: aliceblue;font-size: 1rem;}
+a:hover{color: black;text-decoration: none;}
+.disconnect:hover{color: rgb(209, 18, 18);}
 .logomur {
   margin-right: 29%;
   width: 15%;
@@ -105,11 +101,18 @@ a {
   z-index: 1;
 }
 .fas {
-  color: greenyellow;
+  color: rgb(243, 241, 241);
 }
-.fas:hover {
-  color: goldenrod;
+
+.fa-sun:hover{
+  color: #ebe717;
 }
+
+.fa-moon:hover{
+color: #3d3d3d;
+}
+.colorBackIcone{position: fixed;padding-right: 20px;
+  right: 0;}
 .t3 {
   position: absolute;
   top: 0;
@@ -119,9 +122,20 @@ a {
   border: 6rem solid rgba(0, 0, 0, 0);
   border-top-color: #3d3d3d;
 }
+.textToolbar{display: none;}
 @media (max-width: 992px) {
   .t3 {
     display: none;
   }
+  .toolbarMobile{display:flex; flex-direction: column;padding-top: 10px;padding-bottom: 10px; width: 100%;color: whitesmoke;}
+  .logomur{width: 80%;margin: 0;justify-content: center;}
+  .btndesktop{display: none;}
+  .logoToolbar {flex-direction: column;padding-bottom: 10px;}
+  .textToolbar{ display: initial;}
+  .navbar{padding: 0}
+  .colorBackIcone{position: inherit}
+  .template {
+  background-color: #030303f3;
+}
 } ;
 </style>

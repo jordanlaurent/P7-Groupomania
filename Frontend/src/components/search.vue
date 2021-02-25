@@ -1,8 +1,8 @@
 <template>
   <div class="mb-5 rounded searchBorder">
     <input v-model="rauMessage" v-on:keyup.enter="checkKeyword" id="Keyword" class="p-2" />
-    <button @click.prevent="checkKeyword" class="btn-primary p-2">
-      Rechercher
+    <button @click.prevent="checkKeyword" class="btn-primary p-2 btnpost rounded-">
+      RECHERCHER
     </button>
     <div>
       <div class="card mt-2 postView" v-for="message in message" :key="message">
@@ -27,10 +27,10 @@
 
 <style>
 .searchBorder {
-  border: solid 2px greenyellow;
+  border: solid 2px #16a085;
 }
 p {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: normal;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div id="footer">
-    <p>Réseau social interne réaliser pour  le compte de Groupomania.</p><p> Tous droits réservé <span class="text-primary">CONNECT-E</span> 2021</p>
+    <p>Réseau social interne réaliser pour  le compte de Groupomania.</p>
   </div>
 </template>
 
@@ -8,15 +8,14 @@
 #footer {
   position: fixed;
   bottom: 0;
-  background-color: #f6b93b;
+  background-color: #f39c12;
   width: 100%;
   text-align: center;
-  padding: 1%;
+  padding: 0%;
   color: rgb(255, 255, 255);
   display: flex;
   justify-content: space-evenly;
-  font-weight: lighter;
-  font-style: oblique;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 </style>
 
