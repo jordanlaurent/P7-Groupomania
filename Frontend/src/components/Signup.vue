@@ -10,7 +10,8 @@
           chiffres
         </p>
       </section>
-      <div class="form-group">
+      <div class="row">
+      <div class="form-group mr-2">
         <label>Nom </label>
         <input
           id="name"
@@ -31,14 +32,26 @@
           class="form-control form-control-lg"
           required
         />
+       </div>
       </div>
-      <div class="form-group">
+       <div class="form-group">
+        <label>Biographie </label>
+        <textarea
+          id="bio"
+          name="bio"
+          v-model="bio"
+          type="text"
+          class="form-control form-control-lg"
+          required
+        />
+      </div>
+      <div class="form-group ">
         <label>Adresse Email</label>
         <input
           id="email"
           name="email"
           v-model="email"
-          type="email"
+          type="text"
           class="form-control form-control-lg"
           required
         />
@@ -54,10 +67,6 @@
           class="form-control form-control-lg"
           required
         />
-      </div>
-      <div class="pb-3">
-        <label>Photo de profil <label class="text-dark"> * Non obligatoire</label></label> 
-        <input id="photo" name="photo" type="file" class="form-control-file" />
       </div>
       <button type="submit" class="btn btn-dark btn-lg btn-block">
         Inscription
@@ -87,31 +96,29 @@ export default {
   name: "signup",
   data() {
     return {
-      email: "",
+      email: '',
       password: "",
       name: "",
+      bio:"",
       prenom:"",
-      photo: "",
       errors: false,
     };
   },
   methods: {
     postData(e) {
-      e.preventDefault();
-
+        e.preventDefault();
       var optionAxios = {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       };
-
       axios
         .post(
           "http://localhost:3000/signup",
           {
             email: this.email,
+            bio:this.bio,
             password: this.password,
-            photo: this.photo,
             name: this.name,
             prenom:this.prenom,
           },
@@ -125,7 +132,7 @@ export default {
         .catch((error) => {
           (this.errors = true), console.log(error);
         });
-    },
+    }
   },
 };
 </script>

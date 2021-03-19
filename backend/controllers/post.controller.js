@@ -1,5 +1,7 @@
 const Post = require("../models/post.model.js");
+const User = require("../models/users.model.js");
 const jwt = require('jsonwebtoken');
+const { post } = require("../routes/post.routes.js");
 const tokenSecret = "RANDOM_TOKEN_SECRET";
 // crée un post
 exports.create = (req, res, next) => {
@@ -34,6 +36,7 @@ exports.findAll = (req, res) => {
   Post.findAll((err, data) => {
     if (err)res.status(500).send({message:err.message || "Some error occurred while retrieving post."});
     else res.send(data);
+    
   });
 };
 
@@ -50,12 +53,12 @@ exports.search = (req, res) => {
 // suprimer un post
 exports.delete = (req, res) => {
   let token = req.body.userid;
-  console.log(token)
   let decodeToken = jwt.verify(token, tokenSecret);
-  let id = decodeToken.id;
-  
-  //let postId = req.body.postid;
-  Post.delete(id, (err, data) => {
+  let idusers = decodeToken.id;
+  console.log(idusers)
+  let id = req.body.id;
+  console.log(id)
+  Post.delete(id,idusers, (err, data) => {
     if (err)res.status(500).send({message:err.message || "Ce port n'existe pas."});
     else res.send(data);
   });

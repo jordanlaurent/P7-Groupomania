@@ -9,6 +9,7 @@ const Users = function(users) {
   this.photo = users.photo;
   this.active = users.active;
   this.id = users.id;
+  this.bio = users.bio;
 };
 // creation d'un nouvelle utilisateur 
 Users.signup = (newUsers, result) => {
@@ -64,7 +65,7 @@ Users.login = (email,password, result ) => {
 // modifier un utilisateur avec son id
 Users.update = (email,id) => {
   return new Promise((result) => {
-    sql.query(`UPDATE users SET email = '${email}'  WHERE id = '${id}'`, (err, res) => {
+    sql.query(`UPDATE users SET email = '${email}' WHERE id = '${id}'`, (err, res) => {
       if (err) { 
         result( err);
         return;
@@ -75,6 +76,20 @@ Users.update = (email,id) => {
     });
   },
   )};
+// Telecharger photo de profil 
+  Users.photo = (photo,id) => {
+    return new Promise((result) => {
+      sql.query(`UPDATE users SET photo = '${photo}'  WHERE id = '${id}'`, (err, res) => {
+        if (err) { 
+          result( err);
+          return;
+          } else {
+         result(res);
+         return;
+          }
+      });
+    },
+    )};
 // Suprimer un utilisateur avec son id
 Users.delete = (id, result) => {
   sql.query("DELETE FROM users WHERE id = ? ",id, (err, res) => {

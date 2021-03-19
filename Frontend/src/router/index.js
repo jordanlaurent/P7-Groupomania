@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Connexion from '../views/Connexion'
 import Mur from '../views/Mur'
 import Profil from '../views/Profil'
+import test from '../views/test'
 Vue.use(VueRouter)
 
 const routes = [
@@ -31,7 +32,11 @@ const routes = [
   {
     path: '*', 
     redirect: '/'
-  },
+  }, {
+    path: '/test',
+    name: 'test',
+    component: test,
+  }
 ]
 
 

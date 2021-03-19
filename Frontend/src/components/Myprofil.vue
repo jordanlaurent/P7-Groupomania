@@ -4,6 +4,13 @@
       Paramétre du compte de
       <span class="text-primary h1">{{ name }} {{ prenom }}</span>
     </h2>
+  <div id='main'>
+<input type="file" @change="onFileChanged">
+<button @click="onUpload">Upload!</button>
+  </div>
+<hr>
+  {{ photo }} 
+    <h4>Votre Biographie : <cite class="text-success h4"> {{ bio }} </cite> </h4>
     <img :src="photo" class="pb-3" />
     <h2 class="pb-3 dataFont">{{ email }}</h2>
 
@@ -27,8 +34,6 @@
       >
       <b-button class="mt-2" block @click="toggleModalMail">Annuler</b-button>
     </b-modal>
-    <br />
-    <b-button class="btn-warning">Modifier mot de passe</b-button>
     <br />
     <div>
       <b-button id="show-btn" class="btn-danger" @click="showModal"
@@ -70,25 +75,35 @@
 
 <script>
 import axios from "axios";
+import FormData from 'form-data';
 export default {
   name: "Myprofil",
   data() {
     return {
       email: null,
       emaile: null,
-      photo: null,
       name: null,
       prenom: null,
       emailChanged: "",
       modalShow: false,
+      bio: null,
+      password: null,
+      passwordChanged:"",
+      photo:null,
+      selectedFile: null,
     };
   },
   methods: {
+    test() {
+    this.file = this.$refs.file.files[0];
+    },
     showModal() {
       this.$refs["my-modal"].show();
     },
     showModalMail() {
       this.$refs["my-modalEmail"].show();
+    }, showModalPassword() {
+      this.$refs["my-modalPassword"].show();
     },
     toggleModal() {
       // We pass the ID of the button that we want to return focus to
@@ -99,6 +114,29 @@ export default {
       // We pass the ID of the button that we want to return focus to
       // when the modal has hidden
       this.$refs["my-modalEmail"].toggle("#toggle-btn");
+    },toggleModalPassword() {
+      this.$refs["my-modalPassword"].toggle("#toggle-btn");
+    }, onFileChanged (event) {
+    this.selectedFile = event.target.files[0]
+  },
+  onUpload() {
+    const formData = new FormData();
+     formData.append('myFile', this.selectedFile )
+     formData.append('userid', localStorage.getItem("jwt"))
+      axios.put('http://localhost:3000/photo', formData,{ 
+        headers : {'Content-Type' : 'multipart/form-data'}
+        })
+      console.log(formData)
+      .then((response) => {
+        //  this.photo = formData
+        //  let user = JSON.parse(localStorage.getItem("user"))
+        //  user.photo = formData
+        //  localStorage.setItem("user",JSON.stringify(user))
+         //this.$router.go(0);
+         console.log(response)
+      }) .catch ((err) => {
+          console.log(err.response)
+      })
     },
     ChangedEmail() {
       axios
@@ -106,10 +144,10 @@ export default {
           email: this.emailChanged,
           userid: localStorage.getItem("jwt"),
         })
-        .then((response) => {
-          localStorage.setItem("email");
-          console.log(response)
-        });
+         this.email = this.emailChanged
+         let user = JSON.parse(localStorage.getItem("user"))
+         user.email = this.emailChanged
+         localStorage.setItem("user",JSON.stringify(user))
          this.$router.go(0);
     },
     delecteAccount() {
@@ -130,10 +168,12 @@ export default {
     },
   },
   mounted() {
-    (this.email = localStorage.getItem("email")),
-      (this.name = localStorage.getItem("name")),
-      (this.prenom = localStorage.getItem("prenom")),
-      (this.photo = localStorage.getItem("photo"));
+    let user = JSON.parse(localStorage.getItem("user"))
+    this.email = user.email
+    this.name = user.name
+    this.prenom = user.prenom
+      this.photo = user.photo
+      this.bio = user.bio
   },
 };
 </script>

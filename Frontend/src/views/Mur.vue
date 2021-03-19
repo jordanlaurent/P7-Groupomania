@@ -31,9 +31,9 @@ export default {
     Search,
     Footer,
   },
-  created: function () {
+  updated: function () {
     document.title = "Groupomania";
-    var jwt = localStorage.getItem("email");
+    var jwt = localStorage.getItem("jwt");
     if (jwt != null) {
       console.log("succes");
     } else {

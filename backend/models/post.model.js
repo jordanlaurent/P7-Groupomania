@@ -9,8 +9,8 @@ const Post = function(post) {
 };
 
 //TROUVER TOUS LES POSTS
-Post.findAll = (message,datemessage,image,idusers,result) => {
-  sql.query("SELECT message , datemessage, image,idusers FROM post ORDER BY datemessage DESC",message,datemessage,image,idusers,(err, res) => {
+Post.findAll = (result) => {
+  sql.query("SELECT message , datemessage, image,name,prenom,post.id,idusers FROM post INNER JOIN users ON post.idusers = users.id ORDER BY datemessage DESC",(err, res) => {
     if (err) {
       result(err, null);
       return;
@@ -33,6 +33,7 @@ Post.search = (message,result) => {
     }
   });
 };
+
 
 //AJOUTER UN POST DANS la base de données
 Post.create = (newPost, result) => {
@@ -61,8 +62,9 @@ Post.modify = ([message], result) => {
 }
 
 //SUPPRIME UN POST
-Post.delete = (id, result) => {
-  sql.query("DELETE FROM post WHERE id = ?",id, (err, res) => {
+Post.delete = (id,idusers, result) => {
+  console.log(id , idusers)
+  sql.query("DELETE FROM post WHERE id = ? AND idusers = ?", [id,idusers], (err, res) => {
     if (err) {
       result(err, null);
       return;

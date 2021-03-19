@@ -44,6 +44,7 @@ export default {
     if (localStorage.getItem("color") != null) {
       var getcolor = localStorage.getItem("color", color);
       document.getElementById("buttonColor").style.backgroundColor = getcolor;
+      //document.getElementById("PostColor").style.backgroundColor = getcolor; select id components post
       }
    },
   methods: {
@@ -52,7 +53,7 @@ export default {
       window.location = "/Connexion";
     },
     home() {
-      var jwt = localStorage.getItem("email");
+      var jwt = localStorage.getItem("jwt");
       if (jwt != null) {
         this.$router.go(0);
         window.location = "/Mur";
@@ -61,7 +62,7 @@ export default {
       }
     },
     profil() {
-      var jwt = localStorage.getItem("email");
+      var jwt = localStorage.getItem("jwt");
       if (jwt != null) {
         this.$router.go(0);
         window.location = "/Profil";
