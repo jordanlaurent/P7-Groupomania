@@ -21,7 +21,7 @@ Comment.create = (newComment, result) => {
   };
 
   Comment.findAll = (result) => {
-    sql.query("SELECT comment,datecomment,postid,name,prenom,comment.id FROM comment INNER JOIN users ON comment.idusers = users.id ",(err, res) => {
+    sql.query("SELECT comment,datecomment,postid,name,prenom,idusers,comment.id FROM comment INNER JOIN users ON comment.idusers = users.id ",(err, res) => {
       if (err) {
         result(err, null);
         return;
@@ -32,8 +32,8 @@ Comment.create = (newComment, result) => {
     });
   };
   
- Comment.delete = (idusers,id, result) => {
-    sql.query(`DELETE FROM comment WHERE idusers = ?  AND id = ? `,idusers,id, (err, res) => {
+ Comment.delete = (id,idusers, result) => {
+    sql.query(`DELETE FROM comment WHERE id = ? AND idusers = ?  `,[idusers,id], (err, res) => {
       if (err) {
         result(err, null);
         return;
