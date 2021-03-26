@@ -11,7 +11,7 @@ router.post("/comment/create", comment.create);
 // router.get("/comment/search", comment.search);
 
 // // // Mettre à jour un post 
-// //router.put("/post/modify", post.modify);
+router.put("/post/modify", comment.modify);
 
 // // // suprimer un post avec son id
  router.delete("/comment/delete", comment.delete);

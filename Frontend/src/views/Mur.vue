@@ -23,6 +23,8 @@ export default {
   name: "Mur",
   data() {
     return {};
+  }, created: function () {
+    document.title = "Groupomania - Mur";
   },
   components: {
     Toolbar,

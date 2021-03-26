@@ -50,16 +50,35 @@ exports.search = (req, res) => {
   });
 };
 
+// modifier un post
+exports.modify = (req, res) => {
+  // let token = req.body.userid;
+  // console.log(token)
+  // let decodeToken = jwt.verify(token, tokenSecret);
+  // let idusers = decodeToken.id;
+  let idusers = req.body.idusers;
+  let id = req.body.id;
+  let message =req.body.message
+  if (!message){
+    res.status(400).send({ message: "Le champs message ne peut étre vide" });
+  } 
+  Post.modify(message,idusers,id,new Post(req.body),(err, data) => {
+          if (err)
+           res.status(500).send({message: err.message || "utilisateur non trouvé"});
+           else  res.status(200).json(data)
+           console.log(data)
+          })
+};
+
+
 // suprimer un post
 exports.delete = (req, res) => {
   let token = req.body.userid;
   let decodeToken = jwt.verify(token, tokenSecret);
   let idusers = decodeToken.id;
-  console.log(idusers)
   let id = req.body.id;
-  console.log(id)
   Post.delete(id,idusers, (err, data) => {
-    if (err)res.status(500).send({message:err.message || "Ce port n'existe pas."});
+    if (err)res.status(500).send({message:err.message || "Ce post n'existe pas."});
     else res.send(data);
   });
 };

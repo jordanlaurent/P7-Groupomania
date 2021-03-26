@@ -122,11 +122,12 @@ export default {
   onUpload() {
     const formData = new FormData();
      formData.append('myFile', this.selectedFile )
-     formData.append('userid', localStorage.getItem("jwt"))
-      axios.put('http://localhost:3000/photo', formData,{ 
-        headers : {'Content-Type' : 'multipart/form-data'}
+      axios
+      .put('http://localhost:3000/photo',{ 
+             userid: localStorage.getItem("jwt"),
+             data:formData,
+             headers: { "Content-Type": "multipart/form-data" },
         })
-      console.log(formData)
       .then((response) => {
         //  this.photo = formData
         //  let user = JSON.parse(localStorage.getItem("user"))

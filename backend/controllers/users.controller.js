@@ -4,7 +4,6 @@ const tokenSecret = "RANDOM_TOKEN_SECRET";
 const fs = require("fs");
 const User = require("../models/users.model.js");
 
-
 // Cree et enregistrer un nouveaux compte
 exports.signup = (req, res, next) => {
   let email = req.body.email;
@@ -118,20 +117,32 @@ exports.login = (req, res) => {
 
  //telecharger photo de profil
 exports.photo = (req,res, next) => {
-  let token = req.file ? {jwt: req.body.userid} : {...req.body};
-   console.log(token)
+  let token = req.body.userid;
+  console.log(token)
+  console.log(req.body)
   let decodeToken = jwt.verify(token, tokenSecret);
   let id = decodeToken.id;
-  console.log(id)
-  const photo = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-  console.log(photo)
-User.photo(photo,id,new User(req.body),(err, data) => {
+  //const photo = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+  console.log(req.body.data)
+User.photo(photo,id,(err, data) => {
     if (err)
      res.status(500).send({message: err.message || "utilisateur non trouvé"});
      else  res.status(200).json(data)
      console.log(data)
     })
 };
+
+exports.test = (req,res, next) => {
+  // let token = req.body.userid;
+  // console.log(token)
+  console.log(req.body)
+  // let decodeToken = jwt.verify(token, tokenSecret);
+  // let id = decodeToken.id;
+  // const photo = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+  // console.log(req.body.data)
+
+};
+
 
 
 // Mettre à jour un compte identifié par le usersId dans la demande

@@ -1,33 +1,51 @@
 <template>
-  <div id='main'>
-      <input type="file" name="picture" id="picture">
-      <!-- Le bouton d'envoi lié à une fonction d'envoi -->
-      <button @click="envoi()">Envoyer</button>
-  </div>
+ <div id="userModify-container">
+        <h1>Modifier votre profil</h1>
+        <form action="submit" @submit.prevent="editProfil" class="user-modify" enctype="multipart/form-data">                                                                                                                                              
+            <div class="form-group">
+                <label for="file" class="label-profil-group" id="label-file">Changer votre avatar</label>
+                <input type="file" id="file" name="image" ref="file" accept="image/png, image/jpeg, image/jpg" @change="handleFileUpload()">
+            </div>
+            <button id="submit-profil">Publier profil</button>
+    
+        </form>                                                                              
+    </div>
 </template>
 
 <script>
-import axios from "axios";
-import FormData from 'form-data';
+import axios from 'axios'
+
 export default {
-     name: "test",
-  methods: {
-    envoi(){
-      // Récupération de l'image
-      let img = document.getElementById('picture').files[0]
-      // Création d'un formData obligatoire pour envoi de l'image
-        var formData = new FormData()
-        formData.append('img', img)
-        formData.append('userid', localStorage.getItem("jwt"))
-        // Envoi des données sur l'url du serveur (mettez la votre) en POST en envoyant le formData contenant notre image et notre texte
-        axios.put('http://localhost:3000/photo', formData)
-          .then((resp) => {
-            console.log(resp)
-          })
-          .catch((err) => {
-            console.log(err.response)
-          })
+  name: 'test',
+   data() {
+    return {
+      file: '',
+      image : '',
+      userid : localStorage.getItem("jwt")
     }
+  },
+  methods: {
+    handleFileUpload() {
+        this.file = this.$refs.file.files[0];
+        },
+    editProfil() {
+            const formData = new FormData();
+            formData.append('image', this.file)
+            formData.append('userid', this.userid)
+            console.log(formData)
+            console.log(this.userid)
+            console.log(this.file)
+            axios.put('http://localhost:3000/test' , formData, {
+                headers : {'Content-Type' : 'multipart/form-data'}
+            })
+            .then(() => {
+                console.log('modification du profil utilisateur réussie')
+               // window.location.href = `/home`
+            })
+            .catch(() =>{
+                console.log('échec de la modification')
+            })
+        },
   }
 }
 </script>

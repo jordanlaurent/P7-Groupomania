@@ -25,7 +25,7 @@ app.use((req, res, next) => {
   })
 })
 
-// alyser les requêtes de type de contenu: application / json
+
 app.use(bodyParser.json());
 
 // analyser les requêtes de type de contenu: application / x-www-form-urlencoded

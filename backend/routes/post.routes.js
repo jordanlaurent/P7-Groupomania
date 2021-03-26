@@ -11,7 +11,7 @@ router.get("/post", post.findAll);
 router.get("/post/search", post.search);
 
 // // Mettre à jour un post 
-//router.put("/post/modify", post.modify);
+router.put("/post/modify", post.modify);
 
 // // suprimer un post avec son id
 router.delete("/post/delete", post.delete);
