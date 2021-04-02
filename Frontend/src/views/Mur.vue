@@ -46,11 +46,6 @@ export default {
     }
   },
 };
-//var textPost = document.querySelector(".form-control")
-//var inputPost = document.querySelector('.form')
-//var ViewPost = document.querySelector('.notes')
-
-//var Postuser = textPost.nodeValue
 </script>
 <style lang="scss">
 #app {

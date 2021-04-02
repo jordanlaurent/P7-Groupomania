@@ -1,22 +1,19 @@
 <template>
   <div id="MyprofilCover">
     <div  v-for="user in users" :key="user.message">
-    <h2 class="pb-3 dataFont">
-      Paramétre du compte de
-      <span class="text-primary h1">{{ user.name }} {{ user.prenom }}</span>
-    </h2>
-  <form action="submit" @submit.prevent="editProfil" class="user-modify" enctype="multipart/form-data">                                                                                                                                              
-            <div class="form-group">
-                <label for="file" class="label-profil-group" id="label-file">Changer votre avatar</label>
-                <input type="file" id="file" name="image" ref="file" accept="image/png, image/jpeg, image/jpg" @change="handleFileUpload()">
-            </div>
-            <button id="submit-profil">Publier profil</button>
-  </form>
+    <h2 class="pb-3 dataFont">Paramétre du compte de  <span class="text-primary h1"> {{ user.name }} {{ user.prenom }}</span> </h2>
 <hr>
   <img :src="user.photo" class="pb-3" />
     <h4>Votre Biographie : <cite class="text-success h4"> {{ user.bio }} </cite> </h4>
-    <h2 class="pb-3 dataFont">{{ user.email }}</h2>
-
+    <h2 class="pb-3 pl-3 text-secondary  dataFont">{{ user.email }}</h2>
+    </div>
+      <form action="submit" @submit.prevent="editProfil" class="user-modify" enctype="multipart/form-data">                                                                                                                                              
+            <div class="form-group">
+                <label for="file" class="label-profil-group" id="label-file">Changer votre avatar</label>
+                <input type="file" id="file" name="image" ref="file" accept="image/png, image/jpeg, image/jpg" @change="handleFileUpload()">
+            <button id="submit-profil">Publier profil</button>
+            </div>
+  </form>
     <b-button id="show-btn" class="btn-success" @click="showModalMail"
       >Modifier mon adresse email</b-button
     >
@@ -52,7 +49,6 @@
         >
         <b-button class="mt-2" block @click="toggleModal">Annuler</b-button>
       </b-modal>
-    </div>
     </div>
   </div>
 </template>

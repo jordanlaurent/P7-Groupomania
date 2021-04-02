@@ -1,9 +1,9 @@
 <template>
   <div>
     <!-- affficher les post -->
-    <div class="card mt-2 postView rounded-0"  v-for="info in infos" :key="info.message">
-      <div class="card-body ">
-        <h5 class="card-title text-primary"> <img :src="info.photo" class="rounded-circle  w-25" alt="..."> {{ info.name }} {{ info.prenom }}</h5>
+    <div class="card mt-2 postView rounded-0 "  v-for="info in infos" :key="info.message">
+      <div class="card-body " >
+        <h5 class="card-title text-primary"> <img :src="info.photo" class="image--cover" > {{ info.name }} {{ info.prenom }}</h5>
         <p class="card-text">{{ info.message }} </p>
       </div>
       <small class="text-muted">{{ info.datemessage | moment("DD-MM-YYYY, HH:mm:ss ")}}
@@ -12,10 +12,12 @@
        
       <hr />
       <!-- afficher les commentaires -->
-      <div v-for="com in coms" :key="com.message" class="text-left">
-      <span> <small class="font-weight-bold text-primary ml-4"> {{ com.name}} {{ com.prenom}}</small> <p class=" ml-5">{{com.comment}}<small class="float-right ">{{com.datecomment | moment("DD-MM-YYYY, HH:mm:ss ")}}
+      <div class="container"> 
+       <span  v-for="com in coms" :key="com.message" class="comment mt-4 text-justify float-left col"> <img :src="com.photo" alt="" class="rounded-circle" width="40" height="40">
+                    <h4>{{ com.name}} {{ com.prenom}}</h4> <span> {{com.datecomment | moment("DD/MM/YYYY ")}}</span> <br>
+                    <p>{{com.comment}} </p>
+        
       <!-- bouton modifier commentaire -->
-      <div>
            <b-button id="show-btn" class="btn-success" @click="showModalComment">Modifier mon message</b-button>
     <b-modal ref="my-modalComment" id="name-input"  title="Etes vous sur de vouloir modifer votre message ?">
       <b-form-input id="name-input" v-model="commentChanged" required></b-form-input>
@@ -23,12 +25,11 @@
       >
       <b-button class="mt-2" block @click="toggleModalComment">Annuler</b-button>
     </b-modal>   
-      </div>
     <!-- bouton supprimer commentaire -->
-     <button id="buttonDeleteComment" @click.prevent="delecteComment" class="btn-danger btn-sm btn float-right ml-1" :data-id="com.id" v-if="com.idusers == user.id"> x </button></small></p></span> 
+     <button id="buttonDeleteComment" @click.prevent="delecteComment" class="btn-danger btn-sm btn float-right ml-1" :data-id="com.id" v-if="com.idusers == user.id"> x </button>
       <hr>
+      </span>
       </div>
-      
       <!-- bouton crée un commentaire -->
        <input name="comment" v-model="comment" type="text"  placeholder="Poster un commentaire" class="form-control "   required />
          <button @click.prevent="postData" class="btn-success" type="button" >COMMENTER</button>
@@ -45,6 +46,18 @@
 p {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: normal;
+}
+.image--cover {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+
+  object-fit: cover;
+  object-position: center;
+}
+.comments {
+    margin-top: 5%;
+    margin-left: 20px
 }
 </style>
 
@@ -152,6 +165,5 @@ export default {
       this.coms = response.data
      })
      }
-  
 };
 </script>
