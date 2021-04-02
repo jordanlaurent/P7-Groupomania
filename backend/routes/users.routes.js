@@ -10,11 +10,12 @@
 
    // mettre a jour photo utilisateur
     router.put("/photo",multer, users.photo)
-    router.put("/test",multer, users.test)
 
     // se connecter
     router.post("/login", users.login);
   
+    // Recuperer info user
+    router.post("/user", users.findOne);
     // Mettre à jour un compte avec son id
     router.put("/update", users.update);
   

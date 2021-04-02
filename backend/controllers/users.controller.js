@@ -57,14 +57,21 @@ exports.signup = (req, res, next) => {
 };
 
 
-
-
+// recuperer info de l'utilisateur connecter
+exports.findOne = (req, res) => {
+  let token = req.body.userid;
+  let decodeToken = jwt.verify(token, tokenSecret);
+  let id = decodeToken.id;
+  User.findOne(id,(err, data) => {
+    if (err)res.status(500).send({message:err.message || "Some error occurred while retrieving post."});
+    else res.send(data);
+    });
+};
 
 
 // fontcion connecter utilisateur
 exports.login = (req, res) => {
   let email = req.body.email;
-  let password = req.body.password;
   User.login(email, (err, data) => {
     if (!email) {
       return res.status(400).send({ error: "Cette adresse email n'existe pas" });
@@ -76,11 +83,6 @@ exports.login = (req, res) => {
             return res.status(401).json({ error: 'Mot de passe incorrect !' });
           }
           res.status(200).json({
-            prenom: data[0].prenom,
-            bio:data[0].bio,
-            name: data[0].name,
-            photo: data[0].photo,
-            email: data[0].email,
             id: data[0].id,
             token: jwt.sign({ id: data[0].id },
               'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }
@@ -91,39 +93,12 @@ exports.login = (req, res) => {
   })
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-// Recuperer tout les compte de la base de donné
-// exports.findAll = (req, res) => {
-//   User.getAll((err, data) => {
-//     if (err)
-//       res.status(500).send({
-//         message:
-//           err.message || "Une erreur s'est produite lors de la récupération des comptes."
-//       });
-//     else res.status(200).json(data);
-//   });
-// };
-
  //telecharger photo de profil
 exports.photo = (req,res, next) => {
   let token = req.body.userid;
-  console.log(token)
-  console.log(req.body)
   let decodeToken = jwt.verify(token, tokenSecret);
   let id = decodeToken.id;
-  //const photo = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-  console.log(req.body.data)
+  const photo = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
 User.photo(photo,id,(err, data) => {
     if (err)
      res.status(500).send({message: err.message || "utilisateur non trouvé"});
@@ -131,19 +106,6 @@ User.photo(photo,id,(err, data) => {
      console.log(data)
     })
 };
-
-exports.test = (req,res, next) => {
-  // let token = req.body.userid;
-  // console.log(token)
-  console.log(req.body)
-  // let decodeToken = jwt.verify(token, tokenSecret);
-  // let id = decodeToken.id;
-  // const photo = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-  // console.log(req.body.data)
-
-};
-
-
 
 // Mettre à jour un compte identifié par le usersId dans la demande
 exports.update = (req, res) => {

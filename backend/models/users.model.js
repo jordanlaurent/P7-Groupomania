@@ -41,7 +41,18 @@ Users.findOneByEmail = (email, result) => {
   });
 };
 
-
+Users.findOne = (id,result) => {
+  console.log(id)
+  sql.query("SELECT * FROM users WHERE id = ?",id,(err, res) => {
+    if (err) {
+      result(err, null);
+      return;
+    } else {
+      result(null, res);
+      return;
+    }
+  });
+};
 Users.login = (email,password, result ) => {
   sql.query("SELECT * FROM users WHERE email = ? ", email,password, (err, res) => {
     if (err) {
@@ -65,7 +76,7 @@ Users.login = (email,password, result ) => {
 // modifier un utilisateur avec son id
 Users.update = (email,id) => {
   return new Promise((result) => {
-    sql.query(`UPDATE users SET email = '${email}' WHERE id = '${id}'`, (err, res) => {
+    sql.query(`UPDATE users SET email = ? WHERE id = ?`,[email,id], (err, res) => {
       if (err) { 
         result( err);
         return;
@@ -78,6 +89,7 @@ Users.update = (email,id) => {
   )};
 // Telecharger photo de profil 
   Users.photo = (photo,id, result) => {
+    return new Promise((result) => {
       sql.query(`UPDATE users SET photo = ?  WHERE id = ?`,[photo,id], (err, res) => {
         if (err) { 
           result( err);
@@ -87,7 +99,8 @@ Users.update = (email,id) => {
          return;
           }
       });
-    };
+    },
+    )};
 // Suprimer un utilisateur avec son id
 Users.delete = (id, result) => {
   sql.query("DELETE FROM users WHERE id = ? ",id, (err, res) => {

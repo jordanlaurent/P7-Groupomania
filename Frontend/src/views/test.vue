@@ -1,14 +1,24 @@
 <template>
- <div id="userModify-container">
-        <h1>Modifier votre profil</h1>
-        <form action="submit" @submit.prevent="editProfil" class="user-modify" enctype="multipart/form-data">                                                                                                                                              
-            <div class="form-group">
-                <label for="file" class="label-profil-group" id="label-file">Changer votre avatar</label>
-                <input type="file" id="file" name="image" ref="file" accept="image/png, image/jpeg, image/jpg" @change="handleFileUpload()">
-            </div>
-            <button id="submit-profil">Publier profil</button>
-    
-        </form>                                                                              
+ <div id="userModify-container">          
+         <b-button id="show-btn" class="btn-success" @click="showModalComment"
+      >Modifier mon message</b-button
+    >
+    <b-modal
+      ref="my-modalComment"
+      id="name-input"
+      hide-footer
+      title="Etes vous sur de vouloir modifer votre message ?"
+    >
+      <b-form-input
+        id="name-input"
+        v-model="commentChanged"
+        required
+      ></b-form-input>
+      <b-button @click.prevent="ChangedComment" class="mt-3 btn-success" block
+        >Valider</b-button
+      >
+      <b-button class="mt-2" block @click="toggleModalComment">Annuler</b-button>
+    </b-modal>                                                                   
     </div>
 </template>
 
@@ -25,6 +35,13 @@ export default {
     }
   },
   methods: {
+       showModalComment() {
+      this.$refs["my-modalComment"].show();
+    }, toggleModalComment() {
+      // We pass the ID of the button that we want to return focus to
+      // when the modal has hidden
+      this.$refs["my-modalComment"].toggle("#toggle-btn");
+    },
     handleFileUpload() {
         this.file = this.$refs.file.files[0];
         },
@@ -32,9 +49,6 @@ export default {
             const formData = new FormData();
             formData.append('image', this.file)
             formData.append('userid', this.userid)
-            console.log(formData)
-            console.log(this.userid)
-            console.log(this.file)
             axios.put('http://localhost:3000/test' , formData, {
                 headers : {'Content-Type' : 'multipart/form-data'}
             })

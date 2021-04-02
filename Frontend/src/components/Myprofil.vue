@@ -1,18 +1,21 @@
 <template>
   <div id="MyprofilCover">
+    <div  v-for="user in users" :key="user.message">
     <h2 class="pb-3 dataFont">
       Paramétre du compte de
-      <span class="text-primary h1">{{ name }} {{ prenom }}</span>
+      <span class="text-primary h1">{{ user.name }} {{ user.prenom }}</span>
     </h2>
-  <div id='main'>
-<input type="file" @change="onFileChanged">
-<button @click="onUpload">Upload!</button>
-  </div>
+  <form action="submit" @submit.prevent="editProfil" class="user-modify" enctype="multipart/form-data">                                                                                                                                              
+            <div class="form-group">
+                <label for="file" class="label-profil-group" id="label-file">Changer votre avatar</label>
+                <input type="file" id="file" name="image" ref="file" accept="image/png, image/jpeg, image/jpg" @change="handleFileUpload()">
+            </div>
+            <button id="submit-profil">Publier profil</button>
+  </form>
 <hr>
-  {{ photo }} 
-    <h4>Votre Biographie : <cite class="text-success h4"> {{ bio }} </cite> </h4>
-    <img :src="photo" class="pb-3" />
-    <h2 class="pb-3 dataFont">{{ email }}</h2>
+  <img :src="user.photo" class="pb-3" />
+    <h4>Votre Biographie : <cite class="text-success h4"> {{ user.bio }} </cite> </h4>
+    <h2 class="pb-3 dataFont">{{ user.email }}</h2>
 
     <b-button id="show-btn" class="btn-success" @click="showModalMail"
       >Modifier mon adresse email</b-button
@@ -50,6 +53,7 @@
         <b-button class="mt-2" block @click="toggleModal">Annuler</b-button>
       </b-modal>
     </div>
+    </div>
   </div>
 </template>
 
@@ -80,23 +84,15 @@ export default {
   name: "Myprofil",
   data() {
     return {
-      email: null,
-      emaile: null,
-      name: null,
-      prenom: null,
+      users:null,
       emailChanged: "",
       modalShow: false,
-      bio: null,
-      password: null,
       passwordChanged:"",
-      photo:null,
-      selectedFile: null,
+       file: '',
+      userid : localStorage.getItem("jwt")
     };
   },
   methods: {
-    test() {
-    this.file = this.$refs.file.files[0];
-    },
     showModal() {
       this.$refs["my-modal"].show();
     },
@@ -116,29 +112,18 @@ export default {
       this.$refs["my-modalEmail"].toggle("#toggle-btn");
     },toggleModalPassword() {
       this.$refs["my-modalPassword"].toggle("#toggle-btn");
-    }, onFileChanged (event) {
-    this.selectedFile = event.target.files[0]
-  },
-  onUpload() {
-    const formData = new FormData();
-     formData.append('myFile', this.selectedFile )
-      axios
-      .put('http://localhost:3000/photo',{ 
-             userid: localStorage.getItem("jwt"),
-             data:formData,
-             headers: { "Content-Type": "multipart/form-data" },
-        })
-      .then((response) => {
-        //  this.photo = formData
-        //  let user = JSON.parse(localStorage.getItem("user"))
-        //  user.photo = formData
-        //  localStorage.setItem("user",JSON.stringify(user))
-         //this.$router.go(0);
-         console.log(response)
-      }) .catch ((err) => {
-          console.log(err.response)
-      })
-    },
+    }, handleFileUpload() {
+        this.file = this.$refs.file.files[0];
+        },
+     editProfil() {
+            const formData = new FormData();
+            formData.append('image', this.file)
+             formData.append('userid', this.userid)
+            axios.put('http://localhost:3000/photo' , formData, {
+                headers : {'Content-Type' : 'multipart/form-data'}
+            })
+                this.$router.go(0);
+        },
     ChangedEmail() {
       axios
         .put("http://localhost:3000/update", {
@@ -169,12 +154,13 @@ export default {
     },
   },
   mounted() {
-    let user = JSON.parse(localStorage.getItem("user"))
-    this.email = user.email
-    this.name = user.name
-    this.prenom = user.prenom
-      this.photo = user.photo
-      this.bio = user.bio
-  },
-};
+  axios.post("http://localhost:3000/user",
+        {
+            userid: localStorage.getItem("jwt"),
+          }).then((response) => {
+            console.log(response.data)
+      this.users = response.data  
+     })
+   }
+  }
 </script>
