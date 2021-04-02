@@ -7,19 +7,15 @@
     <div>
       <div class="card mt-2 postView" v-for="message in message" :key="message">
         <div class="card-body notes test">
-          <h5 class="card-title text-primary">PRENOM DE L'UTILISATEUR</h5>
+          <h5 class="card-title text-primary"> <img :src="message.photo" class="image--cover"> {{ message.name}} {{ message.prenom}}</h5>
           <p class="card-text">{{ message.message }}</p>
         </div>
         <!-- <img src="../assets/image/posttest.jpg" class="card-img-top" alt="..."> -->
         <hr />
-        <small class="text-muted">{{
-          message.datemessage | moment("DD-MM-YYYY, HH:mm:ss ")
+        <small>{{
+          message.Datemessage | moment("DD-MM-YYYY, HH:mm:ss ")
         }}</small>
         <hr />
-        <ul class="bottomSocial">
-          <i class="far fa-heart text-danger"><p>Like</p></i>
-          <i class="fas fa-comment-alt pl-3"><p>Commenter</p></i>
-        </ul>
       </div>
     </div>
   </div>
@@ -32,6 +28,14 @@
 p {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: normal;
+}
+.image--cover {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+
+  object-fit: cover;
+  object-position: center;
 }
 </style>
 

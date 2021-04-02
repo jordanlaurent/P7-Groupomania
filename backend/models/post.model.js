@@ -23,7 +23,7 @@ Post.create = (newPost, result) => {
 
 //CHERCHER UN POSTS
 Post.search = (message,result) => {
-  sql.query("SELECT * FROM post WHERE message LIKE CONCAT('%',?,'%') ",message,(err, res) => {
+  sql.query("SELECT * FROM post INNER JOIN users ON post.idusers = users.id WHERE message LIKE CONCAT('%',?,'%') ORDER BY datemessage DESC",message,(err, res) => {
     if (err) {
       result(err, null);
       return;
