@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const post = require("../controllers/post.controller.js");
+const multer = require('../middleware/multer-config');
 
 // Create un nouveaux post
-router.post("/post/create", post.create);
+router.post("/post/create",multer, post.create);
 
 // Recuperer tout les post
 router.get("/post", post.findAll);

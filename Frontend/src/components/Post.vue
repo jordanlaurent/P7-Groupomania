@@ -4,7 +4,8 @@
     <div class="card mt-2 postView rounded-0 "  v-for="info in infos" :key="info.message">
       <div class="card-body " >
         <h5 class="card-title text-primary"> <img :src="info.photo" class="image--cover" > {{ info.name }} {{ info.prenom }}</h5>
-        <p class="card-text">{{ info.message }} </p>
+        <p class="card-text">{{ info.message }}  </p>
+        <img :src="info.image" class="img-fluid w-50" >
       </div>
       <small class="text-muted">{{ info.datemessage | moment("DD-MM-YYYY, HH:mm:ss ")}}
         <!-- bouton supprimer un post -->
@@ -18,7 +19,7 @@
                     <p>{{com.comment}} </p>
         
       <!-- bouton modifier commentaire -->
-           <b-button id="show-btn" class="btn-success" @click="showModalComment">Modifier mon message</b-button>
+           <b-button id="show-btn" class="btn-success" @click="showModalComment" :data-id="com.id" v-if="com.idusers == user.id">Modifier mon message</b-button>
     <b-modal ref="my-modalComment" id="name-input"  title="Etes vous sur de vouloir modifer votre message ?">
       <b-form-input id="name-input" v-model="commentChanged" required></b-form-input>
       <b-button @click.prevent="ChangedComment" class="mt-3 btn-success" block>Valider</b-button

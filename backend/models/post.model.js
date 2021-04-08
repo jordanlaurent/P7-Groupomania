@@ -6,6 +6,7 @@ const Post = function(post) {
   this.id = post.id;
   this.Datemessage = post.Datemessage
   this.idusers = post.idusers
+  this.image = post.image
 };
 
 //AJOUTER UN POST DANS la base de données

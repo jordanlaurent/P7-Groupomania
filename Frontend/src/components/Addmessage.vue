@@ -1,5 +1,5 @@
 <template>
-  <form @submit="postData" method="post" class="card text-center">
+  <form @submit.prevent="postData" method="post" class="card text-center">
     <hr class="topMessage" />
     <div class="card-header">
       Poster un message
@@ -22,11 +22,8 @@
     <div class="card-body">
       <div class="input-group form">
         <input id="message" name="message" v-model="message" type="text" placeholder="Quel message voulez vous postez ?" class="form-control form-control-lg" required/>
-      </div><button id="image" name="image" type="button" class="mt-2 mb-2 mr-4 btn btn-secondary">Image
-        <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image"  viewBox="0 0 16 16"> <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-          <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/>
-        </svg>
-      </button>
+      </div>
+       <input type="file" id="file" name="image" ref="file" accept="image/png, image/jpeg, image/jpg" @change="handleFileUpload()">
       <button @click.prevent="postData" class="btn pr-5 pl-5  btnpost" type="submit" 
         >PUBLIER
       </button>
@@ -52,30 +49,25 @@ export default {
   data() {
     return {
       message: "",
-      image: "",
+      file: "",
       errors: false,
+      userid : localStorage.getItem("jwt")
     };
   },
   methods: {
-    postData(e) {
-      e.preventDefault();
-
-      var optionAxios = {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+    handleFileUpload() {
+        this.file = this.$refs.file.files[0];
+        console.log(this.file)
         },
-      };
-      // crée un poste
-      axios
-        .post(
-          "http://localhost:3000/post/create",
-          {
-            userid: localStorage.getItem("jwt"),
-            message: this.message,
-            image: this.image,
-          },
-          { optionAxios }
-        )
+    postData() {
+       const formData = new FormData();
+            formData.append('image', this.file)
+             formData.append('message', this.message)
+             formData.append('userid', this.userid)
+         console.log(formData)
+            axios.post('http://localhost:3000/post/create' , formData, {
+                headers : {'Content-Type' : 'multipart/form-data'}
+            })
         .then((response) => {
           this.$router.go(0); // refresh de la page
           console.log(response);

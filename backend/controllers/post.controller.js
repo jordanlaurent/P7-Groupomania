@@ -5,12 +5,13 @@ const { post } = require("../routes/post.routes.js");
 const tokenSecret = "RANDOM_TOKEN_SECRET";
 // crée un post
 exports.create = (req, res, next) => {
+  console.log(req.body.userid)
   let token = req.body.userid;
   let decodeToken = jwt.verify(token, tokenSecret);
   let userid = decodeToken.id;
   console.log(userid);
   let message = req.body.message;
-  let image = req.body.image;
+  const image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
   // requete de l'id de l'utilisateur puis push dans this.id = post.idusers;
   // si le message est vide alors non envoyé
   if (message == "") {
