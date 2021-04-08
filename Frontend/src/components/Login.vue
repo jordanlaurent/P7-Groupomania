@@ -1,54 +1,30 @@
 <template>
   <div id="loginflat" class="text-center">
     <img src="../assets/image/logo.png" class="logo" />
-    <form @submit="postData" method="post" class="bg text-light p-5">
-      <h4>CONNEXION</h4>
-      <section class="popup" v-if="posts.errors">
-        <p class="pt-2 text-light popuptext h5">
+      <form @submit="postData" method="post" class="bg text-light p-5">
+        <h4>CONNEXION</h4>
+        <section class="popup" v-if="posts.errors">
+          <p class="pt-2 text-light popuptext h5">
           Nous sommes désolés, les informations saisie ne corresponde <br />à
           aucun compte veuillez verifier votre email et votre mots de passe.
-        </p>
-      </section>
-      <div class="form-group">
-        <label>Email </label>
-        <input
-          id="email"
-          type="email"
-          class="form-control form-control-lg"
-          name="email"
-          v-model="posts.email"
-          required
-        />
-      </div>
-
-      <label>Mots de passe</label>
-      <div class="input-group mb-3">
-        <input
-          v-bind:type="[showPassword ? 'text' : 'password']"
-          class="form-control"
-          id="password"
-          name="password"
-          v-model="posts.password"
-          required
-        />
-        <div class="input-group-append">
-          <span class="input-group-text" @click="showPassword = !showPassword">
-            <i
-              class="fa"
-              :class="[showPassword ? 'fa-eye' : 'fa-eye-slash']"
-              aria-hidden="true"
-            ></i>
-          </span>
+          </p>
+        </section>
+        <div class="form-group">
+         <label>Email </label>
+          <input id="email" type="email" class="form-control form-control-lg" name="email" v-model="posts.email" required/>
         </div>
-      </div>
-
-      <button type="submit" class="btn btn-dark btn-lg btn-block">
-        Connexion
-      </button>
-
-      <p class="forgot-password text-right">
-        Pas encore inscrit ?
-        <router-link to="/Inscription">s'enregistrer</router-link>
+        <label>Mots de passe</label>
+        <div class="input-group mb-3">
+          <input v-bind:type="[showPassword ? 'text' : 'password']" class="form-control" id="password" name="password" v-model="posts.password" required/>
+          <div class="input-group-append">
+            <span class="input-group-text" @click="showPassword = !showPassword">
+            <i class="fa" :class="[showPassword ? 'fa-eye' : 'fa-eye-slash']" aria-hidden="true"></i>
+            </span>
+          </div>
+        </div>
+      <button type="submit" class="btn btn-dark btn-lg btn-block">Connexion </button>
+      <p class="forgot-password text-right">Pas encore inscrit ?
+      <router-link to="/Inscription">s'enregistrer</router-link>
       </p>
     </form>
     <p class="t2"></p>

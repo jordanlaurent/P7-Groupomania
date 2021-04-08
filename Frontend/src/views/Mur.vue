@@ -36,84 +36,38 @@ export default {
   updated: function () {
     document.title = "Groupomania";
     var jwt = localStorage.getItem("jwt");
-    if (jwt != null) {
-      console.log("succes");
-    } else {
-      localStorage.clear();
-      console.log("jwt vide");
-      //localStorage.setItem('jwt');
-      window.location = "/Connexion";
-    }
+      if (jwt != null) {
+        console.log("");
+      } else {
+        localStorage.clear();
+        window.location = "/Connexion";
+      }
   },
 };
 </script>
 <style lang="scss">
-#app {
-  padding: 0px;
-}
-#profil {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1;
-}
-#Mur {
-  position: inherit;
-  top: 0;
-  bottom: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  text-align: center;
-  color: #000000;
-  text-decoration: none; 
-}
-#search {
-  margin-top: 1%;
-  background-image: url("../assets/image/graffiti.jpg");
-  padding: 60px;
-  background-position: right;
-}
-#messagedisplay {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  padding-top: 7%;
-}
+#app {padding: 0px;}
+#profil {position: fixed; top: 0; width: 100%; z-index: 1;}
+#Mur {position: inherit; top: 0; bottom: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-align: center; color: #000000; text-decoration: none; }
+#search { margin-top: 1%; background-image: url("../assets/image/graffiti.jpg"); padding: 60px; background-position: right;}
+#messagedisplay {display: flex; flex-direction: column; align-content: center; padding-top: 7%;}
 .colorBackIcone{display: flex; justify-content: flex-end;}
 
 @media (min-width: 1920px) {
-  #messagedisplay {
-    margin-right: 20%;
-    margin-left: 20%;
-  }
-  #profil {
-    margin-bottom: 7%;
-  }
+  #messagedisplay {margin-right: 20%; margin-left: 20%;}
+  #profil {margin-bottom: 7%;}
 }
 @media (max-width: 1920px) {
-  #messagedisplay {
-    margin-right: 20%;
-    margin-left: 20%;
-    padding-top: 10%;
-  }
+  #messagedisplay { margin-right: 20%; margin-left: 20%; padding-top: 10%;}
   .logo{top: 8%;}
-  #profil {
-    margin-bottom: 7%;
-  }
+  #profil {margin-bottom: 7%;}
 }
 @media (max-width: 1360px) {
-  #messagedisplay {
-    margin-right: 0%;
-    margin-left: 0%;
-  }
-  #profil {
-    margin-bottom: 7%;
-  }
+  #messagedisplay {margin-right: 0%; margin-left: 0%;}
+  #profil {margin-bottom: 7%;}
 }
 @media (max-width: 720px) {
-  .t1,
-  .t2 {
-    display: none;
-  }
+  .t1,.t2 {display: none;}
   .bg{background: rgba(255, 255, 240, 0);}
   .logo{top: 6%;}
 }

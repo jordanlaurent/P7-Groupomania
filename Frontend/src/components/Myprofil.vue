@@ -1,55 +1,33 @@
 <template>
   <div id="MyprofilCover">
     <div  v-for="user in users" :key="user.message">
-    <h2 class="pb-3 dataFont">Paramétre du compte de  <span class="text-primary h1"> {{ user.name }} {{ user.prenom }}</span> </h2>
-<hr>
-  <img :src="user.photo" class="pb-3" />
-    <h4>Votre Biographie : <cite class="text-success h4"> {{ user.bio }} </cite> </h4>
-    <h2 class="pb-3 pl-3 text-secondary  dataFont">{{ user.email }}</h2>
+      <h2 class="pb-3 dataFont">Paramétre du compte de  <span class="text-primary h1"> {{ user.name }} {{ user.prenom }}</span> </h2>
+      <hr>
+      <img :src="user.photo" class="pb-3" />
+      <h4>Votre Biographie : <cite class="text-success h4"> {{ user.bio }} </cite> </h4>
+      <h2 class="pb-3 pl-3 text-secondary  dataFont">{{ user.email }}</h2>
     </div>
-      <form action="submit" @submit.prevent="editProfil" class="user-modify" enctype="multipart/form-data">                                                                                                                                              
-            <div class="form-group">
-                <label for="file" class="label-profil-group" id="label-file">Changer votre avatar</label>
-                <input type="file" id="file" name="image" ref="file" accept="image/png, image/jpeg, image/jpg" @change="handleFileUpload()">
-            <button id="submit-profil">Publier profil</button>
-            </div>
-  </form>
-    <b-button id="show-btn" class="btn-success" @click="showModalMail"
-      >Modifier mon adresse email</b-button
-    >
-    <b-modal
-      ref="my-modalEmail"
-      id="name-input"
-      hide-footer
-      title="Etes vous sur de vouloir modifer votre adresse email ?"
-    >
-      <b-form-input
-        id="name-input"
-        v-model="emailChanged"
-        placeholder="VotreEmail@outlook.fr"
-        required
-      ></b-form-input>
-      <b-button @click.prevent="ChangedEmail" class="mt-3 btn-danger" block
-        >Valider</b-button
-      >
-      <b-button class="mt-2" block @click="toggleModalMail">Annuler</b-button>
-    </b-modal>
-    <br />
-    <div>
-      <b-button id="show-btn" class="btn-danger" @click="showModal"
-        >Supprimer mon compte</b-button
-      >
-      <b-modal
-        ref="my-modal"
-        hide-footer
-        title="Etes vous sur de vouloir supprimer votre compte ?"
-      >
-        <b-button @click.prevent="delecteAccount" class="mt-3 btn-danger" block
-          >Valider</b-button
-        >
-        <b-button class="mt-2" block @click="toggleModal">Annuler</b-button>
-      </b-modal>
-    </div>
+    <form action="submit" @submit.prevent="editProfil" class="user-modify" enctype="multipart/form-data">                                                                                                                                              
+      <div class="form-group">
+        <label for="file" class="label-profil-group" id="label-file">Changer votre avatar</label>
+        <input type="file" id="file" name="image" ref="file" accept="image/png, image/jpeg, image/jpg" @change="handleFileUpload()">
+        <button id="submit-profil">Publier profil</button>
+      </div>
+    </form>
+      <b-button id="show-btn" class="btn-success" @click="showModalMail">Modifier mon adresse email</b-button>
+      <b-modal ref="my-modalEmail" id="name-input" hide-footer title="Etes vous sur de vouloir modifer votre adresse email ?">
+        <b-form-input id="name-input" v-model="emailChanged" placeholder="VotreEmail@outlook.fr" required></b-form-input>
+          <b-button @click.prevent="ChangedEmail" class="mt-3 btn-danger" block>Valider</b-button>
+          <b-button class="mt-2" block @click="toggleModalMail">Annuler</b-button>
+        </b-modal>
+        <br/>
+      <div>
+        <b-button id="show-btn" class="btn-danger" @click="showModal">Supprimer mon compte</b-button>
+        <b-modal ref="my-modal" hide-footer title="Etes vous sur de vouloir supprimer votre compte ?">
+          <b-button @click.prevent="delecteAccount" class="mt-3 btn-danger" block>Valider</b-button>
+          <b-button class="mt-2" block @click="toggleModal">Annuler</b-button>
+        </b-modal>
+      </div>
   </div>
 </template>
 
@@ -59,7 +37,6 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-
   align-items: center;
   margin-top: 5%;
   background-color: rgb(31, 29, 29);
@@ -67,9 +44,7 @@
   padding: 10%;
 }
 @media (max-width: 1360px) {
-  .dataFont {
-    font-size: 1.5rem;
-  }
+  .dataFont {font-size: 1.5rem;}
 }
 </style>
 
@@ -98,13 +73,9 @@ export default {
       this.$refs["my-modalPassword"].show();
     },
     toggleModal() {
-      // We pass the ID of the button that we want to return focus to
-      // when the modal has hidden
       this.$refs["my-modal"].toggle("#toggle-btn");
     },
     toggleModalMail() {
-      // We pass the ID of the button that we want to return focus to
-      // when the modal has hidden
       this.$refs["my-modalEmail"].toggle("#toggle-btn");
     },toggleModalPassword() {
       this.$refs["my-modalPassword"].toggle("#toggle-btn");

@@ -8,58 +8,38 @@
         <img :src="info.image" class="img-fluid w-50" >
       </div>
       <small class="text-muted">{{ info.datemessage | moment("DD-MM-YYYY, HH:mm:ss ")}}
-        <!-- bouton supprimer un post -->
-         <button id="buttonDeletePost" @click.prevent="deletePost" class="btn-danger btn-sm btn float-right ml-1" :data-id="info.id" v-if="info.idusers == user.id">x </button></small>
-       
-      <hr />
+      <!-- bouton supprimer un post -->
+      <button id="buttonDeletePost" @click.prevent="deletePost" class="btn-danger btn-sm btn float-right ml-1" :data-id="info.id" v-if="info.idusers == user.id">x </button></small>
+      <hr/>
       <!-- afficher les commentaires -->
       <div class="container"> 
-       <span  v-for="com in coms" :key="com.message" class="comment mt-4 text-justify float-left col"> <img :src="com.photo" alt="" class="rounded-circle" width="40" height="40">
-                    <h4>{{ com.name}} {{ com.prenom}}</h4> <span> {{com.datecomment | moment("DD/MM/YYYY ")}}</span> <br>
-                    <p>{{com.comment}} </p>
-        
-      <!-- bouton modifier commentaire -->
-           <b-button id="show-btn" class="btn-success" @click="showModalComment" :data-id="com.id" v-if="com.idusers == user.id">Modifier mon message</b-button>
-    <b-modal ref="my-modalComment" id="name-input"  title="Etes vous sur de vouloir modifer votre message ?">
-      <b-form-input id="name-input" v-model="commentChanged" required></b-form-input>
-      <b-button @click.prevent="ChangedComment" class="mt-3 btn-success" block>Valider</b-button
-      >
-      <b-button class="mt-2" block @click="toggleModalComment">Annuler</b-button>
-    </b-modal>   
-    <!-- bouton supprimer commentaire -->
-     <button id="buttonDeleteComment" @click.prevent="delecteComment" class="btn-danger btn-sm btn float-right ml-1" :data-id="com.id" v-if="com.idusers == user.id"> x </button>
-      <hr>
-      </span>
+        <span  v-for="com in coms" :key="com.message" class="comment mt-4 text-justify float-left col"> <img :src="com.photo" alt="" class="rounded-circle" width="40" height="40">
+          <h4>{{ com.name}} {{ com.prenom}}</h4> <span> {{com.datecomment | moment("DD/MM/YYYY ")}}</span> <br>
+          <p>{{com.comment}} </p>
+          <!-- bouton modifier commentaire -->
+          <b-button id="show-btn" class="btn-success" @click="showModalComment" :data-id="com.id" v-if="com.idusers == user.id">Modifier mon message</b-button>
+          <b-modal ref="my-modalComment" id="name-input"  title="Etes vous sur de vouloir modifer votre message ?">
+            <b-form-input id="name-input" v-model="commentChanged" required></b-form-input>
+            <b-button @click.prevent="ChangedComment" class="mt-3 btn-success" block>Valider</b-button>
+            <b-button class="mt-2" block @click="toggleModalComment">Annuler</b-button>
+          </b-modal>   
+          <!-- bouton supprimer commentaire -->
+          <button id="buttonDeleteComment" @click.prevent="delecteComment" class="btn-danger btn-sm btn float-right ml-1" :data-id="com.id" v-if="com.idusers == user.id"> x </button>
+          <hr>
+        </span>
       </div>
       <!-- bouton crée un commentaire -->
-       <input name="comment" v-model="comment" type="text"  placeholder="Poster un commentaire" class="form-control "   required />
-         <button @click.prevent="postData" class="btn-success" type="button" >COMMENTER</button>
+      <input name="comment" v-model="comment" type="text"  placeholder="Poster un commentaire" class="form-control "   required />
+      <button @click.prevent="postData" class="btn-success" type="button" >COMMENTER</button>
     </div>
   </div>
 </template>
 <style lang="css" scoped>
-.postView {
-  margin-bottom: 5%;
-}
-.bottomSocial {
-  display: flex;
-}
-p {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-weight: normal;
-}
-.image--cover {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-
-  object-fit: cover;
-  object-position: center;
-}
-.comments {
-    margin-top: 5%;
-    margin-left: 20px
-}
+.postView {margin-bottom: 5%;}
+.bottomSocial {display: flex;}
+p {font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-weight: normal;}
+.image--cover {width: 100px; height: 100px; border-radius: 50%; object-fit: cover; object-position: center;}
+.comments {margin-top: 5%; margin-left: 20px}
 </style>
 
 <script>
@@ -121,8 +101,6 @@ export default {
     // supprimer un post
     deletePost(event) {
       this.idpost = event.target.dataset.id
-      console.log(this.idpost)
-      console.log(event)
       axios
         .delete("http://localhost:3000/post/delete", {
            data: {
