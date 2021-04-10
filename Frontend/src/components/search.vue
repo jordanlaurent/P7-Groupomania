@@ -7,6 +7,7 @@
           <div class="card-body notes test">
             <h5 class="card-title text-primary"> <img :src="message.photo" class="image--cover"> {{ message.name}} {{ message.prenom}}</h5>
             <p class="card-text">{{ message.message }}</p>
+            <img :src="message.image" class="w-25">
           </div>
           <!-- <img src="../assets/image/posttest.jpg" class="card-img-top" alt="..."> -->
           <hr />

@@ -17,6 +17,10 @@
             <button type="button"  @click="profil"  class="btn-dark btn-sm btn-block text-light textToolbar mb-1 rounded-0">PROFIL</button>
           </li>
           <li class="nav-item ">
+            <a @click="membre" class="btndesktop pr-3 btn" >MEMBRES</a>
+            <button type="button"  @click="membre"  class="btn-dark btn-sm btn-block text-light textToolbar mb-1 rounded-0">PROFIL</button>
+          </li>
+          <li class="nav-item ">
             <a @click="disconnect" class="btndesktop pr-3 btn disconnect ">DECONNEXION</a>
             <button type="button" @click="disconnect" class="btn-danger btn-sm btn-block text-light textToolbar rounded-0">DECONNEXION </button>
           </li>
@@ -59,6 +63,14 @@ export default {
         if (jwt != null) {
           this.$router.go(0);
           window.location = "/Profil";
+        } else {
+          window.location = "/Connexion";
+        }
+    },membre() {
+      var jwt = localStorage.getItem("jwt");
+        if (jwt != null) {
+          this.$router.go(0);
+          window.location = "/Membre";
         } else {
           window.location = "/Connexion";
         }

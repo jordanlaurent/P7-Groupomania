@@ -4,32 +4,36 @@
     <div class="card mt-2 postView rounded-0 "  v-for="info in infos" :key="info.message">
       <div class="card-body " >
         <h5 class="card-title text-primary"> <img :src="info.photo" class="image--cover" > {{ info.name }} {{ info.prenom }}</h5>
-        <p class="card-text">{{ info.message }}  </p>
-        <img :src="info.image" class="img-fluid w-50" >
+        <p class="card-text h5 mt-4">{{ info.message }}  </p>
+        <img :src="info.image" class="img-fluid w-50 mt-4" >
       </div>
       <small class="text-muted">{{ info.datemessage | moment("DD-MM-YYYY, HH:mm:ss ")}}
       <!-- bouton supprimer un post -->
-      <button id="buttonDeletePost" @click.prevent="deletePost" class="btn-danger btn-sm btn float-right ml-1" :data-id="info.id" v-if="info.idusers == user.id">x </button></small>
+      <button id="buttonDeletePost" @click.prevent="deletePost" class="btn-danger btn-sm btn float-right ml-1" :data-id="info.id" v-if="info.idusers == user.id  ">x </button></small>
       <hr/>
-      <!-- afficher les commentaires -->
-      <div class="container"> 
-        <span  v-for="com in coms" :key="com.message" class="comment mt-4 text-justify float-left col"> <img :src="com.photo" alt="" class="rounded-circle" width="40" height="40">
-          <h4>{{ com.name}} {{ com.prenom}}</h4> <span> {{com.datecomment | moment("DD/MM/YYYY ")}}</span> <br>
-          <p>{{com.comment}} </p>
-          <!-- bouton modifier commentaire -->
-          <b-button id="show-btn" class="btn-success" @click="showModalComment" :data-id="com.id" v-if="com.idusers == user.id">Modifier mon message</b-button>
-          <b-modal ref="my-modalComment" id="name-input"  title="Etes vous sur de vouloir modifer votre message ?">
-            <b-form-input id="name-input" v-model="commentChanged" required></b-form-input>
-            <b-button @click.prevent="ChangedComment" class="mt-3 btn-success" block>Valider</b-button>
-            <b-button class="mt-2" block @click="toggleModalComment">Annuler</b-button>
-          </b-modal>   
-          <!-- bouton supprimer commentaire -->
-          <button id="buttonDeleteComment" @click.prevent="delecteComment" class="btn-danger btn-sm btn float-right ml-1" :data-id="com.id" v-if="com.idusers == user.id"> x </button>
-          <hr>
+      <!-- afficher les commentaires -->   
+      <div class="container" > 
+        <span  v-for="com in coms" :key="com.message" class="comment mt-4 text-justify float-left col"> 
+          <div v-if="com.postid == info.id">
+            <h4><img :src="com.photo" alt="" class="rounded-circle" width="40" height="40"> {{ com.name}} {{ com.prenom}}</h4> <span class="ml-4 text-secondary"> {{com.datecomment | moment("DD/MM/YYYY ")}}</span> <br>
+            <p class="ml-5 h5 mt-2">{{com.comment}} </p>
+            <!-- bouton modifier commentaire -->
+            <b-button v-b-modal.com :data-id="com.id" v-if="com.idusers == user.id">Modifier commentaire</b-button>
+            <b-modal id="com"  v-if="com.idusers == user.id" title="Etes vous sur de vouloir modifer votre message ?">
+              <b-form-input id="name-input" v-model="commentChanged" required></b-form-input>
+
+              <!-- <b-button @click.prevent="ChangedComment" class="mt-3 btn-success" block>Valider</b-button>
+              <b-button class="mt-2" block @click="toggleModalComment">Annuler</b-button> -->
+
+            </b-modal>
+            <!-- bouton supprimer commentaire -->
+            <button id="buttonDeleteComment" @click.prevent="delecteComment" class="btn-danger btn-sm btn float-right ml-1" :data-id="com.id" v-if="com.idusers == user.id"> x </button>
+          </div>  
+        <hr>
         </span>
       </div>
       <!-- bouton crée un commentaire -->
-      <input name="comment" v-model="comment" type="text"  placeholder="Poster un commentaire" class="form-control "   required />
+      <input @keyup.enter="postData" name="comment" v-model="comment" type="text"  placeholder="Poster un commentaire" class="form-control "   required />
       <button @click.prevent="postData" class="btn-success" type="button" >COMMENTER</button>
     </div>
   </div>

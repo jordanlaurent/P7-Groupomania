@@ -21,7 +21,7 @@ Comment.create = (newComment, result) => {
   };
 
   Comment.findAll = (result) => {
-    sql.query("SELECT comment,datecomment,postid,name,prenom,idusers,photo,comment.id FROM comment INNER JOIN users ON comment.idusers = users.id ",(err, res) => {
+    sql.query("SELECT comment,active,datecomment,postid,name,prenom,idusers,photo,comment.id FROM comment INNER JOIN users ON comment.idusers = users.id ",(err, res) => {
       if (err) {
         result(err, null);
         return;

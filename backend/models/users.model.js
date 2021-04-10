@@ -53,6 +53,18 @@ Users.findOne = (id,result) => {
     }
   });
 };
+
+Users.findAll = (result) => {
+  sql.query("SELECT * FROM users ",(err, res) => {
+    if (err) {
+      result(err, null);
+      return;
+    } else {
+      result(null, res);
+      return;
+    }
+  });
+};
 Users.login = (email,password, result ) => {
   sql.query("SELECT * FROM users WHERE email = ? ", email,password, (err, res) => {
     if (err) {

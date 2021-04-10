@@ -16,6 +16,9 @@
   
     // Recuperer info user
     router.post("/user", users.findOne);
+
+    // Recuperer tout les  user
+    router.get("/users", users.findAll);
     // Mettre à jour un compte avec son id
     router.put("/update", users.update);
   

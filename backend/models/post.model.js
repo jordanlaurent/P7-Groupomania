@@ -37,7 +37,7 @@ Post.search = (message,result) => {
 
 //TROUVER TOUS LES POSTS
 Post.findAll = (result) => {
-  sql.query("SELECT message , datemessage, image,name,photo,prenom,post.id,idusers FROM post INNER JOIN users ON post.idusers = users.id ORDER BY datemessage DESC",(err, res) => {
+  sql.query("SELECT message ,active, datemessage, image,name,photo,prenom,post.id,idusers FROM post INNER JOIN users ON post.idusers = users.id ORDER BY datemessage DESC",(err, res) => {
     if (err) {
       result(err, null);
       return;

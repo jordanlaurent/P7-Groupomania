@@ -67,8 +67,14 @@ exports.findOne = (req, res) => {
     else res.send(data);
     });
 };
-
-
+// recuperer tout les utilisateur 
+exports.findAll = (req, res) => {
+  User.findAll((err, data) => {
+    if (err)res.status(500).send({message:err.message || "Some error occurred while retrieving post."});
+    else res.send(data);
+    
+  });
+};
 // fontcion connecter utilisateur
 exports.login = (req, res) => {
   let email = req.body.email;
