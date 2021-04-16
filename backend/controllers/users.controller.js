@@ -7,13 +7,12 @@ const User = require("../models/users.model.js");
 // Cree et enregistrer un nouveaux compte
 exports.signup = (req, res, next) => {
   let email = req.body.email;
+  var emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   let password = req.body.password;
   let name = req.body.name;
   let prenom = req.body.prenom
-  //let photo = JSON.parse(req.body.photo);
   let bio = req.body.bio;
-  //console.log(photo)
-  if (!email) {
+  if (!email || !email.match(emailformat) ) {
     return res.status(400).send({ error: "L'adresse mail doit etre correctement remplie" });
   } if (!password) {
     return res.status(400).send({ error: "Le mot de passe doit etre correctement remplie" });
@@ -67,7 +66,7 @@ exports.findOne = (req, res) => {
     else res.send(data);
     });
 };
-// recuperer tout les utilisateur 
+// recuperer tout les utilisateur
 exports.findAll = (req, res) => {
   User.findAll((err, data) => {
     if (err)res.status(500).send({message:err.message || "Some error occurred while retrieving post."});
@@ -75,6 +74,7 @@ exports.findAll = (req, res) => {
     
   });
 };
+
 // fontcion connecter utilisateur
 exports.login = (req, res) => {
   let email = req.body.email;
@@ -104,13 +104,31 @@ exports.photo = (req,res, next) => {
   let token = req.body.userid;
   let decodeToken = jwt.verify(token, tokenSecret);
   let id = decodeToken.id;
-  const photo = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-User.photo(photo,id,(err, data) => {
-    if (err)
-     res.status(500).send({message: err.message || "utilisateur non trouvé"});
-     else  res.status(200).json(data)
-     console.log(data)
-    })
+  const photoNew = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`; 
+  User.findOne(id, (err, data) => {
+    console.log(data[0].photo)
+    if(data[0].photo){
+      const photoUrl = data[0].photo.replace("http://localhost:3000/","");
+      console.log(photoUrl)
+      fs.unlink(photoUrl, () => {
+        User.photo(photoNew,id,(err, data) => {
+          if (err)
+           res.status(500).send({message: err.message || "utilisateur non trouvé"});
+           else  res.status(200).json(data)
+           console.log(data)
+        })
+      })
+    }else{
+      User.photo(photoNew,id,(err, data) => {
+          if (err)
+           res.status(500).send({message: err.message || "utilisateur non trouvé"});
+           else  res.status(200).json(data)
+           console.log(data)
+        })
+    }
+    
+
+  })
 };
 
 // Mettre à jour un compte identifié par le usersId dans la demande
@@ -137,6 +155,18 @@ exports.delete = (req, res, next) => {
   let decodeToken = jwt.verify(token, tokenSecret);
   let id = decodeToken.id;
   User.delete(id, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Ce port n'existe pas."
+      });
+    else res.send(data);
+  });
+};
+
+exports.Admindelete = (req, res, next) => {
+  let id = req.body.id;
+  User.Admindelete(id, (err, data) => {
     if (err)
       res.status(500).send({
         message:

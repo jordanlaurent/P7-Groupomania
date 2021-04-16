@@ -42,7 +42,6 @@ Users.findOneByEmail = (email, result) => {
 };
 
 Users.findOne = (id,result) => {
-  console.log(id)
   sql.query("SELECT * FROM users WHERE id = ?",id,(err, res) => {
     if (err) {
       result(err, null);
@@ -53,6 +52,7 @@ Users.findOne = (id,result) => {
     }
   });
 };
+
 
 Users.findAll = (result) => {
   sql.query("SELECT * FROM users ",(err, res) => {
@@ -126,4 +126,16 @@ Users.delete = (id, result) => {
   });
 };
 
+
+Users.Admindelete = (id, result) => {
+  sql.query("DELETE users, post FROM users LEFT JOIN post ON post.idusers = users.id WHERE users.id = ? ",id, (err, res) => {
+    if (err) {
+      result(err, null);
+      return;
+      } else {
+      result(null, res);
+      return;
+      }
+  });
+};
 module.exports = Users;
