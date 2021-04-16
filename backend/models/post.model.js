@@ -50,7 +50,6 @@ Post.findAll = (result) => {
 
 //MODIFIER UN POST
 Post.modify = (message,id,idusers) => {
-  console.log(message,id,idusers)
   return new Promise((result) => {
     sql.query(`UPDATE post SET message = ? WHERE id = ? AND idusers = ? `, [message,idusers,id],(err, res) => {
       if (err) { 
@@ -66,8 +65,18 @@ Post.modify = (message,id,idusers) => {
 
 //SUPPRIME UN POST
 Post.delete = (id,idusers, result) => {
-  console.log(id,idusers,)
   sql.query("DELETE post, comment FROM post LEFT JOIN comment ON comment.postid = post.id WHERE post.id = ? AND post.idusers = ? ", [id,idusers], (err, res) => {
+    if (err) {
+      result(err, null);
+      return;
+      } else {
+      result(null, res);
+      return;
+      }
+  });
+};
+Post.Admindelete = (id, result) => {
+  sql.query("DELETE post, comment FROM post LEFT JOIN comment ON comment.postid = post.id WHERE post.id = ? ", [id], (err, res) => {
     if (err) {
       result(err, null);
       return;

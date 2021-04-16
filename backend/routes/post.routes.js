@@ -17,4 +17,7 @@ router.put("/post/modify", post.modify);
 // // suprimer un post avec son id
 router.delete("/post/delete", post.delete);
 
+// // suprimer un post avec son id
+router.delete("/post/admin/delete", post.Admindelete);
+
 module.exports = router;

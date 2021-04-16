@@ -71,3 +71,12 @@ Comment.delete(idusers,id, (err, data) => {
     else res.send(data);
   });
 };
+
+  // Admin suprime un commentaire
+  exports.Admindelete = (req, res) => {
+    let id = req.body.id;
+  Comment.Admindelete(id, (err, data) => {
+      if (err)res.status(500).send({message:err.message || "Ce commentaire n'existe pas."});
+      else res.send(data);
+    });
+  };

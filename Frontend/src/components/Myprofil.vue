@@ -1,11 +1,11 @@
 <template>
-  <div id="MyprofilCover">
+  <div id="MyprofilCover" class="mb-5">
     <div  v-for="user in users" :key="user.message">
       <h2 class="pb-3 dataFont">Paramétre du compte de  <span class="text-primary h1"> {{ user.name }} {{ user.prenom }}</span> </h2>
       <hr>
-      <img :src="user.photo" class="pb-3" />
+      <img :src="user.photo" width="340" height="340" class="pb-3 mx-auto d-block" />
       <h4>Votre Biographie : <cite class="text-success h4"> {{ user.bio }} </cite> </h4>
-      <h2 class="pb-3 pl-3 text-secondary  dataFont">{{ user.email }}</h2>
+      <h2 class="pb-3 pl-3 text-secondary  dataFont text-center">{{ user.email }}</h2>
     </div>
     <form action="submit" @submit.prevent="editProfil" class="user-modify" enctype="multipart/form-data">                                                                                                                                              
       <div class="form-group">

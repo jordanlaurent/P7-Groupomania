@@ -34,7 +34,6 @@ Comment.create = (newComment, result) => {
   
 
   Comment.modify = (message,id,idusers) => {
-    console.log(message,id,idusers)
     return new Promise((result) => {
       sql.query(`UPDATE comment SET message = ? WHERE id = ? AND idusers = ? `, [message,idusers,id],(err, res) => {
         if (err) { 
@@ -50,6 +49,17 @@ Comment.create = (newComment, result) => {
 
  Comment.delete = (id,idusers, result) => {
     sql.query(`DELETE FROM comment WHERE id = ? AND idusers = ?  `,[idusers,id], (err, res) => {
+      if (err) {
+        result(err, null);
+        return;
+        } else {
+        result(null, res);
+        return;
+        }
+    });
+  };
+  Comment.Admindelete = (id, result) => {
+    sql.query(`DELETE FROM comment WHERE id = ? `,[id], (err, res) => {
       if (err) {
         result(err, null);
         return;

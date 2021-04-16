@@ -16,4 +16,7 @@ router.put("/post/modify", comment.modify);
 // // // suprimer un post avec son id
  router.delete("/comment/delete", comment.delete);
 
+ // // // ADMIN  suprime un commentaire avec son id
+ router.delete("/comment/admin/delete", comment.Admindelete);
+
 module.exports = router;

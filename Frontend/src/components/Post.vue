@@ -2,14 +2,15 @@
   <div>
     <!-- affficher les post -->
     <div class="card mt-2 postView rounded-0 "  v-for="info in infos" :key="info.message">
-      <div class="card-body " >
+      <div class="card-body ">
         <h5 class="card-title text-primary"> <img :src="info.photo" class="image--cover" > {{ info.name }} {{ info.prenom }}</h5>
         <p class="card-text h5 mt-4">{{ info.message }}  </p>
         <img :src="info.image" class="img-fluid w-50 mt-4" >
-      </div>
-      <small class="text-muted">{{ info.datemessage | moment("DD-MM-YYYY, HH:mm:ss ")}}
+      </div >
+      <small v-for="admin in admins" :key="admin" class="text-muted">{{ info.datemessage | moment("DD-MM-YYYY, HH:mm:ss ")}}
       <!-- bouton supprimer un post -->
-      <button id="buttonDeletePost" @click.prevent="deletePost" class="btn-danger btn-sm btn float-right ml-1" :data-id="info.id" v-if="info.idusers == user.id  ">x </button></small>
+      <button id="buttonDeletePost" @click.prevent="deletePost" class="btn-danger btn-sm btn float-right ml-1" :data-id="info.id" v-if="info.idusers == user.id">x </button>
+       <button id="buttonDeletePost" @click.prevent="AdmindeletePost" class="btn-danger btn-sm btn float-right ml-1" :data-id="info.id" v-if="admin.active == 1 ">Admin suppression </button></small>
       <hr/>
       <!-- afficher les commentaires -->   
       <div class="container" > 
@@ -27,7 +28,9 @@
 
             </b-modal>
             <!-- bouton supprimer commentaire -->
-            <button id="buttonDeleteComment" @click.prevent="delecteComment" class="btn-danger btn-sm btn float-right ml-1" :data-id="com.id" v-if="com.idusers == user.id"> x </button>
+            <small v-for="admin in admins" :key="admin">
+            <button id="buttonDeleteComment" @click.prevent="delecteComment" class="btn-danger btn-sm btn float-right ml-1" :data-id="com.id" v-if="com.idusers == user.id "> x </button>
+            <button id="buttonDeleteComment" @click.prevent="AdmindelecteComment" class="btn-danger btn-sm btn float-right ml-1" :data-id="com.id" v-if=" admin.active == 1"> Admin suppression </button></small>
           </div>  
         <hr>
         </span>
@@ -59,16 +62,9 @@ export default {
       idpost:"",
       user :'',
       modalShow: false,
+      admins: null,
     };
   },methods: { 
-    // afficher, masquer modifier commentaire
-  showModalComment() {
-      this.$refs["my-modalComment"].show();
-    }, toggleModalComment() {
-      // We pass the ID of the button that we want to return focus to
-      // when the modal has hidden
-      this.$refs["my-modalComment"].toggle("#toggle-btn");
-    },
       // envoie api nouveaux commentaire
       ChangedComment(event) {
        this.idcomment = event.target.dataset.id
@@ -120,6 +116,23 @@ export default {
           console.log(err);
         });
     }, 
+    // admin supprime un post
+    AdmindeletePost(event) {
+      this.idpost = event.target.dataset.id
+      axios
+        .delete("http://localhost:3000/post/admin/delete", {
+           data: {
+            id: this.idpost,
+           }
+        })
+        .then((response) => {
+          this.$router.go(0);
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, 
     // supprimer un commentaire
     delecteComment(event) {
       this.idcomment = event.target.dataset.id
@@ -127,6 +140,22 @@ export default {
         .delete("http://localhost:3000/comment/delete", {
            data: {
              userid: localStorage.getItem("jwt"),
+            id: this.idcomment,
+           }
+        })
+        .then((response) => {
+          this.$router.go(0);
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, // admin supprime commentaire
+     AdmindelecteComment(event) {
+      this.idcomment = event.target.dataset.id
+       axios
+        .delete("http://localhost:3000/comment/admin/delete", {
+           data: {
             id: this.idcomment,
            }
         })
@@ -146,7 +175,15 @@ export default {
      }),
      axios.get("http://localhost:3000/comment").then((response) => {
       this.coms = response.data
-     })
+     }), 
+     axios.post("http://localhost:3000/user",
+          {
+            userid: localStorage.getItem("jwt"),
+          },
+        )
+        .then((response) => {
+          this.admins = response.data
+        })
      }
 };
 </script>

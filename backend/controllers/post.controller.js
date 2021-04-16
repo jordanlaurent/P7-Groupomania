@@ -9,20 +9,27 @@ exports.create = (req, res, next) => {
   let token = req.body.userid;
   let decodeToken = jwt.verify(token, tokenSecret);
   let userid = decodeToken.id;
-  console.log(userid);
   let message = req.body.message;
-  const image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-  // requete de l'id de l'utilisateur puis push dans this.id = post.idusers;
-  // si le message est vide alors non envoyé
-  if (message == "") {
-    return res.status(400).send({ error: "Le champs doit etre remplie" });
-  } if (message.length >= 250) {
-    return res.status(400).send({ error: "Le champs doit etre inferieur a 250 character" });
-  }
-  const newPost = new Post({
-    idusers: userid,
-    message: message,
-    image: image,
+    if (message.length >= 450) {
+    return res.status(400).send({ error: "Le champs doit etre inferieur a 450 character" });
+  } if (!req.file) {
+    const newPost = new Post({
+      idusers: userid,
+      message: message,
+    }); 
+    Post.create(newPost, (err, data) => {
+      if (err) {
+        return res.status(500).json({ error: 'Veuillez saisir un message' });
+      } else {
+        return res.status(201).json({ "Post publié ! ": data });
+      }
+    })
+  } else {
+    const image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    const newPost = new Post({
+      idusers: userid,
+      message: message,
+      image: image,
   });
   Post.create(newPost, (err, data) => {
     if (err) {
@@ -31,6 +38,7 @@ exports.create = (req, res, next) => {
       return res.status(201).json({ "Post publié ! ": data });
     }
   })
+}
 }
 // recuperer tout les post
 exports.findAll = (req, res) => {
@@ -79,6 +87,14 @@ exports.delete = (req, res) => {
   let idusers = decodeToken.id;
   let id = req.body.id;
   Post.delete(id,idusers, (err, data) => {
+    if (err)res.status(500).send({message:err.message || "Ce post n'existe pas."});
+    else res.send(data);
+  });
+};
+// admin supprimer post
+exports.Admindelete = (req, res) => {
+  let id = req.body.id;
+  Post.Admindelete(id, (err, data) => {
     if (err)res.status(500).send({message:err.message || "Ce post n'existe pas."});
     else res.send(data);
   });
