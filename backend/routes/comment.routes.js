@@ -7,8 +7,6 @@ router.post("/comment/create", comment.create);
 
 // // Recuperer tout les post
  router.get("/comment", comment.findAll);
-// // Chercher un post
-// router.get("/comment/search", comment.search);
 
 // // // Mettre à jour un post 
 router.put("/comment/modify", comment.modify);

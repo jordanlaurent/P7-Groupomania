@@ -63,11 +63,9 @@ exports.search = (req, res) => {
 
 // modifier un post
 exports.modify = (req, res) => {
-  // let token = req.body.userid;
-  // console.log(token)
-  // let decodeToken = jwt.verify(token, tokenSecret);
-  // let idusers = decodeToken.id;
-  let idusers = req.body.idusers;
+  let token = req.body.userid;
+  let decodeToken = jwt.verify(token, tokenSecret);
+  let idusers = decodeToken.id;
   let id = req.body.id;
   let message =req.body.message
   if (!message){
@@ -89,6 +87,7 @@ exports.delete = (req, res) => {
   let idusers = decodeToken.id;
   let id = req.body.id;
     Post.findOne(id,idusers, (err,data)=> {
+      if(data[0].image){
       const imageUrl = data[0].image.replace("http://localhost:3000/","");
       console.log(imageUrl)
       fs.unlink(imageUrl, () => {
@@ -96,8 +95,15 @@ exports.delete = (req, res) => {
          if (err)res.status(500).send({message:err.message || "Ce post n'existe pas."});
         else res.send(data);
         })
-      })
+      }) 
+    } else {
+      Post.delete(id,idusers, (err, data) => {
+        if (err)res.status(500).send({message:err.message || "Ce post n'existe pas."});
+       else res.send(data);
+       })
+    }
     })
+  
 },
 // admin supprimer post
 exports.Admindelete = (req, res) => {

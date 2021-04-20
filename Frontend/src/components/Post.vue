@@ -8,6 +8,24 @@
         <img :src="info.image" class="img-fluid w-50 mt-4" >
       </div >
       <small v-for="admin in admins" :key="admin" class="text-muted">{{ info.datemessage | moment("DD-MM-YYYY, HH:mm:ss ")}}
+        <br>
+         <button @click.prevent="IDcom" :data-id="info.id" v-if="info.idusers == user.id" type="button" class="btn btn-sm btn-info float-left " data-toggle="modal" data-target="#myModal">Modifier le Post</button>
+             <!-- Modal moddifier commentaire -->
+              <div class="modal fade " id="myModal" role="dialog">
+                <div class="modal-dialog">
+             <!-- Contenue de la modal-->
+                  <div class="modal-content bg-dark text-light text-center">
+                    <div class="modal-body ">
+                      <p> Modifier votre post :</p>
+                      <input  v-model="postChanged" required>
+                    </div>
+                  <div class="modal-footer justify-content-center">
+                <button  type="button" class="btn btn-secondary " data-dismiss="modal">Annuler</button>
+                <button  @click.prevent="ChangedPost" type="button" class="btn btn-success" data-dismiss="modal">Valider</button>
+              </div>
+            </div>
+            </div>
+            </div>
       <!-- bouton supprimer un post -->
       <button id="buttonDeletePost" @click.prevent="deletePost" class="btn-danger btn-sm btn float-right ml-1" :data-id="info.id" v-if="info.idusers == user.id">x </button>
        <button id="buttonDeletePost" @click.prevent="AdmindeletePost" class="btn-danger btn-sm btn float-right ml-1" :data-id="info.id" v-if="admin.active == 1 ">Admin suppression </button></small>
@@ -20,10 +38,10 @@
             <p class="ml-5 h5 mt-2">{{com.comment}} </p>
             <!-- bouton modifier commentaire -->
             <button @click.prevent="IDcom" :data-id="com.id" v-if="com.idusers == user.id " type="button" class="btn btn-sm btn-info " data-toggle="modal" data-target="#myModal">Modifier Commentaire</button>
-             <!-- Modal -->
+             <!-- Modal moddifier commentaire -->
               <div class="modal fade " id="myModal" role="dialog">
                 <div class="modal-dialog">
-             <!-- Modal content-->
+             <!-- Contenue de la modal-->
                   <div class="modal-content bg-dark text-light text-center">
                     <div class="modal-body ">
                       <p> Modifier votre commentaire :</p>
@@ -33,8 +51,7 @@
                 <button  type="button" class="btn btn-secondary " data-dismiss="modal">Annuler</button>
                 <button  @click.prevent="ChangedComment" type="button" class="btn btn-success" data-dismiss="modal">Valider</button>
               </div>
-            </div>
-      
+            </div>   
           </div>
         </div>
             <!-- bouton supprimer commentaire -->
@@ -75,6 +92,7 @@ export default {
       modalShow: false,
       admins: null,
       commentChanged: null,
+      postChanged: null,
       idcom: null,
     };
   },methods: { 
@@ -82,11 +100,20 @@ export default {
       IDcom(event){
         this.idcomment = event.target.dataset.id
         this.idcom = this.idcomment
-      },
+      },// changer le commentaire
       ChangedComment() {
       axios
         .put("http://localhost:3000/comment/modify", {
           message: this.commentChanged,
+          userid: localStorage.getItem("jwt"),
+          id: this.idcom,
+        })
+         this.$router.go(0); 
+    }, // changer le post
+          ChangedPost() {
+      axios
+        .put("http://localhost:3000/post/modify", {
+          message: this.postChanged,
           userid: localStorage.getItem("jwt"),
           id: this.idcom,
         })
