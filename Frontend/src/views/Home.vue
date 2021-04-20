@@ -14,7 +14,6 @@
         <div>
           <router-link to="Connexion" class="btn bg-success text-white ml-3 mt-3">Connexion</router-link>
           <router-link to="Inscription" class="btn bg-secondary text-white ml-3 mt-3"> Inscription </router-link><br />
-          <router-link to="Motdepasseoublier" class="ml-3 mt-4"> Mots de passe oublier</router-link>
           <p class="mt-3">© 2021 Tout droits réservé</p>
         </div>
     </form>
