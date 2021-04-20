@@ -35,6 +35,19 @@ Post.search = (message,result) => {
   });
 };
 
+// chercher un utilisateur
+Post.findOne = (id,idusers,result) => {
+  sql.query("SELECT * FROM post WHERE id = ? AND idusers = ?",[id,idusers],(err, res) => {
+    if (err) {
+      result(err, null);
+      return;
+    } else {
+      result(null, res);
+      return;
+    }
+  });
+};
+
 //TROUVER TOUS LES POSTS
 Post.findAll = (result) => {
   sql.query("SELECT message ,active, datemessage, image,name,photo,prenom,post.id,idusers FROM post INNER JOIN users ON post.idusers = users.id ORDER BY datemessage DESC",(err, res) => {

@@ -4,7 +4,7 @@
     <div class="card mt-2 postView rounded-0 "  v-for="info in infos" :key="info.message">
       <div class="card-body ">
         <h5 class="card-title text-primary"> <img :src="info.photo" class="image--cover" > {{ info.name }} {{ info.prenom }}</h5>
-        <p class="card-text h5 mt-4">{{ info.message }}  </p>
+        <p class="card-text h5 mt-4">{{ info.message }} </p>
         <img :src="info.image" class="img-fluid w-50 mt-4" >
       </div >
       <small v-for="admin in admins" :key="admin" class="text-muted">{{ info.datemessage | moment("DD-MM-YYYY, HH:mm:ss ")}}
@@ -16,28 +16,39 @@
       <div class="container" > 
         <span  v-for="com in coms" :key="com.message" class="comment mt-4 text-justify float-left col"> 
           <div v-if="com.postid == info.id">
-            <h4><img :src="com.photo" alt="" class="rounded-circle" width="40" height="40"> {{ com.name}} {{ com.prenom}}</h4> <span class="ml-4 text-secondary"> {{com.datecomment | moment("DD/MM/YYYY ")}}</span> <br>
+            <h4><img :src="com.photo" alt="" class="rounded-circle" width="60" height="60"> {{ com.name}} {{ com.prenom}}</h4> <span class="ml-4 text-secondary"> {{com.datecomment | moment("DD/MM/YYYY ")}}</span> <br>
             <p class="ml-5 h5 mt-2">{{com.comment}} </p>
             <!-- bouton modifier commentaire -->
-            <b-button v-b-modal.com :data-id="com.id" v-if="com.idusers == user.id">Modifier commentaire</b-button>
-            <b-modal id="com"  v-if="com.idusers == user.id" title="Etes vous sur de vouloir modifer votre message ?">
-              <b-form-input id="name-input" v-model="commentChanged" required></b-form-input>
-
-              <!-- <b-button @click.prevent="ChangedComment" class="mt-3 btn-success" block>Valider</b-button>
-              <b-button class="mt-2" block @click="toggleModalComment">Annuler</b-button> -->
-
-            </b-modal>
+            <button @click.prevent="IDcom" :data-id="com.id" v-if="com.idusers == user.id " type="button" class="btn btn-sm btn-info " data-toggle="modal" data-target="#myModal">Modifier Commentaire</button>
+             <!-- Modal -->
+              <div class="modal fade " id="myModal" role="dialog">
+                <div class="modal-dialog">
+             <!-- Modal content-->
+                  <div class="modal-content bg-dark text-light text-center">
+                    <div class="modal-body ">
+                      <p> Modifier votre commentaire :</p>
+                      <input  v-model="commentChanged" required>
+                    </div>
+                  <div class="modal-footer justify-content-center">
+                <button  type="button" class="btn btn-secondary " data-dismiss="modal">Annuler</button>
+                <button  @click.prevent="ChangedComment" type="button" class="btn btn-success" data-dismiss="modal">Valider</button>
+              </div>
+            </div>
+      
+          </div>
+        </div>
             <!-- bouton supprimer commentaire -->
             <small v-for="admin in admins" :key="admin">
-            <button id="buttonDeleteComment" @click.prevent="delecteComment" class="btn-danger btn-sm btn float-right ml-1" :data-id="com.id" v-if="com.idusers == user.id "> x </button>
-            <button id="buttonDeleteComment" @click.prevent="AdmindelecteComment" class="btn-danger btn-sm btn float-right ml-1" :data-id="com.id" v-if=" admin.active == 1"> Admin suppression </button></small>
+            <button id="buttonDeleteComment" @click.prevent="delecteComment" class="btn-danger btn-sm btn  ml-1" :data-id="com.id" v-if="com.idusers == user.id "> Effacer commentaire </button>
+            <button id="buttonDeleteComment" @click.prevent="AdmindelecteComment" class="btn-danger btn-sm float-right btn right ml-1" :data-id="com.id" v-if=" admin.active == 1"> Admin suppression </button></small>
           </div>  
-        <hr>
         </span>
       </div>
       <!-- bouton crée un commentaire -->
-      <input @keyup.enter="postData" name="comment" v-model="comment" type="text"  placeholder="Poster un commentaire" class="form-control "   required />
-      <button @click.prevent="postData" class="btn-success" type="button" >COMMENTER</button>
+      <span >
+      <input :data-id="info.id" @keyup.enter="postData" name="comment" v-model="comment" type="text"  placeholder="Poster un commentaire" class="form-control mt-3 "   required />
+      <button :data-id="info.id" @click.prevent="postData" class="btn-success form-control" type="button" >COMMENTER</button>
+      </span>
     </div>
   </div>
 </template>
@@ -63,21 +74,27 @@ export default {
       user :'',
       modalShow: false,
       admins: null,
+      commentChanged: null,
+      idcom: null,
     };
   },methods: { 
       // envoie api nouveaux commentaire
-      ChangedComment(event) {
-       this.idcomment = event.target.dataset.id
+      IDcom(event){
+        this.idcomment = event.target.dataset.id
+        this.idcom = this.idcomment
+      },
+      ChangedComment() {
       axios
-        .put("http://localhost:3000/post/modify", {
+        .put("http://localhost:3000/comment/modify", {
           message: this.commentChanged,
           userid: localStorage.getItem("jwt"),
-          id: this.idcomment,
+          id: this.idcom,
         })
-         this.$router.go(0);
+         this.$router.go(0); 
     },
     // crée un commentaire
     postData(e) {
+       this.idpost = e.target.dataset.id
       e.preventDefault();
       var optionAxios = {headers: {"Content-Type": "application/x-www-form-urlencoded",},};
       axios
@@ -86,7 +103,7 @@ export default {
           {
             userid: localStorage.getItem("jwt"),
             comment: this.comment,
-            postid: this.infos[0].id,
+            postid: this.idpost,
           },
           { optionAxios }
         )

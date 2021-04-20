@@ -16,6 +16,14 @@ export default {
   },
   created: function () {
     document.title = "Groupomania - Inscription";
+  }, mounted: function () {
+    document.title = "Groupomania";
+    var jwt = localStorage.getItem("jwt");
+      if (jwt != null) {
+         window.location = "/Mur";
+      } else {
+        console.log("");
+      }
   },
 };
 </script>

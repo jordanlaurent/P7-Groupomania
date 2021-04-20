@@ -40,7 +40,6 @@ exports.signup = (req, res, next) => {
             password: hashmotdepasse,
             name: name,
             prenom: prenom,
-            //photo:`${req.protocol}://${req.get('host')}/images/${req.file.filename}` // a confirmer 
           });
           User.signup(user, (err, data) => {
             if (err) {

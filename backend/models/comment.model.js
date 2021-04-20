@@ -32,20 +32,18 @@ Comment.create = (newComment, result) => {
     });
   };
   
-
-  Comment.modify = (message,id,idusers) => {
-    return new Promise((result) => {
-      sql.query(`UPDATE comment SET message = ? WHERE id = ? AND idusers = ? `, [message,idusers,id],(err, res) => {
+  Comment.modify = (message,id,idusers,result) => {
+    console.log(message,id,idusers)
+      sql.query(`UPDATE comment SET comment = ? WHERE id = ? AND idusers = ? `, [message,id,idusers],(err, res) => {
         if (err) { 
-          result( err);
+          result( err, null);
           return;
           } else {
-         result(res);
+         result(null, res);
          return;
           }
       });
-    },
-    )};
+    };
 
  Comment.delete = (id,idusers, result) => {
     sql.query(`DELETE FROM comment WHERE id = ? AND idusers = ?  `,[idusers,id], (err, res) => {

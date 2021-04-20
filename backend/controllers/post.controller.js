@@ -1,7 +1,9 @@
 const Post = require("../models/post.model.js");
+const fs = require("fs");
 const User = require("../models/users.model.js");
 const jwt = require('jsonwebtoken');
 const { post } = require("../routes/post.routes.js");
+const { fstat } = require("fs");
 const tokenSecret = "RANDOM_TOKEN_SECRET";
 // crée un post
 exports.create = (req, res, next) => {
@@ -86,11 +88,17 @@ exports.delete = (req, res) => {
   let decodeToken = jwt.verify(token, tokenSecret);
   let idusers = decodeToken.id;
   let id = req.body.id;
-  Post.delete(id,idusers, (err, data) => {
-    if (err)res.status(500).send({message:err.message || "Ce post n'existe pas."});
-    else res.send(data);
-  });
-};
+    Post.findOne(id,idusers, (err,data)=> {
+      const imageUrl = data[0].image.replace("http://localhost:3000/","");
+      console.log(imageUrl)
+      fs.unlink(imageUrl, () => {
+       Post.delete(id,idusers, (err, data) => {
+         if (err)res.status(500).send({message:err.message || "Ce post n'existe pas."});
+        else res.send(data);
+        })
+      })
+    })
+},
 // admin supprimer post
 exports.Admindelete = (req, res) => {
   let id = req.body.id;
