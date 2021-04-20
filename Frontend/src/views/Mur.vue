@@ -1,5 +1,6 @@
 <template>
-  <div id="Mur">
+  <div id="buttonColor">
+    <div id="Mur">
     <Toolbar id="profil" />
     <div>
       <div id="messagedisplay">
@@ -9,6 +10,7 @@
       </div>
     </div>
     <Footer/>
+    </div>
   </div>
 </template>
 

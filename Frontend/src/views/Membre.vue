@@ -1,6 +1,6 @@
 <template>
 <div >
- <Toolbar class="mb-5"/>
+ <Toolbar/>
 <div class="user mb-5">
   <div class="centeruser" v-for="com in coms" :key="com.message">
         <img class=" rounded-circle" width="140" height="140" :src="com.photo">

@@ -1,16 +1,17 @@
 <template>
-  <div id="MyprofilCover" class="mb-5">
+  <div id="buttonColor">
+  <div id="MyprofilCover">
     <div  v-for="user in users" :key="user.message">
-      <h2 class="pb-3 dataFont">Paramétre du compte de  <span class="text-primary h1"> {{ user.name }} {{ user.prenom }}</span> </h2>
+      <h2 class="pb-3 dataFont text-warning">Paramétre du compte de  <span class="text-primary h1"> {{ user.name }} {{ user.prenom }}</span> </h2>
       <hr>
       <img :src="user.photo" width="340" height="340" class="pb-3 mx-auto d-block" />
-      <h4>Votre Biographie : <cite class="text-success h4"> {{ user.bio }} </cite> </h4>
-      <h2 class="pb-3 pl-3 text-secondary  dataFont text-center">{{ user.email }}</h2>
+      <h4 class="text-warning">Votre Biographie : <cite class="text-primary h4"> {{ user.bio }} </cite> </h4>
+      <h2 class="pb-3 pl-3 text-success  dataFont text-center">{{ user.email }}</h2>
     </div>
     <form action="submit" @submit.prevent="editProfil" class="user-modify" enctype="multipart/form-data">                                                                                                                                              
       <div class="form-group">
-        <label for="file" class="label-profil-group" id="label-file">Changer votre avatar</label>
-        <input type="file" id="file" name="image" ref="file" accept="image/png, image/jpeg, image/jpg" @change="handleFileUpload()">
+        <label for="file" class="label-profil-group text-warning pr-2" id="label-file">Changer votre avatar</label>
+        <input type="file" id="file" name="image" ref="file" class="text-warning" accept="image/png, image/jpeg, image/jpg" @change="handleFileUpload()">
         <button id="submit-profil">Publier profil</button>
       </div>
     </form>
@@ -22,26 +23,22 @@
         </b-modal>
         <br/>
       <div>
-        <b-button id="show-btn" class="btn-danger" @click="showModal">Supprimer mon compte</b-button>
+        <b-button id="show-btn" class="btn-danger mb-5" @click="showModal">Supprimer mon compte</b-button>
         <b-modal ref="my-modal" hide-footer title="Etes vous sur de vouloir supprimer votre compte ?">
           <b-button @click.prevent="delecteAccount" class="mt-3 btn-danger" block>Valider</b-button>
           <b-button class="mt-2" block @click="toggleModal">Annuler</b-button>
         </b-modal>
       </div>
   </div>
+  </div>
 </template>
 
 <style scoped lang='scss'>
 #MyprofilCover {
-  width: 100%;
-  margin: 0;
+ padding: 15%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 5%;
-  background-color: rgb(31, 29, 29);
-  color: whitesmoke;
-  padding: 10%;
 }
 @media (max-width: 1360px) {
   .dataFont {font-size: 1.5rem;}
