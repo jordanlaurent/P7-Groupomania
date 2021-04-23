@@ -48,6 +48,7 @@ exports.create = (req, res, next) => {
     let idusers = decodeToken.id;
     let id = req.body.id;
     let message =req.body.message
+    console.log( token, id,message)
     if (!message){
       res.status(400).send({ message: "Le champs message ne peut étre vide" });
     } 

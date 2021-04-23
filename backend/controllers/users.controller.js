@@ -78,7 +78,7 @@ exports.findAll = (req, res) => {
 exports.login = (req, res) => {
   let email = req.body.email;
   User.login(email, (err, data) => {
-    if (!email) {
+    if (data.length == 0 ) {
       return res.status(400).send({ error: "Cette adresse email n'existe pas" });
     } else {
       let password = req.body.password;
@@ -125,7 +125,7 @@ exports.photo = (req,res, next) => {
            console.log(data)
         })
     }
-    
+  
 
   })
 };

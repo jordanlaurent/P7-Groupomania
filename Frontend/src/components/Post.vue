@@ -1,13 +1,13 @@
 <template>
   <div>
     <!-- affficher les post -->
-    <div class="card mt-2 postView rounded-0 "  v-for="info in infos" :key="info.message">
+    <div class="card mt-2 postView rounded-0 "  v-for="info in infos" :key="info.id">
       <div class="card-body ">
         <h5 class="card-title text-primary"> <img :src="info.photo" class="image--cover" > {{ info.name }} {{ info.prenom }}</h5>
         <p class="card-text h5 mt-4">{{ info.message }} </p>
         <img :src="info.image" class="img-fluid w-50 mt-4" >
       </div >
-      <small v-for="admin in admins" :key="admin" class="text-muted">{{ info.datemessage | moment("DD-MM-YYYY, HH:mm:ss ")}}
+      <small v-for="admin in admins" :key="admin.id" class="text-muted">{{ info.datemessage | moment("DD-MM-YYYY, HH:mm:ss ")}}
         <br>
          <button @click.prevent="IDcom" :data-id="info.id" v-if="info.idusers == user.id" type="button" class="btn btn-sm btn-info float-left " data-toggle="modal" data-target="#myModal">Modifier le Post</button>
              <!-- Modal moddifier commentaire -->
@@ -32,14 +32,14 @@
       <hr/>
       <!-- afficher les commentaires -->   
       <div class="container" > 
-        <span  v-for="com in coms" :key="com.message" class="comment mt-4 text-justify float-left col"> 
+        <span  v-for="com in coms" :key="com.id" class="comment mt-4 text-justify float-left col"> 
           <div v-if="com.postid == info.id">
             <h4><img :src="com.photo" alt="" class="rounded-circle" width="60" height="60"> {{ com.name}} {{ com.prenom}}</h4> <span class="ml-4 text-secondary"> {{com.datecomment | moment("DD/MM/YYYY ")}}</span> <br>
             <p class="ml-5 h5 mt-2">{{com.comment}} </p>
             <!-- bouton modifier commentaire -->
-            <button @click.prevent="IDcom" :data-id="com.id" v-if="com.idusers == user.id " type="button" class="btn btn-sm btn-info " data-toggle="modal" data-target="#myModal">Modifier Commentaire</button>
+            <button @click.prevent="IDcom" :data-id="com.id" v-if="com.idusers == user.id " type="button" class="btn btn-sm btn-info " data-toggle="modal" data-target="#myModal1">Modifier Commentaire</button>
              <!-- Modal moddifier commentaire -->
-              <div class="modal fade " id="myModal" role="dialog">
+              <div class="modal fade " id="myModal1" role="dialog">
                 <div class="modal-dialog">
              <!-- Contenue de la modal-->
                   <div class="modal-content bg-dark text-light text-center">
@@ -49,13 +49,13 @@
                     </div>
                   <div class="modal-footer justify-content-center">
                 <button  type="button" class="btn btn-secondary " data-dismiss="modal">Annuler</button>
-                <button  @click.prevent="ChangedComment" type="button" class="btn btn-success" data-dismiss="modal">Valider</button>
+                <button  @click.prevent="ChangedComment" type="button" class="btn btn-success" data-dismiss="modal" >Valider</button>
               </div>
             </div>   
           </div>
         </div>
             <!-- bouton supprimer commentaire -->
-            <small v-for="admin in admins" :key="admin">
+            <small v-for="admin in admins" :key="admin.id">
             <button id="buttonDeleteComment" @click.prevent="delecteComment" class="btn-danger btn-sm btn  ml-1" :data-id="com.id" v-if="com.idusers == user.id "> Effacer commentaire </button>
             <button id="buttonDeleteComment" @click.prevent="AdmindelecteComment" class="btn-danger btn-sm float-right btn right ml-1" :data-id="com.id" v-if=" admin.active == 1"> Admin suppression </button></small>
           </div>  
@@ -102,6 +102,8 @@ export default {
         this.idcom = this.idcomment
       },// changer le commentaire
       ChangedComment() {
+       // e.preventDefault();
+        console.log(this.commentChanged)
       axios
         .put("http://localhost:3000/comment/modify", {
           message: this.commentChanged,
