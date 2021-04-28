@@ -18,7 +18,7 @@
           </li>
           <li class="nav-item ">
             <a @click="membre" class="btndesktop pr-3 btn" >MEMBRES</a>
-            <button type="button"  @click="membre"  class="btn-dark btn-sm btn-block text-light textToolbar mb-1 rounded-0">PROFIL</button>
+            <button type="button"  @click="membre"  class="btn-dark btn-sm btn-block text-light textToolbar mb-1 rounded-0">MEMBRES</button>
           </li>
           <li class="nav-item ">
             <a @click="disconnect" class="btndesktop pr-3 btn disconnect ">DECONNEXION</a>
