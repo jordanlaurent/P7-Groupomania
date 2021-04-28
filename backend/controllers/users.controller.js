@@ -13,15 +13,15 @@ exports.signup = (req, res, next) => {
   let prenom = req.body.prenom
   let bio = req.body.bio;
   if (!email || !email.match(emailformat) ) {
-    return res.status(400).send({ error: "L'adresse mail doit etre correctement remplie" });
+    return  res.status(400).send({ error: "L'adresse mail doit etre correctement remplie" }); 
   } if (!password) {
-    return res.status(400).send({ error: "Le mot de passe doit etre correctement remplie" });
+    return res.status(400).json({ error: "Le mot de passe doit etre correctement remplie" });
   } if (!name) {
-    return res.status(400).send({ error: "Le nom doit etre correctement remplie" });
+    return res.status(400).json({ error: "Le nom doit etre correctement remplie" });
   } if (!prenom) {
-    return res.status(400).send({ error: "Le prenom doit etre correctement remplie" });
+    return res.status(400).json({ error: "Le prenom doit etre correctement remplie" });
   }if (!bio) {
-    return res.status(400).send({ error: "La bio doit étre remplie" });
+    return res.status(400).json({ error: "La bio doit étre remplie" });
   }
 
   // verification que l'adresse mail ne soit pas deja utiliser

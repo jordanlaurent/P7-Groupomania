@@ -3,10 +3,9 @@
     <img src="../assets/image/logo.png" class="logo" />
       <form @submit="postData" method="post" class="bg text-light p-5">
         <h4>CONNEXION</h4>
-        <section class="popup" v-if="posts.errors">
+        <section class="popup" v-if="errors">
           <p class="pt-2 text-light popuptext h5">
-          Nous sommes désolés, les informations saisie ne corresponde <br />à
-          aucun compte veuillez verifier votre email et votre mots de passe.
+         {{errors}} 
           </p>
         </section>
         <div class="form-group">
@@ -41,6 +40,7 @@ export default {
   name: "loginflat",
   data() {
     return {
+      errors:'',
       posts: {
         email: "",
         password: "",
@@ -83,7 +83,7 @@ export default {
             this.$router.replace({ name: "Mur" });
         })
         .catch((error) => {
-          (this.posts.errors = true), console.log(error);
+          (this.errors = error.response.data.error)
         });
     },
   },

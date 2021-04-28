@@ -3,9 +3,10 @@
     <img src="../assets/image/logo.png" class="logo" />
     <form @submit="postData" method="post" class="bg text-light p-5 text-left">
       <h4>Inscription</h4>
-        <section class="popup" v-if="errors">
-          <p class="pt-2 text-danger popuptext">Nous sommes désolés, les informations saisie sont incorrect
-          <br />votre mot de passe doit faire 8 character dont 1 majuscule et 2 chiffres</p>
+          <section class="popup" v-if="errors">
+          <p class="pt-2 text-light popuptext h5">
+         {{errors}} 
+          </p>
         </section>
       <div class="row">
         <div class="form-group mr-2">
@@ -49,12 +50,12 @@ export default {
   name: "signup",
   data() {
     return {
+      errors:'',
       email: '',
       password: "",
       name: "",
       bio:"",
       prenom:"",
-      errors: false,
     };
   },
   methods: {
@@ -77,13 +78,11 @@ export default {
           },
           { optionAxios }
         )
-        .then((response) => {
-            localStorage.setItem("email", response.data.email),
-            localStorage.setItem("jwt", response.data.token),
+        .then(() => {
             this.$router.replace({ name: "Connexion" });
         })
         .catch((error) => {
-          (this.errors = true), console.log(error);
+          (this.errors = error.response.data.error)
         });
     }
   },

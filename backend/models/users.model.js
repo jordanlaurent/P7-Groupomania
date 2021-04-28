@@ -25,19 +25,21 @@ Users.signup = (newUsers, result) => {
   });
 };
 // recherche si l'utilisateur est présent dans la base de donné
-Users.findOneByEmail = (email) => {
-  return new Promise((resolve,reject) => {
-    sql.query('SELECT * FROM users WHERE email = ? ', email, (err, res) => { 
-      if (err) {
-        console.log(err);
-        reject(err);
-      } else {
-        console.log(res);
-        resolve(resres[0]);
-      }
-    });
-  })
-};
+Users.findOneByEmail = (email, result) => {
+  sql.query("SELECT * FROM users WHERE email = ? " , email, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+      } else if (res.length === 0) {
+      result(null, res.length);
+      return;
+    } else if (res.length > 0){
+      result(null, res.length);
+      return;
+    }
+  });
+}
 
 Users.findOne = (id,result) => {
   sql.query("SELECT * FROM users WHERE id = ?",id,(err, res) => {
