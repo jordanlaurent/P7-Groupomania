@@ -3,20 +3,20 @@
     <!-- affficher les post -->
     <div class="card mt-2 postView rounded-0 "  v-for="info in infos" :key="info.id">
       <div class="card-body ">
-        <h5 class="card-title text-primary"> <img :src="info.photo" class="image--cover" > {{ info.name }} {{ info.prenom }}</h5>
+        <h5 class="card-title "> <img :src="info.photo" class="image--cover" alt="photo de profil" > {{ info.name }} {{ info.prenom }}</h5>
         <p class="card-text h5 mt-4">{{ info.message }} </p>
-        <img :src="info.image" class="img-fluid w-50 mt-4" >
+        <img :src="info.image" class="img-fluid w-50 mt-4" alt="photo du post" >
       </div >
       <small v-for="admin in admins" :key="admin.id" class="text-muted">{{ info.datemessage | moment("DD-MM-YYYY, HH:mm:ss ")}}
         <br>
-         <button @click.prevent="IDcom" :data-id="info.id" v-if="info.idusers == user.id" type="button" class="btn btn-sm btn-info float-left " data-toggle="modal" data-target="#myModal">Modifier le Post</button>
+         <button @click.prevent="IDcom" :data-id="info.id" v-if="info.idusers == admins[0].id" type="button" class="btn btn-dark float-left " data-toggle="modal" data-target="#myModal">Modifier le Post</button>
              <!-- Modal moddifier commentaire -->
               <div class="modal fade " id="myModal" role="dialog">
                 <div class="modal-dialog">
              <!-- Contenue de la modal-->
                   <div class="modal-content bg-dark text-light text-center">
                     <div class="modal-body ">
-                      <p> Modifier votre post :</p>
+                      <p > Modifier votre post :</p>
                       <input  v-model="postChanged" required>
                     </div>
                   <div class="modal-footer justify-content-center">
@@ -27,7 +27,7 @@
             </div>
             </div>
       <!-- bouton supprimer un post -->
-      <button id="buttonDeletePost" @click.prevent="deletePost" class="btn-danger btn-sm btn float-right ml-1" :data-id="info.id" v-if="info.idusers == user.id">x </button>
+      <button id="buttonDeletePost" @click.prevent="deletePost" class="btn-danger btn-sm btn float-right ml-1" :data-id="info.id" v-if="info.idusers == admins[0].id">x </button>
        <button id="buttonDeletePost" @click.prevent="AdmindeletePost" class="btn-danger btn-sm btn float-right ml-1" :data-id="info.id" v-if="admin.active == 1 ">Admin suppression </button></small>
       <hr/>
       <!-- afficher les commentaires -->   
@@ -37,7 +37,7 @@
             <h4><img :src="com.photo" alt="" class="rounded-circle" width="60" height="60"> {{ com.name}} {{ com.prenom}}</h4> <span class="ml-4 text-secondary"> {{com.datecomment | moment("DD/MM/YYYY ")}}</span> <br>
             <p class="ml-5 h5 mt-2">{{com.comment}} </p>
             <!-- bouton modifier commentaire -->
-            <button @click.prevent="IDcom" :data-id="com.id" v-if="com.idusers == user.id " type="button" class="btn btn-sm btn-info " data-toggle="modal" data-target="#myModal1">Modifier Commentaire</button>
+            <button @click.prevent="IDcom" :data-id="com.id" v-if="com.idusers == admins[0].id" type="button" class="btn  btn-dark " data-toggle="modal" data-target="#myModal1">Modifier Commentaire</button>
              <!-- Modal moddifier commentaire -->
               <div class="modal fade " id="myModal1" role="dialog">
                 <div class="modal-dialog">
@@ -56,7 +56,7 @@
         </div>
             <!-- bouton supprimer commentaire -->
             <small v-for="admin in admins" :key="admin.id">
-            <button id="buttonDeleteComment" @click.prevent="delecteComment" class="btn-danger btn-sm btn  ml-1" :data-id="com.id" v-if="com.idusers == user.id "> Effacer commentaire </button>
+            <button id="buttonDeleteComment" @click.prevent="delecteComment" class="btn-danger btn-sm btn  ml-1" :data-id="com.id" v-if="com.idusers == admins[0].id "> Effacer commentaire </button>
             <button id="buttonDeleteComment" @click.prevent="AdmindelecteComment" class="btn-danger btn-sm float-right btn right ml-1" :data-id="com.id" v-if=" admin.active == 1"> Admin suppression </button></small>
           </div>  
         </span>
@@ -64,7 +64,7 @@
       <!-- bouton crée un commentaire -->
       <span >
       <input :data-id="info.id" @keyup.enter="postData" name="comment" v-model="comment" type="text"  placeholder="Poster un commentaire" class="form-control mt-3 "   required />
-      <button :data-id="info.id" @click.prevent="postData" class="btn-success form-control" type="button" >COMMENTER</button>
+      <button :data-id="info.id" @click.prevent="postData" class="btn-warning form-control" type="button" >COMMENTER</button>
       </span>
     </div>
   </div>
@@ -217,7 +217,7 @@ export default {
   mounted() {
      axios.get("http://localhost:3000/post").then((response) => {
       this.infos = response.data  
-      this.user = JSON.parse(localStorage.getItem("user"))
+      this.user = JSON.parse(localStorage.getItem("jwt"))
      }),
      axios.get("http://localhost:3000/comment").then((response) => {
       this.coms = response.data

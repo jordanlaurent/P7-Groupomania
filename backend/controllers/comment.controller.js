@@ -3,11 +3,10 @@ const User = require("../models/users.model.js");
 const Comment = require("../models/comment.model.js");
 const jwt = require('jsonwebtoken');
 const { post } = require("../routes/post.routes.js");
-const tokenSecret = "RANDOM_TOKEN_SECRET";
 
 exports.create = (req, res, next) => {
     let token = req.body.userid;
-    let decodeToken = jwt.verify(token, tokenSecret);
+    let decodeToken = jwt.verify(token, process.env.token);
     let userid = decodeToken.id;
     let comment = req.body.comment;
     let Postid = req.body.postid;
@@ -44,7 +43,7 @@ exports.create = (req, res, next) => {
 //Modifier un commentaire
   exports.modify = (req, res) => {
     let token = req.body.userid;
-    let decodeToken = jwt.verify(token, tokenSecret);
+    let decodeToken = jwt.verify(token, process.env.token);
     let idusers = decodeToken.id;
     let id = req.body.id;
     let message =req.body.message
@@ -63,7 +62,7 @@ exports.create = (req, res, next) => {
   // suprimer un commentaire
 exports.delete = (req, res) => {
   let token = req.body.userid;
-  let decodeToken = jwt.verify(token, tokenSecret);
+  let decodeToken = jwt.verify(token, process.env.token);
   let idusers = decodeToken.id;
   let id = req.body.id;
 Comment.delete(idusers,id, (err, data) => {

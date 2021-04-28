@@ -1,7 +1,7 @@
 <template>
-  <div class="mb-5 rounded searchBorder">
-    <input v-model="rauMessage" v-on:keyup.enter="checkKeyword" id="Keyword" class="p-2" />
-    <button @click.prevent="checkKeyword" class="btn-primary p-2 btnpost rounded-">RECHERCHER</button>
+  <div class="mb-5 rounded searchBorder"> 
+    <input placeholder="Taper votre recherche" v-model="rauMessage" v-on:keyup.enter="checkKeyword" id="Keyword" class="p-2" type="keyword" />
+    <button @click.prevent="checkKeyword" class="btn-warning p-2 btnpost rounded-">RECHERCHER</button>
       <div>
         <div class="card mt-2 postView" v-for="message in message" :key="message">
           <div class="card-body notes test">

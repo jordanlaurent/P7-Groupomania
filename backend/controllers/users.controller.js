@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const tokenSecret = "RANDOM_TOKEN_SECRET";
 const fs = require("fs");
 const User = require("../models/users.model.js");
 
@@ -58,7 +57,7 @@ exports.signup = (req, res, next) => {
 // recuperer info de l'utilisateur connecter
 exports.findOne = (req, res) => {
   let token = req.body.userid;
-  let decodeToken = jwt.verify(token, tokenSecret);
+  let decodeToken = jwt.verify(token, process.env.token);
   let id = decodeToken.id;
   User.findOne(id,(err, data) => {
     if (err)res.status(500).send({message:err.message || "Some error occurred while retrieving post."});
@@ -90,7 +89,7 @@ exports.login = (req, res) => {
           res.status(200).json({
             id: data[0].id,
             token: jwt.sign({ id: data[0].id },
-              'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }
+              process.env.token,{ expiresIn: '72h' }
             )
           });
         })
@@ -101,7 +100,7 @@ exports.login = (req, res) => {
  //telecharger photo de profil
 exports.photo = (req,res, next) => {
   let token = req.body.userid;
-  let decodeToken = jwt.verify(token, tokenSecret);
+  let decodeToken = jwt.verify(token, process.env.token);
   let id = decodeToken.id;
   const photoNew = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`; 
   User.findOne(id, (err, data) => {
@@ -134,7 +133,7 @@ exports.photo = (req,res, next) => {
 exports.update = (req, res) => {
   let token = req.body.userid;
   console.log(token)
-  let decodeToken = jwt.verify(token, tokenSecret);
+  let decodeToken = jwt.verify(token, process.env.token);
   let id = decodeToken.id;
   let email =req.body.email
   if (!email){
@@ -151,7 +150,7 @@ exports.update = (req, res) => {
 // Supprimer un client avec le usersId spécifié dans la demande
 exports.delete = (req, res, next) => {
   let token = req.body.userid;
-  let decodeToken = jwt.verify(token, tokenSecret);
+  let decodeToken = jwt.verify(token, process.env.token);
   let id = decodeToken.id;
   User.delete(id, (err, data) => {
     if (err)

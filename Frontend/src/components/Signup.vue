@@ -1,6 +1,6 @@
 <template>
   <div id="loginflat" class="text-center">
-    <img src="../assets/image/logo.png" class="logo" />
+    <img src="../assets/image/logo.png" class="logo" alt="logo groupomania" />
     <form @submit="postData" method="post" class="bg text-light p-5 text-left">
       <h4>Inscription</h4>
           <section class="popup" v-if="errors">
@@ -11,24 +11,24 @@
       <div class="row">
         <div class="form-group mr-2">
           <label>Nom </label>
-          <input id="name" name="name" v-model="name" type="text" class="form-control form-control-lg" required/>
+          <input placeholder="EX :lumiere" id="name" name="name" v-model="name" type="text" class="form-control form-control-lg" required/>
         </div>
         <div class="form-group">
           <label>Prenom </label>
-          <input id="prenom" name="prenom" v-model="prenom" type="text" class="form-control form-control-lg" required/>
+          <input placeholder="EX : francois" id="prenom" name="prenom" v-model="prenom" type="text" class="form-control form-control-lg" required/>
         </div>
       </div>
       <div class="form-group">
         <label>Biographie </label>
-        <textarea id="bio" name="bio" v-model="bio" type="text" class="form-control form-control-lg" required/>
+        <textarea placeholder=" EX : je suis ingenieur " id="bio" name="bio" v-model="bio" type="text" class="form-control form-control-lg" required/>
       </div>
       <div class="form-group ">
         <label>Adresse Email</label>
-        <input id="email" name="email" v-model="email" type="text" class="form-control form-control-lg" required/>
+        <input placeholder="EX : votre@email.fr" id="email" name="email" v-model="email" type="text" class="form-control form-control-lg" required/>
       </div>
       <div class="form-group">
         <label>Mots de passe</label>
-        <input id="password" name="password" v-model="password" type="password" class="form-control form-control-lg" required/>
+        <input placeholder="EX: motDepasse23" id="password" name="password" v-model="password" type="password" class="form-control form-control-lg" required/>
       </div>
       <button type="submit" class="btn btn-dark btn-lg btn-block">Inscription</button>
       <p class="forgot-password text-right">Deja enregistrer ?<router-link to="/Connexion">se connecter ?</router-link></p>

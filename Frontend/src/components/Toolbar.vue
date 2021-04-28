@@ -1,27 +1,27 @@
 <template >
   <!-- menu mobile -->
-  <nav class="navbar navbar-expand-lg navbar-dark template">
+  <nav class="navbar navbar-expand-lg navbar-light template">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse logoToolbar" id="navbarNav">
         <!-- logo site web -->
-        <img src="../assets/image/logo.png" class="navbar-brand logomur" />
+        <img src="../assets/image/logo.png" class="navbar-brand logomur" alt="logo groupomania" />
         <ul class="navbar-nav toolbarMobile">
           <li class="nav-item active ">
-            <a class=" btndesktop pr-3 btn" @click="home">MUR </a>
+            <a class=" btndesktop mr-3 btn btn-dark" @click="home">MUR </a>
             <button type="button" class="btn-dark btn-sm btn-block text-light textToolbar mb-1 rounded-0" @click="home">MON MUR </button>
           </li>
           <li class="nav-item ">
-            <a @click="profil" class="btndesktop pr-3 btn" >PROFIL</a>
+            <a @click="profil" class="btndesktop mr-3 btn  btn-dark" >PROFIL</a>
             <button type="button"  @click="profil"  class="btn-dark btn-sm btn-block text-light textToolbar mb-1 rounded-0">PROFIL</button>
           </li>
           <li class="nav-item ">
-            <a @click="membre" class="btndesktop pr-3 btn" >MEMBRES</a>
+            <a @click="membre" class="btndesktop mr-3 btn  btn-dark" >MEMBRES</a>
             <button type="button"  @click="membre"  class="btn-dark btn-sm btn-block text-light textToolbar mb-1 rounded-0">MEMBRES</button>
           </li>
           <li class="nav-item ">
-            <a @click="disconnect" class="btndesktop pr-3 btn disconnect ">DECONNEXION</a>
+            <a @click="disconnect" class="btndesktop mr-3 btn disconnect  btn-dark">DECONNEXION</a>
             <button type="button" @click="disconnect" class="btn-danger btn-sm btn-block text-light textToolbar rounded-0">DECONNEXION </button>
           </li>
         </ul>
@@ -85,7 +85,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.template {background-color: #f39c12;}
+.template {background-color: #eb2f06;}
 p,h2, a {font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-weight: normal;}
 a{color: aliceblue;font-size: 1rem;}
 a:hover{color: black;text-decoration: none;}

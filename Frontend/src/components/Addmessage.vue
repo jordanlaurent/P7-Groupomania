@@ -12,8 +12,8 @@
         <div class="input-group form">
           <input id="message" name="message" v-model="message" type="text" placeholder="Quel message voulez vous postez ?" class="form-control form-control-lg" required/>
         </div>
-        <input type="file" id="file" name="image" ref="file" accept="image/png, image/jpeg, image/jpg" class="mt-2 mb-2" @change="handleFileUpload()">
-        <button @click.prevent="postData" class="btn pr-5 pl-5  btnpost" type="submit" >PUBLIER</button>
+        <input placeholder="telecharger votre image" type="file" id="file" name="image" ref="file" accept="image/png, image/jpeg, image/jpg" class="mt-2 mb-2" @change="handleFileUpload()">
+        <button @click.prevent="postData" class="btn pr-5 pl-5  btn-dark" type="submit" >PUBLIER</button>
       </div>
   </form>
 </template>
@@ -24,8 +24,6 @@
   border: 2px solid #16a085;
   margin-top: -1px;
 }
-.btnpost{background-color: #16a085;}
-.btnpost:hover{background-color: #1e8570;}
 </style>
 
 <script>

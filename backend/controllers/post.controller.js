@@ -4,12 +4,11 @@ const User = require("../models/users.model.js");
 const jwt = require('jsonwebtoken');
 const { post } = require("../routes/post.routes.js");
 const { fstat } = require("fs");
-const tokenSecret = "RANDOM_TOKEN_SECRET";
 // crée un post
 exports.create = (req, res, next) => {
   console.log(req.body.userid)
   let token = req.body.userid;
-  let decodeToken = jwt.verify(token, tokenSecret);
+  let decodeToken = jwt.verify(token, process.env.token);
   let userid = decodeToken.id;
   let message = req.body.message;
     if (message.length >= 450) {
@@ -64,7 +63,7 @@ exports.search = (req, res) => {
 // modifier un post
 exports.modify = (req, res) => {
   let token = req.body.userid;
-  let decodeToken = jwt.verify(token, tokenSecret);
+  let decodeToken = jwt.verify(token, process.env.token);
   let idusers = decodeToken.id;
   let id = req.body.id;
   let message =req.body.message
@@ -83,7 +82,7 @@ exports.modify = (req, res) => {
 // suprimer un post
 exports.delete = (req, res) => {
   let token = req.body.userid;
-  let decodeToken = jwt.verify(token, tokenSecret);
+  let decodeToken = jwt.verify(token, process.env.token);
   let idusers = decodeToken.id;
   let id = req.body.id;
     Post.findOne(id,idusers, (err,data)=> {

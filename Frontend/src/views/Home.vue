@@ -39,7 +39,7 @@
   border-top-color: #3d3d3d;
 }
 .bg {
-  background: linear-gradient(50deg, rgba(8, 8, 8, 0.986), #f6b93b, #000000);
+  background: linear-gradient(50deg, rgba(8, 8, 8, 0.986), #eb2f06, #000000);
   border-radius: 15px 0px 30px;
   z-index: 2;
 }
@@ -52,7 +52,7 @@
   position: fixed;
 }
 #loginflat {
-  background: linear-gradient(70deg, #d4d11b, #f6b93b, #e4830d);
+  background: linear-gradient(70deg, #eb2f06, #f03b13, #fd4e27);
   display: flex;
   flex-direction: column;
   position: absolute;
