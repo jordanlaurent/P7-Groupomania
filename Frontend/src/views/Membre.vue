@@ -3,7 +3,7 @@
  <Toolbar/>
 <div class="user mb-5">
   <div class="centeruser" v-for="com in coms" :key="com.message">
-        <img class=" rounded-circle" width="140" height="140" :src="com.photo">
+        <img class="imgMembre rounded-circle" width="140" height="140" :src="com.photo">
         <title>{{com.name}} {{com.prenom}}</title>
         <h2>{{com.name}} {{com.prenom}}</h2>
         <p>{{com.bio }}</p>
@@ -16,6 +16,7 @@
 </template>
 
 <style>
+.imgMembre{object-fit: cover;}
 @media (min-width: 992px) {
 .user{display: flex; flex-direction: row;padding: 50px; justify-content: space-around; flex-wrap: wrap;}
 .centeruser{justify-content: center;text-align: center;}
