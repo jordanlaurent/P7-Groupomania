@@ -24,6 +24,6 @@
 <p>Pour acceder à l'application, vous devez également créer un fichier .env à la racine du dossier backend. Dans ce dossier, créez les variables suivantes avec les valeurs appropriées :</p>
 <br>
 <ul>
-<li>dbUserSimple='Votre identifiant MongoDB'</li>
-<li>dbPasswordSimple='Votre mot de passe MongoDB de votre cluster'</li>
+<li>User='Votre identifiant '</li>
+<li>Password='Votre mot de passe mysql'</li>
 </ul>
